@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import './App.css';
-import './components/Header.jsx'
-import './components/Navbar.jsx'
-import './components/HobbyList.jsx'
-import './components/EventList.jsx'
+import Header from './components/Header.jsx'
+import Navbar from './components/Navbar.jsx'
+import HobbyList from './components/HobbyList';'./components/HobbyList.jsx'
+import EventList from './components/EventList';'./components/EventList'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './Header.jsx';
-import Navbar from './Navbar.jsx';
 
 const App = () => {
-  const [hobbies, setHobbies] = useState(0);
-  const [events, setEvents] = useState(0);
+  const [hobbies, setHobbies] = useState([]);
+  const [events, setEvents] = useState([]);
   const [currList,setCurrList] = useState(0);
   const listOptions = ["events","hobbies","mystuff"]
 
