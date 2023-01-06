@@ -1,3 +1,10 @@
 .navbar {
-    float;
+    position: fixed !important;
+    bottom: 0 !important;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    width: 100vw;
+    height: 60px;
 }
