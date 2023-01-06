@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-import './Header.jsx'
-import './Navbar.jsx'
+import './components/Header.jsx'
+import './components/Navbar.jsx'
+import './components/HobbyList.jsx'
+import './components/EventList.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header.jsx';
 import Navbar from './Navbar.jsx';
@@ -15,6 +17,8 @@ const App = () => {
   return (
     <div className="App">
       <Header />
+      <EventList events={events}/>
+      <HobbyList hobbies={hobbies} />
       <Navbar listOptions={listOptions} selection={currList} setSelection={setCurrList} />
     </div>
   );

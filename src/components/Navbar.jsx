@@ -29,7 +29,7 @@ const ListOptionSelector = ({listOptions, selection, setSelection} ) => {
 
 const Navbar = ( {listOptions, selection,setSelection} ) => {
     return (
-        <div className="fixed-bottom text-center">
+        <div className=" pb-2 fixed-bottom text-center">
             <ListOptionSelector listOptions={listOptions} selection={selection} setSelection={setSelection} />
         </div>
     );

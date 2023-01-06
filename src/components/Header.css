@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
+    background-color: #0d6efd;
   }
   .header-group{
     display: inline-flex;
