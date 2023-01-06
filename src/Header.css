@@ -7,7 +7,9 @@
     align-items: center;
     background-color: aqua;
   }
-  
+  .header-group{
+    display: inline-flex;
+  }
   .app-name {
     margin-right: 15px;
   }
