@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref, update, set } from 'firebase/database';
-import {getStorage} from 'firebase/storage';
+import {getStorage, getDownloadURL} from 'firebase/storage';
+import {ref as strgRef} from 'firebase/storage' ;
 import { useEffect, useState, useCallback } from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,8 +23,8 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 const storage = getStorage(app);
-export const temp_ref = ref(storage,"gs://nichenu.appspot.com/hobby_images/fishing_rod.png");
-
+// export const temp_ref = strgRef(storage,"gs://nichenu.appspot.com/hobby_images/fishing_rod.png");
+// export const getImgURL = (img_ref) => (getDownloadURL(img_ref).then( (url) => ))
 export const useDbData = (path) => {
   const [data, setData] = useState();
   const [error, setError] = useState(null);
