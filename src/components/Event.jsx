@@ -1,4 +1,17 @@
 import './Event.css'
+export const parseAlarmTimeString = (alarmObj) => {
+    const alarmHour = parseInt(alarmObj.getHours());
+  
+    let displayHour;
+  
+    if (alarmHour % 12 === 0) {
+      displayHour = 12;
+    } else {
+      displayHour = alarmHour % 12;
+    };
+  
+    return String(displayHour).padStart(2, '0') + ":" + String(alarmObj.getMinutes()).padStart(2, '0') + " " + ((alarmHour >= 12) ? "PM" : "AM");
+  };
 
 const Event = ({ event }) => {
     const months = ["Jan", "Feb", "March", "April", "May", "June",
@@ -15,7 +28,7 @@ const Event = ({ event }) => {
             <div className="event-info">
                 <div className="event-name">{event.name}</div>
                 <div>
-                    {start.getHours()}:{start.getMinutes()} - {end.getHours()}:{end.getMinutes()}
+                    {parseAlarmTimeString(start)} - {parseAlarmTimeString(end)}
                 </div>
             </div>
         </div>
