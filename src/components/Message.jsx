@@ -1,13 +1,12 @@
 import './Event.css'
-
+import {findUserDisplayName} from '../App'
 
 const Message = ({ message }) => {
     return (
         <div> 
-            
-            {message.messages.map((message) => <Message message = {message}/>)}
-            
-         
+            <div>{message.content}</div>
+            <div>{message.date}</div>
+            <div>{findUserDisplayName(message.user)}</div>
         </div>
 
 
