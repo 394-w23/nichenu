@@ -7,6 +7,8 @@ import EventList from './components/EventList';'./components/EventList'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from '../firebase';
 
+export const findUserDisplayName = (uid) => Object.values(users).filter(user => user.uid === uid)[0].display_name;
+
 const App = () => {
   const [data, error] = useDbData("/");
   const [currList, setCurrList] = useState("hobbies");
