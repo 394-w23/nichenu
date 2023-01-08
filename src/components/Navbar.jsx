@@ -5,7 +5,6 @@ const NavButton = ({ listOption, selection, setSelection }) => (
     //console.log(listOption);
     //console.log(selection);
     //console.log(setSelection);
-
     <div>
         <input type="radio" id={listOption} className="btn-check" checked={listOption == selection} autoComplete="off"
             onChange={() => setSelection(listOption)}/>

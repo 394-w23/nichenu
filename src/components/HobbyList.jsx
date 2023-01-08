@@ -1,7 +1,10 @@
-import Hobby from './Hobby.jsx'
-import './HobbyList.css'
+import Hobby from './Hobby.jsx';
+import { useState } from 'react';
+import './HobbyList.css';
 
-const HobbyList = ({ hobbies }) => {
+const HobbyList = ({ hobbyList }) => {
+    const [hobbies, setHobbies] = useState(hobbyList); 
+
     return (
         <div>
             {

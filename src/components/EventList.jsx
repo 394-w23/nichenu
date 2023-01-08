@@ -1,7 +1,10 @@
-import Event from './Event.jsx'
-import './EventList.css'
+import Event from './Event.jsx';
+import { useState } from 'react';
+import './EventList.css';
 
-const EventList = ({ events }) => {
+const EventList = ({ eventList }) => {
+    const [events, setEvents] = useState(eventList);
+
     return (
         <div>
             {

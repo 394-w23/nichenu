@@ -9,8 +9,6 @@ import { useDbData } from '../firebase';
 
 const App = () => {
   const [data, error] = useDbData("/");
-  const [events, setEvents] = useState([]);
-  const [hobbies, setHobbies] = useState([]); 
   const [currList, setCurrList] = useState("hobbies");
   const listOptions = ["events","hobbies","mystuff"];
 
@@ -18,11 +16,16 @@ const App = () => {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
+  console.log(currList === 'hobbies')
+
   return (
     <div className="App">
       <Header />
-      <EventList events={Object.values(data.events)}/>
-      <HobbyList hobbies={Object.values(data.hobbies)} />
+      {
+      currList === "events" ? <EventList eventList={Object.values(data.events)}/> 
+      : currList === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} /> 
+      : <div></div>
+      }
       <Navbar listOptions={listOptions} selection={currList} setSelection={setCurrList} />
     </div>
   );
