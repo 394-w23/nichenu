@@ -6,7 +6,6 @@ import HobbyList from './components/HobbyList';'./components/HobbyList.jsx'
 import EventList from './components/EventList';'./components/EventList'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from '../firebase';
-import { useEffect } from 'react';
 
 const App = () => {
   const [data, error] = useDbData("/");
