@@ -1,0 +1,37 @@
+.hobby-card {
+    background: #ccc;
+    display: flex;
+    flex-direction: row;
+    width: 60vw;
+    min-width: 220px;
+    height: 100px;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 12px;
+    margin: 10px auto;
+}
+
+img {
+    background: #fff;
+    width: 30%;
+    height: 20vw;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 80px;
+    max-height: 80px;
+    margin: 3%;
+    border: 1px solid #000;
+    border-radius: 12px;
+}
+
+.hobby-info {
+    width: 64%;
+    height: 70px;
+    font-size: max(min(3vw, 14px), 10px);
+    text-align: left;
+}
+
+.hobby-name {
+    font-weight: bold;
+    font-size: max(min(4vw, 18px), 12px);
+}

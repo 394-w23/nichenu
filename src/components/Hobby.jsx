@@ -1,11 +1,12 @@
-import './Hobby.css'
-import Tag from './Tag.jsx'
+import './Hobby.css';
+import Tag from './Tag.jsx';
+import {temp_ref} from '../../firebase';
 
 const Hobby = ({ hobby }) => {
     console.log(Object.values(hobby.tags))
     return (
         <div className="hobby-card">
-            <img href={hobby.img}></img>
+            <img src={temp_ref}></img>
             <div className="hobby-info">
                 <div className="hobby-name">{hobby.name}</div>
                 <div>
