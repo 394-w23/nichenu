@@ -6,13 +6,14 @@ import HobbyList from './components/HobbyList';'./components/HobbyList.jsx'
 import EventList from './components/EventList';'./components/EventList'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from '../firebase';
+import { useEffect } from 'react';
 
 const App = () => {
   const [data, error] = useDbData("/");
-  const [hobbies, setHobbies] = useState([]);
   const [events, setEvents] = useState([]);
-  const [currList,setCurrList] = useState(0);
-  const listOptions = ["events","hobbies","mystuff"]
+  const [hobbies, setHobbies] = useState([]); 
+  const [currList, setCurrList] = useState("hobbies");
+  const listOptions = ["events","hobbies","mystuff"];
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
@@ -21,9 +22,8 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      {Object.values(data.test)}
-      <EventList events={events}/>
-      <HobbyList hobbies={hobbies} />
+      <EventList events={Object.values(data.events)}/>
+      <HobbyList hobbies={Object.values(data.hobbies)} />
       <Navbar listOptions={listOptions} selection={currList} setSelection={setCurrList} />
     </div>
   );
