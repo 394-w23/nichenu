@@ -9,7 +9,7 @@ const Hobby = ({ hobby }) => {
             <div className="hobby-info">
                 <div className="hobby-name">{hobby.name}</div>
                 <div>
-                    {Object.values(hobby.tags).map(tag => <Tag key={hobby.id}tagName={tag} />)}
+                    {Object.values(hobby.tags).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)}
                 </div>
             </div>
         </div>

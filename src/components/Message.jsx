@@ -1,17 +1,16 @@
-import './Event.css'
-
+import './Message.css'
 
 const Message = ({ message }) => {
     return (
-        <div> 
+        <div className="message"> 
+            <div className="message-header">
+                <div className="message-user">{ message.user }</div>
+                <div className="message-timestamp">{ message.date }</div>
+            </div>
+            <div>{ message.content }</div>
             
-            {message.messages.map((message) => <Message message = {message}/>)}
-            
-         
         </div>
-
-
     )
 }
 
-export default Event;
+export default Message;

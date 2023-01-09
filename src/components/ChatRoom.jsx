@@ -1,20 +1,14 @@
-import './Event.css'
-
-
+import './ChatRoom.css'
+import Message from './Message';
 
 const ChatRoom = ({ messageLog }) => {
     return (
-        <div> 
-            
-            {messageLog.messages.map((message) => <Message message = {message}/>)}
-            
-        
-
-         
+        <div>  
+            {
+                Object.values(messageLog.messages).map((message) => <Message key={message.id} message={message}/>)
+            }
         </div>
-
-
     )
 }
 
-export default Event;
+export default ChatRoom;

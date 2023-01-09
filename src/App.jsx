@@ -2,8 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
-import HobbyList from './components/HobbyList';'./components/HobbyList.jsx'
-import EventList from './components/EventList';'./components/EventList'
+import HobbyList from './components/HobbyList';
+import EventList from './components/EventList';
+import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from '../firebase';
 
@@ -16,8 +17,6 @@ const App = () => {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  console.log(currList === 'hobbies')
-
   return (
     <div className="App">
       <Header />
@@ -26,6 +25,7 @@ const App = () => {
       : currList === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} /> 
       : <div></div>
       }
+      <ChatRoom messageLog={data.hobbies["01"].message_chat}/>
       <Navbar listOptions={listOptions} selection={currList} setSelection={setCurrList} />
     </div>
   );
