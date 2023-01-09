@@ -1,4 +1,4 @@
-import './Event.css'
+import './Message.css'
 import {findUserDisplayName} from '../App'
 
 const Message = ({ message }) => {
@@ -13,4 +13,4 @@ const Message = ({ message }) => {
     )
 }
 
-export default Event;
+export default Message;
