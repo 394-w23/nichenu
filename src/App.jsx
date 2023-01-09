@@ -32,7 +32,7 @@ const App = () => {
       : currDisplay === "message" ? <ChatRoom messageLog={messageLog} users={Object.values(data.users)}/>
       : <div></div>
       }
-      <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />
+      {currDisplay !== 'message' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
     </div>
   );
 };

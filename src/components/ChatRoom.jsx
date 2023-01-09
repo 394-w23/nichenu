@@ -8,7 +8,7 @@ const ChatRoom = ({ messageLog, users }) => {
         : []
     return (
         <div> 
-            {sortedMessages.map( (message) => <Message message = {message} users={users}/>)}
+            {sortedMessages.map( (message) => <Message  key={message.id} message = {message} users={users}/>)}
         </div>
     )
 }
