@@ -1,6 +1,5 @@
 import './Event.css'
-import { parseTimeString } from '../utils/helpers';
-
+import {parseTimeString} from '../utils/helpers'
 const Event = ({ event }) => {
     const months = ["Jan", "Feb", "March", "April", "May", "June",
     "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -16,7 +15,7 @@ const Event = ({ event }) => {
             <div className="event-info">
                 <div className="event-name">{event.name}</div>
                 <div>
-                    {parseAlarmTimeString(start)} - {parseAlarmTimeString(end)}
+                    {parseTimeString(start)} - {parseTimeString(end)}
                 </div>
             </div>
         </div>

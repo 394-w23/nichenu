@@ -5,8 +5,8 @@ const Message = ({ message }) => {
     return (
         <div className="message"> 
             <div className="message-header">
-                <div className="message-user">{ message.user }</div>
-                <div className="message-timestamp">{ message.date }</div>
+                <div className="message-user">{ findUserDisplayName(message.user) }</div>
+                <div className="message-timestamp">{ new Date(message.date).toString() }</div>
             </div>
             <div>{ message.content }</div>
             
