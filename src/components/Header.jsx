@@ -16,8 +16,8 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
   return (<div className="header-top-row">
     <div className="header-group">
       {currDisplay === "message" ?
-        <ActionIcon onClick={() => goBack()}>
-          <RiArrowLeftSLine size={32} color="white" />
+        <ActionIcon className="back-button" onClick={() => goBack()}>
+          <RiArrowLeftSLine className="back-arrow" size={32} />
         </ActionIcon> : <div></div>}
       <h1 className="app-name">nicheNU</h1>
       <div style={{width: currDisplay === "message"? 30: 0}} ></div>
