@@ -8,11 +8,15 @@
     background-color: #0d6efd;
   }
   .header-group{
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw
   }
   .app-name {
-    margin-right: 15px;
+    margin: 0;
     color: white;
+  
   }
   
   .logo-image {
@@ -20,3 +24,14 @@
     border-radius: 1px solid black;
   }
   
+
+  .back-button {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fafafa;
+    background-color: transparent;
+    border: none;
+    /* position: absolute; */
+    top: 20px;
+    left: 30px;
+  }

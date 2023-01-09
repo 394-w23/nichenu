@@ -1,9 +1,9 @@
 .event-card {
-    background: #ccc;
+    background: #efefef;
     display: flex;
     flex-direction: row;
-    width: 60vw;
-    min-width: 220px;
+    width: 85vw;
+    min-width: 250px;
     height: 100px;
     align-items: center;
     /* border: 1px solid #000; */
@@ -17,7 +17,7 @@
     height: 20vw;
     min-width: 60px;
     min-height: 60px;
-    max-width: 80px;
+    max-width: 90px;
     max-height: 80px;
     margin: 3%;
     /* border: 1px solid #000; */
@@ -29,6 +29,8 @@
     font-size: max(min(4vw, 16px), 12px);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    color : #fff;
+    font-weight: 600;
 }
 
 .calendar-day {
@@ -46,4 +48,13 @@
 .event-name {
     font-weight: bold;
     font-size: max(min(4vw, 18px), 12px);
+}
+
+.event-icon{
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    align-items: center;
+    justify-content: start;
+    height: 70%
 }

@@ -1,9 +1,10 @@
 .message {
     text-align: left;
-    padding: 10px 30px;
+    padding: 10px;
     margin: auto;
-    border: 1px solid black;
     width: 90vw;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
 }
 
 .message-header {
@@ -20,4 +21,14 @@
 
 .message-timestamp {
     font-size: 12px;
+}
+
+.message-avatar{
+    height: 50px;
+    width: 50px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 }
