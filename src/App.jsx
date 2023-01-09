@@ -6,7 +6,7 @@ import HobbyList from './components/HobbyList';
 import EventList from './components/EventList';
 import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDbData } from '../firebase';
+import { useDbData } from './utils/firebase';
 
 const App = () => {
   const [data, error] = useDbData("/");

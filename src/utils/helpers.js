@@ -1,4 +1,4 @@
-import { useDbData } from "../../firebase";
+import { useDbData } from "./firebase";
 
 export const parseTimeString = (dateObj) => {
     const alarmHour = parseInt(dateObj.getHours());
