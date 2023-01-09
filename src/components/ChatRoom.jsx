@@ -7,17 +7,17 @@ import { RiUserAddLine } from "@react-icons/all-files/ri/RiUserAddLine"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
 
 
-const ChatRoom = ({ messageLog, users }) => {
-    console.log(Object.values(messageLog.messages))
-    const sortedMessages = Object.values(messageLog.messages) ?
-        Object.values(messageLog.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
+const ChatRoom = ({ hobby, users }) => {
+    console.log(hobby)
+    const sortedMessages = Object.values(hobby.message_chat.messages) ?
+        Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
         : []
 
     return (
         <StyledMainArea>
 
             <StyledSubHeader>
-                Name of Hobby
+                {hobby.name}
                 <StyledSubHeaderAvatars>
                  
                 <StyledMiniAvatar>
@@ -39,17 +39,7 @@ const ChatRoom = ({ messageLog, users }) => {
 
             <StyledMessageArea>
                 {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
+                
             </StyledMessageArea>
 
             <MessageComposer />
@@ -69,7 +59,7 @@ overflow: hidden;
 `
 
 const StyledMessageArea = styled.div`
-overflow: scroll;
+overflow-y: scroll;
 height: 100%
 `;
 

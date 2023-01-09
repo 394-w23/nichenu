@@ -5,6 +5,20 @@
   width: 100vw;
 }
 
+::-webkit-scrollbar{
+  width: 0.9vw;
+  background: #777;
+}
+::-webkit-scrollbar-thumb{
+  background: -webkit-linear-gradient(transparent,#777);
+  background: linear-gradient(transparent,#777);
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover{
+ background: -webkit-linear-gradient(transparent,#00C6FF);
+ background: linear-gradient(transparent,#00C6FF);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

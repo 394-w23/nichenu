@@ -12,11 +12,11 @@ import { findUserDisplayName } from './utils/helpers';
 const App = () => {
   const [data, error] = useDbData("/");
   const [currDisplay, setCurrDisplay] = useState("hobbies");
-  const [messageLog, setMessageLog] = useState("hobbies");
+  const [hobby, setHobby] = useState("hobbies");
   const displayOptions = ["events","hobbies"];
 
-  const openMessages= (messageLog) => {
-    setMessageLog(messageLog)
+  const openMessages= (hobby) => {
+    setHobby(hobby)
     setCurrDisplay("message")
   }
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
@@ -29,7 +29,7 @@ const App = () => {
       {
       currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
       : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
-      : currDisplay === "message" ? <ChatRoom messageLog={messageLog} users={Object.values(data.users)}/>
+      : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
       : <div></div>
       }
       {currDisplay !== 'message' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
