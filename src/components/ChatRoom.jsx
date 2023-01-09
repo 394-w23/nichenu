@@ -2,10 +2,13 @@ import './ChatRoom.css'
 import Message from './Message';
 
 const ChatRoom = ({ messageLog }) => {
-    const sortedMessages = messageLog.messages.sort((message1,message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime());
+    console.log(Object.values(messageLog.messages))
+    const sortedMessages = Object.values(messageLog.messages) ? 
+        Object.values(messageLog.messages).sort((message1,message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
+        : []
     return (
         <div> 
-            {sortedMessages.messages.map((message) => <Message message = {message}/>)}
+            {sortedMessages.map( (message) => <Message message = {message}/>)}
         </div>
     )
 }

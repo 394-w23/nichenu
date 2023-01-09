@@ -14,22 +14,22 @@ const NavButton = ({ listOption, selection, setSelection }) => (
     </div>
 );
 
-const ListOptionSelector = ({listOptions, selection, setSelection} ) => {
-    //{console.log(listOptions)}
+const DisplayOptionSelector = ({displayOptions, selection, setSelection} ) => {
+    //{console.log(displayOptions)}
     return (
     <div className="btn-group">
         {
-            listOptions.map(listOption => <NavButton key={listOption} listOption={listOption} selection={selection} setSelection={setSelection} />)
+            displayOptions.map(listOption => <NavButton key={listOption} listOption={listOption} selection={selection} setSelection={setSelection} />)
         }
     </div>
     )
 };
 
 
-const Navbar = ( {listOptions, selection,setSelection} ) => {
+const Navbar = ( {displayOptions, selection,setSelection} ) => {
     return (
         <div className=" pb-2 fixed-bottom text-center">
-            <ListOptionSelector listOptions={listOptions} selection={selection} setSelection={setSelection} />
+            <DisplayOptionSelector displayOptions={displayOptions} selection={selection} setSelection={setSelection} />
         </div>
     );
 }

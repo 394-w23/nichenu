@@ -15,11 +15,11 @@ export const parseTimeString = (dateObj) => {
 };
 
 //TODO: move and refactor this so that it is more accessible to other parts of the UI
-export const findUserDisplayName = (uid) => {
-    const [data, error] = useDbData("/");
+export const findUserDisplayName = (uid,users) => {
     // if (error) return <h1>Error loading data: {error.toString()}</h1>;
     // if (data === undefined) return <h1>Loading data...</h1>;
     // if (!data) return <h1>No data found</h1>;
-    return Object.values(data.usrs).filter(user => user.uid === uid)[0].display_name;
+    return "Dave"
+   // return Object.values(users).filter(user => user.id === uid)[0].name;
 
 }

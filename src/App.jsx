@@ -7,26 +7,32 @@ import EventList from './components/EventList';
 import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from './utils/firebase';
+import { findUserDisplayName } from './utils/helpers';
 
 const App = () => {
   const [data, error] = useDbData("/");
-  const [currList, setCurrList] = useState("hobbies");
-  const listOptions = ["events","hobbies","mystuff"];
+  const [currDisplay, setCurrDisplay] = useState("hobbies");
+  const [messageLog, setMessageLog] = useState("hobbies");
+  const displayOptions = ["events","hobbies"];
 
+  const openMessages= (messageLog) => {
+    setMessageLog(messageLog)
+    setCurrDisplay("message")
+  }
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
   return (
     <div className="App">
-      <Header />
+      <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       {
-      currList === "events" ? <EventList eventList={Object.values(data.events)}/> 
-      : currList === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} /> 
+      currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
+      : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
+      : currDisplay === "message" ? <ChatRoom messageLog={messageLog}/>
       : <div></div>
       }
-      <ChatRoom messageLog={data.hobbies["01"].message_chat}/>
-      <Navbar listOptions={listOptions} selection={currList} setSelection={setCurrList} />
+      <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />
     </div>
   );
 };
