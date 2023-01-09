@@ -3,13 +3,14 @@ import { findUserDisplayName } from '../utils/helpers'
 
 const Message = ({ message }) => {
     return (
-        <div>
-            <div className='message-date'>{message.date}</div>
-            <div className='message-content'>{message.content}</div>
-            <div className='message-user'>{findUserDisplayName(message.user)}</div>
+        <div className="message"> 
+            <div className="message-header">
+                <div className="message-user">{ message.user }</div>
+                <div className="message-timestamp">{ message.date }</div>
+            </div>
+            <div>{ message.content }</div>
+            
         </div>
-
-
     )
 }
 

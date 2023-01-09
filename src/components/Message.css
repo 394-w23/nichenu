@@ -1,0 +1,23 @@
+.message {
+    text-align: left;
+    padding: 10px 30px;
+    margin: auto;
+    border: 1px solid black;
+    width: 90vw;
+}
+
+.message-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.message-user {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 12px; 
+}
+
+.message-timestamp {
+    font-size: 12px;
+}

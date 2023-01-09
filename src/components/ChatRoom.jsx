@@ -1,6 +1,5 @@
-import './Event.css'
-import Message from './Message'
-
+import './ChatRoom.css'
+import Message from './Message';
 
 const ChatRoom = ({ messageLog }) => {
     const sortedMessages = messageLog.messages.sort((message1,message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime());
@@ -11,8 +10,6 @@ const ChatRoom = ({ messageLog }) => {
             
         
         </div>
-
-
     )
 }
 

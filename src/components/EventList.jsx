@@ -8,7 +8,7 @@ const EventList = ({ eventList }) => {
     return (
         <div>
             {
-                events.map((event) => <Event key={event.id} event={event} />)
+                events.sort((x, y) => (new Date(x.start_timestamp) - new Date(y.start_timestamp))).map((event) => <Event key={event.id} event={event} />)
             }
         </div>
     );
