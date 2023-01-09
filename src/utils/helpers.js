@@ -14,7 +14,7 @@ export const parseTimeString = (dateObj) => {
     return String(displayHour).padStart(2, '0') + ":" + String(dateObj.getMinutes()).padStart(2, '0') + " " + ((alarmHour >= 12) ? "PM" : "AM");
 };
 
-//TODO: move and refactor this so that it is more accessible to other parts of the UI
+//TODO: Make output not save just Dave
 export const findUserDisplayName = (uid,users) => {
     // if (error) return <h1>Error loading data: {error.toString()}</h1>;
     // if (data === undefined) return <h1>Loading data...</h1>;

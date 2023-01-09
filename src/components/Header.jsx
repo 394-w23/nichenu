@@ -1,11 +1,23 @@
+import { useState } from "react";
 import "./Header.css";
 
-const Header = () => (
-  <div className="header-top-row">
+const Header = ({ currDisplay, setCurrDisplay }) => {
+
+  const [prevDisplay, setPrevDisplay] = useState(currDisplay)
+  const goBack = () => {
+    setCurrDisplay(prevDisplay)
+  }
+
+  if(currDisplay !== prevDisplay && currDisplay !== 'message'){
+    setPrevDisplay(currDisplay)
+  }
+
+  return (<div className="header-top-row">
     <div className="header-group">
-    <h1 className="app-name">nicheNU</h1>
+      {currDisplay === "message" && <button onClick={() => goBack()}>back</button>}
+      <h1 className="app-name">nicheNU</h1>
     </div>
-  </div>
-);
+  </div>);
+}
 
 export default Header;
