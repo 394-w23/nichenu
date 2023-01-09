@@ -12,6 +12,7 @@ const ChatRoom = ({ messageLog, users }) => {
     const sortedMessages = Object.values(messageLog.messages) ?
         Object.values(messageLog.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
         : []
+
     return (
         <StyledMainArea>
 
