@@ -29,7 +29,7 @@ const App = () => {
       {
       currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
       : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
-      : currDisplay === "message" ? <ChatRoom messageLog={messageLog}/>
+      : currDisplay === "message" ? <ChatRoom messageLog={messageLog} users={Object.values(data.users)}/>
       : <div></div>
       }
       <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />
