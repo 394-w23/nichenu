@@ -6,17 +6,37 @@
     justify-content: center;
     align-items: center;
     background-color: #0d6efd;
-  }
-  .header-group{
-    display: inline-flex;
-  }
-  .app-name {
-    margin-right: 15px;
-    color: white;
-  }
-  
-  .logo-image {
-    width: 50px;
-    border-radius: 1px solid black;
-  }
+}
+
+.header-group{
+  display: inline-flex;
+}
+
+.app-name {
+  margin-right: 15px;
+  color: #fafafa;
+}
+
+.logo-image {
+  width: 50px;
+  border-radius: 1px solid black;
+}
+
+.back-button {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fafafa;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}
+
+.back-arrow {
+  font-size: 32px;
+  display: inline-block;
+  transform: scaleY(1.6);
+}
+
   

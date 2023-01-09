@@ -14,7 +14,7 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
 
   return (<div className="header-top-row">
     <div className="header-group">
-      {currDisplay === "message" && <button onClick={() => goBack()}>back</button>}
+      {currDisplay === "message" && <button className="back-button" onClick={() => goBack()}> <span className="back-arrow">&#60;</span> Back</button>}
       <h1 className="app-name">nicheNU</h1>
     </div>
   </div>);
