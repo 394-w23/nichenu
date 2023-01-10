@@ -1,41 +1,18 @@
 import styled from "styled-components";
 import "./Navbar.css";
+import {RiAddCircleLine} from "@react-icons/all-files/ri/RiAddCircleLine"
+import { ActionIcon } from '@mantine/core';
 
-
-// const NavButtonX = ({ listOption, selection, setSelection }) => (
-
-//     <div>
-//         <input type="radio" id={listOption} className="btn-check" checked={listOption == selection} autoComplete="off"
-//             onChange={() => setSelection(listOption)}/>
-//         <label className="btn btn-outline-primary" htmlFor={listOption}>
-//             {listOption}
-//         </label>
-//     </div>
-// );
-
-// const ListOptionSelectorX = ({listOptions, selection, setSelection} ) => {
-//     return (
-//     <div className="btn-group">
-//         {
-//             listOptions.map(listOption => <NavButton key={listOption} listOption={listOption} selection={selection} setSelection={setSelection} />)
-//         }
-//     </div>
-//     )
-// };
-
-
-// const NavbarX = ( {listOptions, selection, setSelection} ) => {
-//     return ( 
-//         <div className="pb-2 fixed-bottom text-center">
-//             <ListOptionSelector listOptions={listOptions} selection={selection} setSelection={setSelection} />
-//         </div>
-//     );
-// }
 
 // New Navbar
 const Navbar = ({displayOptions, selection, setSelection}) => {
     return (
         <StyledNavArea>
+            <div className="event-icon">
+                <ActionIcon>
+                    <RiAddCircleLine size={24}/>
+                </ActionIcon>
+            </div>
             {displayOptions.map(opt=>  <StyledNavButton underline={selection == opt} id={opt} onClick={(e)=> setSelection(e.target.id)} >{opt}</StyledNavButton>)}
         </StyledNavArea>
     )
