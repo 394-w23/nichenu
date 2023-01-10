@@ -37,7 +37,7 @@ const ChatRoom = ({ messageLog, users }) => {
         <StyledMainArea>
 
             <StyledSubHeader>
-                Name of Hobby
+                {hobby.name}
                 <StyledSubHeaderAvatars>
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
@@ -55,8 +55,8 @@ const ChatRoom = ({ messageLog, users }) => {
             </StyledSubHeader>
 
             <StyledMessageArea>
-                {sortedMessagesLocal.map((message) => <Message key={message.id} message={message} users={users} />)}
-                <div id="auto-scroll" style={{height: 100}}>.</div>
+                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
+              <div style={{height: 100}} id="auto-scroll"></div>
             </StyledMessageArea>
 
             <MessageComposer message={localMessage} addMessage={addMessage} sendMessage={sendMessage} />
@@ -77,7 +77,7 @@ overflow: hidden;
 `;
 
 const StyledMessageArea = styled.div`
-overflow: scroll;
+overflow-y: scroll;
 height: 100%
 `;
 
