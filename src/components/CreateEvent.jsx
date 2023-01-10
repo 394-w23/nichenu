@@ -5,7 +5,7 @@ import { ActionIcon } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
 
-export const CreateEvent = () => {
+export const CreateEvent = ({user}) => {
     const [update, result] = useDbUpdate(`/hobbies/${uuid()}`)
     return ( 
 
@@ -47,3 +47,5 @@ export const CreateEvent = () => {
         </form>
             );
 };
+
+export default CreateEvent;

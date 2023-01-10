@@ -9,7 +9,7 @@ const Navbar = ({displayOptions, selection, setSelection}) => {
     return (
         <StyledNavArea>
             <div className="event-icon">
-                <ActionIcon>
+                <ActionIcon onClick={()=>setSelection("createEvent")}>
                     <RiAddCircleLine size={24}/>
                 </ActionIcon>
             </div>
