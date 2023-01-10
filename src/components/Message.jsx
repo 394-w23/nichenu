@@ -5,7 +5,10 @@ import moment from 'moment'
 
 
 const Message = ({ message, users }) => {
-    console.log("this")
+
+    console.log(message)
+    console.log(users)
+
     return (
         <div className="message">
 
