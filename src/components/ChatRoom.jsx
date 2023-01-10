@@ -9,11 +9,12 @@ import { useState } from 'react';
 import uuid from 'react-uuid';
 
 
-const ChatRoom = ({ messageLog, users }) => {
+const ChatRoom = ({ hobby, users }) => {
 
-    console.log(Object.values(messageLog.messages))
-    const sortedMessages = Object.values(messageLog.messages) ?
-        Object.values(messageLog.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
+    console.log(hobby)
+ 
+    const sortedMessages = Object.values(hobby.message_chat.messages) ?
+        Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
         : []
 
     const [sortedMessagesLocal, setSortedMessagesLocal] = useState(sortedMessages);
@@ -55,12 +56,10 @@ const ChatRoom = ({ messageLog, users }) => {
             </StyledSubHeader>
 
             <StyledMessageArea>
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
+                {sortedMessagesLocal.map((message) => <Message key={message.id} message={message} users={users} />)}
               <div style={{height: 100}} id="auto-scroll"></div>
             </StyledMessageArea>
-
             <MessageComposer message={localMessage} addMessage={addMessage} sendMessage={sendMessage} />
-          
         </StyledMainArea>
 
 
