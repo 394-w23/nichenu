@@ -5,6 +5,11 @@
   width: 100vw;
 }
 
+.content {
+  border-radius: 12px;
+  margin: 10px auto;
+}
+
 ::-webkit-scrollbar{
   width: 0.9vw;
   background: #777;

@@ -1,4 +1,5 @@
-import './Event.css'
+// import './Event.css'
+import './CreateHobby.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
 import { ActionIcon } from '@mantine/core';
