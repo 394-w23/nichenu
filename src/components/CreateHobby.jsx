@@ -53,7 +53,7 @@ export const CreateHobby = ({ user }) => {
         </div>
       </div>
       <div className="form-group row">
-        <label className="col-4">Checkboxes</label>
+        <label className="col-4">Tags</label>
         <div className="col-8">
           <div className="custom-control custom-checkbox custom-control-inline">
             <input name="checkbox" id="checkbox_0" type="checkbox" className="custom-control-input" value="indoor" />

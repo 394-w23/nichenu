@@ -52,6 +52,7 @@
 }
 
 .event-icon{
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     width: 50px;
@@ -59,3 +60,4 @@
     justify-content: start;
     height: 70%
 }
+

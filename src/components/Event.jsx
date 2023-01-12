@@ -23,7 +23,7 @@ const Event = ({ event }) => {
 
             <div className="event-icon">
                 <ActionIcon>
-                <RiAddCircleLine size={24}/>
+                    <RiAddCircleLine size={24}/>
                 </ActionIcon>
             </div>
 
