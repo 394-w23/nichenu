@@ -50,3 +50,9 @@ export const useDbUpdate = (path) => {
 
   return [updateData, result];
 }
+
+const makeResult = (error) => {
+  const timestamp = Date.now();
+  const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
+  return { timestamp, error, message };
+};
