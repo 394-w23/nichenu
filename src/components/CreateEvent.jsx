@@ -1,4 +1,4 @@
-import './CreateHobby.css'
+import './CreateEvent.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
 import { ActionIcon, MultiSelect  } from '@mantine/core';
@@ -7,7 +7,7 @@ import uuid from 'react-uuid';
 import { useState } from 'react';
 
 
-export const CreateHobby = ({ user, setCurrDisplay }) => {
+export const CreateEvent = ({ user, setCurrDisplay }) => {
   const hobbyId = uuid();
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`)
   const [tags, setTags] = useState([]);
@@ -96,4 +96,4 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   );
 };
 
-export default CreateHobby;
+export default CreateEvent;

@@ -35,7 +35,7 @@ const App = () => {
           currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
-          : currDisplay === "createEvent" ? <CreateHobby user={currUser}/> :
+          : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/> :
           <div></div>
         }
       </div>
