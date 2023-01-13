@@ -32,11 +32,11 @@ const App = () => {
       <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       <div className="content">
         {
-        currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
-        : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
-        : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
-        : currDisplay === "createEvent" ? <CreateHobby user={currUser}/> :
-        <div></div>
+          currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
+          : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
+          : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
+          : currDisplay === "createEvent" ? <CreateHobby user={currUser}/> :
+          <div></div>
         }
       </div>
       {currDisplay !== 'message' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}

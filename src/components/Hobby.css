@@ -2,8 +2,9 @@
     background: #efefef;
     display: flex;
     flex-direction: row;
-    width: 90vw;
+    width: 90%;
     min-width: 220px;
+    max-width: 1000px;
     height: 100px;
     align-items: center;
     /* border: 1px solid #000; */

@@ -2,8 +2,9 @@
     background: #efefef;
     display: flex;
     flex-direction: row;
-    width: 85vw;
-    min-width: 250px;
+    width: 90%;
+    min-width: 220px;
+    max-width: 1000px;
     height: 100px;
     align-items: center;
     /* border: 1px solid #000; */
@@ -17,7 +18,7 @@
     height: 20vw;
     min-width: 60px;
     min-height: 60px;
-    max-width: 90px;
+    max-width: 80px;
     max-height: 80px;
     margin: 3%;
     /* border: 1px solid #000; */
@@ -58,6 +59,6 @@
     width: 50px;
     align-items: center;
     justify-content: start;
-    height: 70%
+    height: 70%;
 }
 

@@ -13,7 +13,7 @@ const Navbar = ({displayOptions, selection, setSelection}) => {
                     <RiAddCircleLine size={24}/>
                 </ActionIcon>
             </div>
-            {displayOptions.map(opt=>  <StyledNavButton underline={selection == opt} id={opt} onClick={(e)=> setSelection(e.target.id)} >{opt}</StyledNavButton>)}
+            {displayOptions.map(opt=> <StyledNavButton key={opt} underline={selection == opt} id={opt} onClick={(e)=> setSelection(e.target.id)} >{opt}</StyledNavButton>)}
         </StyledNavArea>
     )
 }
