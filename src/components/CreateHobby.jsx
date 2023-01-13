@@ -1,13 +1,16 @@
 import './CreateHobby.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon, MultiSelect  } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
+import { useState } from 'react';
+
 
 export const CreateHobby = ({ user }) => {
   const hobbyId = uuid();
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`)
+  const [tags, setTags] = useState([]);
 
   const submit = (e) => {
     e.preventDefault();
@@ -36,6 +39,18 @@ export const CreateHobby = ({ user }) => {
 
     return tagList;
   }
+
+
+
+  const tagsData = [
+  { value: 'academic', label: 'Academic' },
+  { value: 'animals', label: 'Animals' },
+  { value: 'arts', label: 'Arts' },
+  { value: 'board-games', label: 'Board Games' },
+  { value: 'books', label: 'Books' },
+];
+
+
   
   return (
     <form onSubmit={(submit)}>
@@ -51,6 +66,15 @@ export const CreateHobby = ({ user }) => {
           <textarea id="textarea" name="textarea" placeholder="Describe your hobby here" cols="40" rows="3" className="form-control" required="required"></textarea>
         </div>
       </div>
+
+      <div className="form-group row">
+      <label className="col-4">Tags</label>
+      <div className="col-8">
+      <MultiSelect value={tags} onChange={setTags} data={tagsData} />
+      </div>
+      </div>
+    
+{/* 
       <div className="form-group row">
         <label className="col-4">Tags</label>
         <div className="col-8">
@@ -159,7 +183,8 @@ export const CreateHobby = ({ user }) => {
             <label htmlFor="checkbox_25" className="custom-control-label">Visual</label>
           </div>
         </div>
-      </div>
+      </div> */}
+
       <div className="form-group row">
         <div className="offset-4 col-8">
           <button name="submit" type="submit" className="btn btn-primary">Submit</button>
