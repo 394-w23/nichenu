@@ -85,11 +85,9 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} />
       </div>
       </div>
-    
-
       <div className="form-group row">
         <div className="offset-4 col-8">
-          <button name="submit" type="submit" className="btn btn-primary">Submit</button>
+        <button name="submit" type="submit" className="btn btn-primary">Submit</button>
         </div>
       </div>
     </form>

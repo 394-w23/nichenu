@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.jsx'
 import HobbyList from './components/HobbyList';
 import EventList from './components/EventList';
 import CreateHobby from './components/CreateHobby';
+import CreateEvent from './components/CreateEvent';
 import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from './utils/firebase';
@@ -35,8 +36,9 @@ const App = () => {
           currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
-          : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/> :
-          <div></div>
+          : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/>
+          : currDisplay === "createEvent" ? <CreateEvent user={currUser} setCurrDisplay={setCurrDisplay}/>
+          : <div></div>
         }
       </div>
       {currDisplay !== 'message' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}

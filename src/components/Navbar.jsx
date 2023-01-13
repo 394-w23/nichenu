@@ -27,12 +27,9 @@ const Navbar = ({ displayOptions, selection, setSelection }) => {
         key={"events"}
         underline={selection == "events"}
         id={"events"}
-        onClick={(e) => setSelection(e.target.id)}
-      >
+        onClick={(e) => setSelection(e.target.id)}>
         events
       </StyledNavButton>
-      <div className="event-icon">
-      </div>
       <MenuToggle setSelection = {setSelection}/>
       <StyledNavButton
         key={"hobbies"}

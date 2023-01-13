@@ -5,6 +5,7 @@ import { ActionIcon, MultiSelect  } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
 import { useState } from 'react';
+import { DatePicker } from '@mantine/dates';
 
 
 export const CreateEvent = ({ user, setCurrDisplay }) => {
@@ -20,7 +21,8 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       id: eventId,
       name: e.target[0].value,
       desc: e.target[1].value,
-      tags: tags,
+      start_timestamp: new Date(e.target[2].value), ///////////////////////////////////////////////////// Change later 
+      end_timestamp: new Date(e.target[2].value), ///////////////////////////////////////////////////// Change later 
       owner: 1001, ///////////////////////////////////////////////////// Change later 
       img: "",
       message_chat: [],
@@ -67,22 +69,23 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   return (
     <form onSubmit={(submit)}>
       <div className="form-group row">
-        <label htmlFor="" className="col-4 col-form-label">Hobby Name</label>
+        <label htmlFor="" className="col-4 col-form-label">Event Name</label>
         <div className="col-8">
-          <input id="" name="" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" type="text" className="form-control" required="required" />
+          <input id="" name="" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" type="text" className="form-control" required="required" />
         </div>
       </div>
       <div className="form-group row">
         <label className="col-4 col-form-label" htmlFor="textarea">Description</label>
         <div className="col-8">
-          <textarea id="textarea" name="textarea" placeholder="Describe your hobby here" cols="40" rows="3" className="form-control" required="required"></textarea>
+          <textarea id="textarea" name="textarea" placeholder="Describe your event here" cols="40" rows="3" className="form-control" required="required"></textarea>
         </div>
       </div>
 
       <div className="form-group row">
-      <label className="col-4">Tags</label>
+      <label className="col-4">Event Date</label>
       <div className="col-8">
-      <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} />
+      <DatePicker placeholder="Pick date" firstDayOfWeek="sunday" withAsterisk />
+      {/* <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} /> */}
       </div>
       </div>
     
