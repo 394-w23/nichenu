@@ -3,6 +3,7 @@
   background-color: white;
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
 }
 
 .content {
@@ -14,6 +15,8 @@
 
 ::-webkit-scrollbar{
   width: 0.9vw;
+  position: fixed;
+  right: 0;
   background: #777;
 }
 ::-webkit-scrollbar-thumb{

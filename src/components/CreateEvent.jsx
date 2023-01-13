@@ -8,8 +8,8 @@ import { useState } from 'react';
 
 
 export const CreateEvent = ({ user, setCurrDisplay }) => {
-  const hobbyId = uuid();
-  const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`)
+  const eventId = uuid();
+  const [update, result] = useDbUpdate(`/events/${eventId}`)
   const [tags, setTags] = useState([]);
  
   const submit = (e) => {
@@ -17,7 +17,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
     if (!e.target[0].value) return;
 
     update({
-      id: hobbyId,
+      id: eventId,
       name: e.target[0].value,
       desc: e.target[1].value,
       tags: tags,
@@ -27,7 +27,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
     });
     e.target.reset()
     setTags([])
-    setCurrDisplay('hobbies')
+    setCurrDisplay('events')
   }
 
 
