@@ -35,8 +35,8 @@ const StyledNavArea = styled.div`
 display: flex;
 justify-content: space-evenly;
 align-items: center;
-height: 80px;
-position: absolute;
+height: 10vh;
+position: fixed;
 width: 100vw;
 bottom: 0;
 background-color: #efefef;

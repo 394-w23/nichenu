@@ -52,7 +52,7 @@ const ChatRoom = ({ hobby, users }) => {
 
 // Styled Components
 const StyledMainArea = styled.div`
-height: 90vh;
+height: 85vh;
 display: grid;
 grid-template-rows: 1fr 10fr 2fr;
 overflow: hidden;
@@ -67,8 +67,9 @@ const StyledSubHeader = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: center;
-padding: 0 20px;
+margin: 0 20px;
 `
+
 const StyledSubHeaderAvatars = styled.div`
 display: flex
 `

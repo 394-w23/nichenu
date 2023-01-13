@@ -1,0 +1,7 @@
+.message-composer-container {
+    position: fixed;
+    bottom: 3vh;
+    margin: auto;
+    width: 100%;
+}
+

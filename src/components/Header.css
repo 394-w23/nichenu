@@ -1,6 +1,6 @@
 .header-top-row {
   width: 100vw;
-  height: 100px;
+  height: 10vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -11,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90vw
+  width: 90vw;
 }
 .app-name {
   margin: 0;
