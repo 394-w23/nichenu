@@ -1,4 +1,5 @@
 import './ChatRoom.css'
+import { useState } from 'react'
 import Message from './Message';
 import styled from 'styled-components';
 import MessageComposer from './MessageComposer';
@@ -8,10 +9,13 @@ import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
 
 
 const ChatRoom = ({ hobby, users }) => {
-    console.log(hobby)
-    const sortedMessages = Object.values(hobby.message_chat.messages) ?
-        Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
+    // console.log(hobby)
+
+    const sortedMessages = Object.values(hobby.message_chat.messages) 
+        ? Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
         : []
+
+    const [messages, setMessages] = useState(sortedMessages);
 
     return (
         <StyledMainArea>
@@ -38,11 +42,11 @@ const ChatRoom = ({ hobby, users }) => {
             </StyledSubHeader>
 
             <StyledMessageArea>
-                {sortedMessages.map((message) => <Message key={message.id} message={message} users={users} />)}
+                {messages.map((message) => <Message key={message.id} message={message} users={users} />)}
                 
             </StyledMessageArea>
 
-            <MessageComposer />
+            <MessageComposer hobbyId={hobby.id} messages={messages} setMessages={setMessages}/>
         </StyledMainArea>
 
 

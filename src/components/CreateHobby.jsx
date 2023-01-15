@@ -9,12 +9,17 @@ import { useState } from 'react';
 
 export const CreateHobby = ({ user, setCurrDisplay }) => {
   const hobbyId = uuid();
-  const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`)
+  const messageChatId = uuid(); ////////////////////////////////////// Do we want to make hobbyId and messageChatId the same?
+  const messageId = uuid(); ////////////////////////////////////////// Added initial welcome message because the messages object can't be empty
+  const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`);
+  const [updateInitialMessage, resultInitialMessage] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   const [tags, setTags] = useState([]);
  
   const submit = (e) => {
     e.preventDefault();
     if (!e.target[0].value) return;
+
+    const currDate = Date.now();
 
     update({
       id: hobbyId,
@@ -23,8 +28,19 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       tags: tags,
       owner: 1001, ///////////////////////////////////////////////////// Change later 
       img: "",
-      message_chat: [],
+      message_chat: {
+        id: messageChatId,
+        users: [1001] ///////////////////////////////////////////////////// Change later 
+      },
     });
+
+    updateInitialMessage({
+      content: "Welcome to \"" + e.target[0].value + "\"!",
+      date: new Date(currDate).toISOString(),
+      id: messageId,
+      user: 1001,
+    });
+
     e.target.reset()
     setTags([])
     setCurrDisplay('hobbies')
@@ -82,7 +98,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       <div className="form-group row">
       <label className="col-4">Tags</label>
       <div className="col-8">
-      <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} />
+      <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} clearable/>
       </div>
       </div>
       <div className="form-group row">

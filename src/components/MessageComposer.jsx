@@ -1,18 +1,45 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { ActionIcon, Input } from '@mantine/core';
-import {RiSendPlane2Line} from "@react-icons/all-files/ri/RiSendPlane2Line"
+import { RiSendPlane2Line } from "@react-icons/all-files/ri/RiSendPlane2Line";
+import { useDbUpdate } from '../utils/firebase';
+import uuid from 'react-uuid';
 import "./MessageComposer"
 
 
-export default function MessageComposer() {
+const MessageComposer = ({ hobbyId, messages, setMessages }) => {
+  const messageId = uuid();
+  const [update, result] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
+  // const [message, setMessage] = useState("");
+
+  const submitMessage = (e) => {
+    e.preventDefault();
+    if (!e.target[0].value) return;
+
+    const currDate = Date.now();
+
+    const newMessage = {
+      id: messageId,
+      content: e.target[0].value,
+      date: new Date(currDate).toISOString(),
+      user: 1001, ///////////////////////////////////////////// Change later 
+    };
+    update(newMessage);
+    messages.push(newMessage);
+    setMessages(messages);
+    e.target.reset();
+    // setMessage("")
+  }
+
   return (
-    <div className="message-composer-container">
-        <Input 
+    <form className="message-composer-container" onSubmit={submitMessage}>
+      <Input
         placeholder='Write message'
-        
-        style={{margin: "0px 20px"}} rightSection={<ActionIcon>
-            <RiSendPlane2Line/>
-        </ActionIcon>}/>
-    </div>
+        style={{ margin: "0px 20px" }} 
+        rightSection={<ActionIcon onClick={submitMessage}><RiSendPlane2Line /></ActionIcon>} 
+      />
+    </form>
   )
 }
+
+
+export default MessageComposer;
