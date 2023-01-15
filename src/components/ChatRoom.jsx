@@ -16,7 +16,7 @@ const ChatRoom = ({ hobby, users }) => {
         : []
 
     const [messages, setMessages] = useState(sortedMessages);
-
+ 
     return (
         <StyledMainArea>
 
@@ -56,10 +56,14 @@ const ChatRoom = ({ hobby, users }) => {
 
 // Styled Components
 const StyledMainArea = styled.div`
-height: 85vh;
+height: 92vh;
 display: grid;
 grid-template-rows: 1fr 10fr 2fr;
 overflow: hidden;
+position: fixed;
+top: 10vh;
+left: 0;
+right: 0;
 `
 
 const StyledMessageArea = styled.div`
@@ -72,6 +76,8 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 margin: 0 20px;
+position: sticky;
+top: 0;
 `
 
 const StyledSubHeaderAvatars = styled.div`
