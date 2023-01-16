@@ -6,6 +6,8 @@ import MessageComposer from './MessageComposer';
 import { ActionIcon } from '@mantine/core';
 import { RiUserAddLine } from "@react-icons/all-files/ri/RiUserAddLine"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
+import { useState } from 'react';
+import uuid from 'react-uuid';
 
 
 const ChatRoom = ({ hobby, users }) => {
@@ -32,7 +34,6 @@ const ChatRoom = ({ hobby, users }) => {
             <StyledSubHeader>
                 <span className="chatroom-name">{hobby.name}</span>
                 <StyledSubHeaderAvatars>
-
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
@@ -47,7 +48,6 @@ const ChatRoom = ({ hobby, users }) => {
                         <RiUserAddLine size={32} />
                     </ActionIcon>
                 </StyledSubHeaderAvatars>
-
             </StyledSubHeader>
 
             <StyledMessageArea>
