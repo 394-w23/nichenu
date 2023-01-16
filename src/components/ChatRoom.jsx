@@ -6,26 +6,27 @@ import MessageComposer from './MessageComposer';
 import { ActionIcon } from '@mantine/core';
 import { RiUserAddLine } from "@react-icons/all-files/ri/RiUserAddLine"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
-import uuid from 'react-uuid';
+import { useDbData } from '../utils/firebase';
 
 
 const ChatRoom = ({ hobby, users }) => {
-    // console.log(hobby)
-
-    const sortedMessages = Object.values(hobby.message_chat.messages)
-        ? Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
-        : []
+    const [update, result] = useDbData(`/hobbies/${hobby.id}/message_chat`)
+    let sortedMessages = update && Object.values(update.messages)
+        ? Object.values(update.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
+        : Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
 
     const [messages, setMessages] = useState(sortedMessages);
     const messagesRef = useRef({});
 
     const scrollToBottom = () => {
-        messagesRef.current?.scrollIntoView({behavior: "auto"});
+        messagesRef.current?.scrollIntoView({ behavior: "auto" });
     };
-
     useEffect(() => {
+        if (update) {
+            setMessages(Object.values(update.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime()))
+        }
         scrollToBottom();
-    }, [messages.length]);
+    }, [update]);
 
     return (
         <StyledMainArea>

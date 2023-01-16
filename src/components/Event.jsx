@@ -22,11 +22,7 @@ const Event = ({ event }) => {
                 </div>
             </div>
 
-            {/* <div className="event-icon">
-                <ActionIcon>
-                    <RiAddCircleLine size={24} />
-                </ActionIcon>
-            </div> */}
+           
 
         </div>
     );
