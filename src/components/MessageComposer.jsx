@@ -10,7 +10,6 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
   const messageId = uuid();
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   // const [message, setMessage] = useState("");
-
   const submitMessage = (e) => {
     e.preventDefault();
     if (!e.target[0].value) return;
