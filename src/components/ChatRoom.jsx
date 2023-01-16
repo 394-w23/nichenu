@@ -6,7 +6,6 @@ import MessageComposer from './MessageComposer';
 import { ActionIcon } from '@mantine/core';
 import { RiUserAddLine } from "@react-icons/all-files/ri/RiUserAddLine"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
-import { useState } from 'react';
 import uuid from 'react-uuid';
 
 
