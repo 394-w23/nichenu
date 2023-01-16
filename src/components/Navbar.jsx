@@ -9,8 +9,8 @@ import {HiOutlineCalendar} from "@react-icons/all-files/hi/HiOutlineCalendar";
 const MenuToggle = ({setSelection}) => (
   <Menu shadow="md" width={200}>
     <Menu.Target>
-    <ActionIcon>
-          <RiAddCircleLine size={24} />
+    <ActionIcon size="xl">
+          <RiAddCircleLine size={32} style={{transform: "scale(1.3)"}} />
     </ActionIcon>
     </Menu.Target>
     <Menu.Dropdown>
