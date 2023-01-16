@@ -113,7 +113,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       <div className="form-group row">
         <label className="col-4">Start Date & Time</label>
         <div className="col-8">
-          <div>
+          <div className="date-time">
             <DatePicker placeholder="Pick Start Date" firstDayOfWeek="sunday" withAsterisk />
             <TimeInput format="12" />
           </div>
@@ -124,7 +124,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       <div className="form-group row">
         <label className="col-4">End Date & Time</label>
         <div className="col-8">
-          <div>
+          <div className="date-time">
             <DatePicker placeholder="Pick End Date" firstDayOfWeek="sunday" withAsterisk />
             <TimeInput format="12"/>
           </div>
