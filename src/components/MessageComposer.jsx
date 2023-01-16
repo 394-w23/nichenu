@@ -31,11 +31,11 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
   }
 
   return (
-    <form className="message-composer-container" onSubmit={submitMessage}>
+    <form className="message-composer-container" onSubmit={submitMessage}
+      style={{ margin: "10px auto", padding: "0", width: "90%"}}>
       <Input
-        placeholder='Write message'
-        style={{ margin: "0px 20px" }} 
-        rightSection={<ActionIcon onClick={submitMessage}><RiSendPlane2Line /></ActionIcon>} 
+        placeholder='Write message' 
+        rightSection={<ActionIcon type="submit"><RiSendPlane2Line /></ActionIcon>} 
       />
     </form>
   )

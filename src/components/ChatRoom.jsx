@@ -1,5 +1,5 @@
 import './ChatRoom.css'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Message from './Message';
 import styled from 'styled-components';
 import MessageComposer from './MessageComposer';
@@ -11,21 +11,30 @@ import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
 const ChatRoom = ({ hobby, users }) => {
     // console.log(hobby)
 
-    const sortedMessages = Object.values(hobby.message_chat.messages) 
+    const sortedMessages = Object.values(hobby.message_chat.messages)
         ? Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
         : []
 
     const [messages, setMessages] = useState(sortedMessages);
- 
+    const messagesRef = useRef({});
+
+    const scrollToBottom = () => {
+        messagesRef.current?.scrollIntoView({behavior: "auto"});
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages.length]);
+
     return (
         <StyledMainArea>
 
             <StyledSubHeader>
-                {hobby.name}
+                <span className="chatroom-name">{hobby.name}</span>
                 <StyledSubHeaderAvatars>
-                 
-                <StyledMiniAvatar>
-                        <RiUser3Line size={16}/>
+
+                    <StyledMiniAvatar>
+                        <RiUser3Line size={16} />
                     </StyledMiniAvatar>
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
@@ -34,7 +43,7 @@ const ChatRoom = ({ hobby, users }) => {
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
 
-                    <ActionIcon style={{marginLeft: 10}}>
+                    <ActionIcon style={{ marginLeft: 10 }}>
                         <RiUserAddLine size={32} />
                     </ActionIcon>
                 </StyledSubHeaderAvatars>
@@ -43,10 +52,10 @@ const ChatRoom = ({ hobby, users }) => {
 
             <StyledMessageArea>
                 {messages.map((message) => <Message key={message.id} message={message} users={users} />)}
-                
+                <div ref={messagesRef}></div>
             </StyledMessageArea>
 
-            <MessageComposer hobbyId={hobby.id} messages={messages} setMessages={setMessages}/>
+            <MessageComposer hobbyId={hobby.id} messages={messages} setMessages={setMessages} />
         </StyledMainArea>
 
 
@@ -56,9 +65,9 @@ const ChatRoom = ({ hobby, users }) => {
 
 // Styled Components
 const StyledMainArea = styled.div`
-height: 92vh;
+height: 90vh;
 display: grid;
-grid-template-rows: 1fr 10fr 2fr;
+grid-template-rows: 1fr 10fr 80px;
 overflow: hidden;
 position: fixed;
 top: 10vh;
@@ -68,8 +77,9 @@ right: 0;
 
 const StyledMessageArea = styled.div`
 overflow-y: scroll;
-height: 100%
-`;
+position: relative;
+bottom: 0;
+`
 
 const StyledSubHeader = styled.div`
 display: flex;
@@ -78,10 +88,13 @@ align-items: center;
 margin: 0 20px;
 position: sticky;
 top: 0;
+border-bottom: 1px solid #ccc;
 `
 
 const StyledSubHeaderAvatars = styled.div`
-display: flex
+display: flex;
+padding-left: 1vw;
+border-left: 1px solid #ccc;
 `
 
 const StyledMiniAvatar = styled.div`

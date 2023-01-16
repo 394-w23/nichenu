@@ -13,7 +13,7 @@ const Message = ({ message, users }) => {
                 <RiUser3Line size={20} />
             </div>
 
-            <div>
+            <div className="message-body">
                 <div className="message-header">
                     <div className="message-user">{findUserDisplayName(message.user, users)}</div>
                     <div className="message-timestamp">{moment(message.date).fromNow()}</div>
