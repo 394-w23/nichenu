@@ -9,6 +9,29 @@ const Event = ({ event }) => {
     const start = new Date(event.start_timestamp);
     const end = new Date(event.end_timestamp);
 
+    const JoinEvent = ({ eventId, events, userId, setEvents }) => {
+        const messageId = uuid();
+        const [update, result] = useDbUpdate(`/events/${eventId}/users/${userId}`);
+        // const [message, setMessage] = useState("");
+        const submitMessage = (e) => {
+          e.preventDefault();
+          if (!e.target[0].value) return;
+      
+          const currDate = Date.now();
+      
+          const newMessage = {
+            id: messageId,
+            content: e.target[0].value,
+            date: new Date(currDate).toISOString(),
+            user: 1001, ///////////////////////////////////////////// Change later 
+          };
+          update(newMessage);
+          messages.push(newMessage);
+          setMessages(messages);
+          e.target.reset();
+          // setMessage("")
+        }
+
     return (
         <div className="event-card">
             <div className="calendar">
@@ -20,6 +43,11 @@ const Event = ({ event }) => {
                 <div>
                     {parseTimeString(start)} - {parseTimeString(end)}
                 </div>
+            </div>
+            <div className="event-icon">
+                <ActionIcon>
+                    <RiAddCircleLine size={24} />
+                </ActionIcon>
             </div>
 
            
