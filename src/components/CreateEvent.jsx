@@ -98,10 +98,17 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   return (
     <form onSubmit={(submit)}>
 
-<div className="input-field-area">
+{/* <div className="input-field-area">
 <span htmlFor="" className="">Event Name</span>
     <div className="">
       <input id="event-name" name="" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" type="text" className="form-control" required="required" />
+    </div>
+</div> */}
+
+<div className="form-group row">
+<span htmlFor="" className="col-4 col-form-label">Event Name</span>
+    <div className="col-8">
+      <input id="" name="" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" type="text" className="form-control" required="required" />
     </div>
 </div>
        
