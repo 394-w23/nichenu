@@ -43,10 +43,6 @@ const ChatRoom = ({ hobby, users }) => {
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
-
-                    <ActionIcon style={{ marginLeft: 10 }}>
-                        <RiUserAddLine size={32} />
-                    </ActionIcon>
                 </StyledSubHeaderAvatars>
             </StyledSubHeader>
 
