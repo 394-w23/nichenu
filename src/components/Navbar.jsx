@@ -8,7 +8,7 @@ import { HiOutlineCalendar } from "@react-icons/all-files/hi/HiOutlineCalendar";
 
 const MenuToggle = ({ setSelection }) => (
   <Menu shadow="md" width={200}>
-    <Menu.Target>
+    <Menu.Target className="nav-button">
       <ActionIcon size="xl">
         <RiAddCircleLine size={32} style={{ transform: "scale(1.2)" }} />
       </ActionIcon>
@@ -70,7 +70,7 @@ const StyledNavArea = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 10vh;
+  height: 8vh;
   position: fixed;
   width: 100vw;
   bottom: 0;

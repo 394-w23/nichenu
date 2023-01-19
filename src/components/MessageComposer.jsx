@@ -10,6 +10,7 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
   const messageId = uuid();
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   // const [message, setMessage] = useState("");
+
   const submitMessage = (e) => {
     e.preventDefault();
     if (!e.target[0].value) return;
@@ -23,8 +24,10 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
       user: 1001, ///////////////////////////////////////////// Change later 
     };
     update(newMessage);
+
     messages.push(newMessage);
     setMessages(messages);
+    
     e.target.reset();
     // setMessage("")
   }
