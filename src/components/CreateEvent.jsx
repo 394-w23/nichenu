@@ -1,11 +1,14 @@
 import './CreateEvent.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
-import { ActionIcon, MultiSelect } from '@mantine/core';
+import { ActionIcon, MultiSelect, Textarea, TextInput, Input, Button, Alert } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DatePicker, TimeInput } from '@mantine/dates';
+import { useForm } from '@mantine/form';
+import moment from 'moment';
+import { RiErrorWarningLine } from "@react-icons/all-files/ri/RiErrorWarningLine"
 
 
 export const CreateEvent = ({ user, setCurrDisplay }) => {
@@ -13,56 +16,50 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   const [update, result] = useDbUpdate(`/events/${eventId}`)
   const [tags, setTags] = useState([]);
   const currentTime = new Date();
+  // handle event dates
+  const [startDate, setStartDate] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endDate, setEndDate] = useState();
+  const [endTime, setEndTime] = useState();
+  const [formattedStartDateTime, setFormattedStartDateTime] = useState();
+  const [formattedEndDateTime, setFormattedEndDateTime] = useState();
 
-  const getStartTime = (target) => {
-    let hours = parseInt(target[4].value);
-    if (target[6].value === 'pm' && hours !== 12) {
-      hours += 12;
+  const formRef = useRef(null); // to disable form submission on enter
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
     }
-    if (target[6].value === 'am' && hours === 12) {
-      hours = 0;
+  };
+
+  // handle the event date and time
+  useEffect(() => {
+    if (startTime && startDate) {
+      let s_date = moment(startDate, "MM/DD/YYYY");
+      let s_time = moment(startTime, "hh:mm a");
+      let startDateTime = s_date.add(s_time.hours(), 'hours').add(s_time.minutes(), 'minutes');
+      console.log(startDateTime.format());
+
+
+      if (startDateTime.format()) {
+        setFormattedStartDateTime(startDateTime.format());
+      }
+
     }
-    return new Date(target[2].value + " " + hours + ":" + target[5].value);
-  }
 
-  const getEndTime = (target) => {
-    let hours = parseInt(target[9].value);
-    if (target[11].value === 'pm' && hours !== 12) {
-      hours += 12;
+    if (endDate && endTime) {
+      let e_date = moment(endDate, "MM/DD/YYYY");
+      let e_time = moment(endTime, "hh:mm a");
+      let endDateTime = e_date.add(e_time.hours(), 'hours').add(e_time.minutes(), 'minutes');
+      console.log(endDateTime.format());
+
+      if (endDateTime.format()) {
+        setFormattedEndDateTime(endDateTime.format())
+      }
     }
-    if (target[11].value === 'am' && hours === 12) {
-      hours = 0;
-    }
-    return new Date(target[7].value + " " + hours + ":" + target[10].value);
-  }
-
-  const submit = (e) => {
-    e.preventDefault();
-    if (!e.target[0].value) return;
-    console.log(e.target[2].value);
-    console.log(e.target[3].value);
-    console.log(e.target[4].value);
-    console.log(e.target[5].value);
-    console.log(e.target[6].value);
-    console.log(e.target[7].value);
-    console.log(e.target[8].value);
-    update({
-      id: eventId,
-      name: e.target[0].value,
-      desc: e.target[1].value,
-      start_timestamp: getStartTime(e.target), ///////////////////////////////////////////////////// Change later 
-      end_timestamp: getEndTime(e.target), ///////////////////////////////////////////////////// Change later 
-      owner: 1001, ///////////////////////////////////////////////////// Change later 
-      img: "",
-      message_chat: [],
-    });
-    e.target.reset()
-    setTags([])
-    setCurrDisplay('events')
-  }
 
 
 
+  }, [startDate, endDate, startTime, endTime])
 
   const tagsData = [
     { value: 'academic', label: 'Academic' },
@@ -93,65 +90,105 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
     { value: 'volunteer', label: 'Volunteer' }
   ];
 
+  const form = useForm({
+    initialValues: {
+      id: eventId,
+      name: '',
+      desc: '',
+      start_timestamp: '', ///////////////////////////////////////////////////// Change later 
+      end_timestamp: '', ///////////////////////////////////////////////////// Change later 
+      owner: 1001, ///////////////////////////////////////////////////// Change later 
+      img: "",
+      message_chat: [],
+    },
+
+
+    validate: {
+      name: (value) => value == '' && 'Please enter event name'
+    },
+
+    // proceed
+  });
+
+  const [raiseAlert, setRaiseAlert] = useState(false); // to show the missing fields
+  const submitForm = (e) => {
+    form.validate() // mantine 
+    e.preventDefault()
+    let formData = { ...form.values, start_timestamp: formattedStartDateTime, end_timestamp: formattedEndDateTime }
+
+    if (
+      !formData.start_timestamp ||
+      !formData.end_timestamp ||
+      Object.values(form.errors).length > 0
+    ) {
+      setRaiseAlert(true);
+    } else {
+      setRaiseAlert(false);
+      update(formData)
+      form.reset();
+
+      // FIXME: date and time fields not clearing
+      // setStartDate();
+      // setEndDate();
+      // setStartTime();
+      // setEndTime();
+      // setFormattedStartDateTime();
+      // setFormattedEndDateTime();
+
+      // navigate to show events.
+
+      setCurrDisplay("events");
+
+    }
+  }
+
 
 
   return (
-    <form onSubmit={(submit)}>
+    <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
+      {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
+        Please fill in the required fields before submitting
+      </Alert>
+      }
 
-{/* <div className="input-field-area">
-<span htmlFor="" className="">Event Name</span>
-    <div className="">
-      <input id="event-name" name="" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" type="text" className="form-control" required="required" />
-    </div>
-</div> */}
+      <TextInput
+        style={{ marginBottom: 10 }}
+        {...form.getInputProps('name')}
+        label="Event name" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" withAsterisk />
+      <Textarea
+        style={{ marginBottom: 10 }}
+        placeholder="Describe your event here"
+        label="Description"
+        {...form.getInputProps('desc')}
 
-<div className="form-group row">
-<span htmlFor="" className="col-4 col-form-label">Event Name</span>
-    <div className="col-8">
-      <input id="" name="" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" type="text" className="form-control" required="required" />
-    </div>
-</div>
-       
+      />
 
-
-
-
-
-      <div className="form-group row">
-        <label className="col-4 col-form-label" htmlFor="textarea">Description</label>
-        <div className="col-8">
-          <textarea id="textarea" name="textarea" placeholder="Describe your event here" cols="40" rows="3" className="form-control" required="required"></textarea>
+      <Input.Wrapper style={{ marginBottom: 10 }} label="Start date and start time" withAsterisk>
+        <div className="date-time">
+          <DatePicker onChange={(value) => setStartDate(value)} value={startDate} placeholder="Pick Start Date" firstDayOfWeek="sunday" withAsterisk minDate={new Date()} />
+          <TimeInput onChange={(value) => setStartTime(value)} value={startTime} format="12"
+            required
+          />
         </div>
+      </Input.Wrapper>
+
+
+      <Input.Wrapper style={{ marginBottom: 10 }} label="End date and start time" withAsterisk>
+        <div className="date-time">
+          <DatePicker onChange={(value) => setEndDate(value)} value={endDate} placeholder="Pick End Date" firstDayOfWeek="sunday" withAsterisk minDate={startDate ? startDate : new Date()} />
+          <TimeInput onChange={(value) => setEndTime(value)} format="12" />
+        </div>
+      </Input.Wrapper>
+
+      <div style={{ textAlign: "center" }}>
+        <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
       </div>
 
-      <div className="form-group row">
-        <label className="col-4">Start Date & Time</label>
-        <div className="col-8">
-          <div className="date-time">
-            <DatePicker placeholder="Pick Start Date" firstDayOfWeek="sunday" withAsterisk />
-            <TimeInput format="12" />
-          </div>
-          {/* <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} /> */}
-        </div>
-      </div>
 
-      <div className="form-group row">
-        <label className="col-4">End Date & Time</label>
-        <div className="col-8">
-          <div className="date-time">
-            <DatePicker placeholder="Pick End Date" firstDayOfWeek="sunday" withAsterisk />
-            <TimeInput format="12"/>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group row">
-        <div className="offset-4 col-8">
-          <button name="submit" type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </div>
     </form>
+
   );
 };
 
 export default CreateEvent;
+
