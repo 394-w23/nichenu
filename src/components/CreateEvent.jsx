@@ -136,8 +136,8 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       // setFormattedEndDateTime();
 
       // navigate to show events.
-      
-      // setCurrDisplay("events");
+
+      setCurrDisplay("events");
 
     }
   }
