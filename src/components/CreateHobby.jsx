@@ -1,11 +1,12 @@
 import './CreateHobby.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
-import { ActionIcon, Button, MultiSelect, Textarea, TextInput  } from '@mantine/core';
-import { useDbUpdate } from '../utils/firebase';
+import { ActionIcon, Alert, Button, MultiSelect, Textarea, TextInput  } from '@mantine/core';
+import { useDbData, useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
 import { useRef, useState } from 'react';
 import { useForm } from '@mantine/form';
+import { RiErrorWarningLine } from '@react-icons/all-files/ri/RiErrorWarningLine';
 
 
 export const CreateHobby = ({ user, setCurrDisplay }) => {
@@ -15,40 +16,44 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`);
   const [updateInitialMessage, resultInitialMessage] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   const [tags, setTags] = useState([]);
+  const [data, error] = useDbData("/");
+
+
+  const formRef2 = useRef(null); // to disable form submission on enter
+
  
-  const submit = (e) => {
-    e.preventDefault();
-    if (!e.target[0].value) return;
+  // const submit = (e) => {
+  //   e.preventDefault();
+  //   if (!e.target[0].value) return;
 
-    const currDate = Date.now();
+  //   const currDate = Date.now();
 
-    update({
-      id: hobbyId,
-      name: e.target[0].value,
-      desc: e.target[1].value,
-      tags: tags,
-      owner: 1001, ///////////////////////////////////////////////////// Change later 
-      img: "",
-      message_chat: {
-        id: messageChatId,
-        users: [1001] ///////////////////////////////////////////////////// Change later 
-      },
-    });
+  //   update({
+  //     id: hobbyId,
+  //     name: e.target[0].value,
+  //     desc: e.target[1].value,
+  //     tags: tags,
+  //     owner: 1001, ///////////////////////////////////////////////////// Change later 
+  //     img: "",
+  //     message_chat: {
+  //       id: messageChatId,
+  //       users: [1001] ///////////////////////////////////////////////////// Change later 
+  //     },
+  //   });
 
-    updateInitialMessage({
-      content: "Welcome to \"" + e.target[0].value + "\"!",
-      date: new Date(currDate).toISOString(),
-      id: messageId,
-      user: 1001,
-    });
+  //   updateInitialMessage({
+  //     content: "Welcome to \"" + e.target[0].value + "\"!",
+  //     date: new Date(currDate).toISOString(),
+  //     id: messageId,
+  //     user: 1001,
+  //   });
 
-    e.target.reset()
-    setTags([])
-    setCurrDisplay('hobbies')
-  }
+  //   e.target.reset()
+  //   setTags([])
+  //   setCurrDisplay('hobbies')
+  // }
 
 
-  const formRef = useRef(null); // to disable form submission on enter
   
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -72,19 +77,27 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
 
     },
 
+  
+
+   
 
     validate: {
-      name: (value) => value == '' && 'Please enter event name',
-      desc: (value) => desc == "" && 'Please enter event desc'
+      name: (value) => {
+        let currentHobbyNames =Object.values(data.hobbies).map(x=> x.name);
+        let hobbyNameExists = currentHobbyNames.includes(form.values.name);
+              if(value == ""){
+                return "Please enter hobby n"
+              }
+              if(hobbyNameExists){
+                return "Hobby already exists"
+              }
+      },
+
+      desc: (value) => value == "" && 'Please enter hobby description'
     },
 
     // proceed
   });
-
-
-
-
-
 
 
 
@@ -118,35 +131,52 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
 ];
 
 
-
+const [raiseAlert, setRaiseAlert] = useState(false) // 
+const [alertMessage, setAlertMessage] = useState("Please fill in the required fields")
 const submitForm = (e) => {
   form.validate() // mantine 
+
+  console.log(form.errors)
+  console.log("Working")
   e.preventDefault()
-  let formData = form.values
-  // if there issues with the form, show an alert
+  let formData = {...form.values, tags: tags} 
+  // // if there issues with the form, show an alert
+
+  // check duplicate hobby name
+  // console.log(result)
+
+
+
   if (
     Object.values(form.errors).length > 0
+  
   ) {
     setRaiseAlert(true);
   } else {
     setRaiseAlert(false);
-    // update(formData)
+  //   // update(formData)
     console.log(formData)
-    form.reset();
-    // navigate to show events.
-    // setCurrDisplay("events");
+    // form.reset();
+  //   // navigate to show events.
+  //   // setCurrDisplay("events");
   }
+  
 }
   
   return (
 
     <>
     
-    <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
-      {/* {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
-        {alertMessage}
+    
+    <form onSubmit={submitForm} >
+      
+      {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
+        Please fill in the required fields
       </Alert>
-      } */}
+      }
+
+      
+    
 
       <TextInput
         style={{ marginBottom: 10 }}
@@ -159,7 +189,18 @@ const submitForm = (e) => {
         label="Description"
         {...form.getInputProps('desc')}
         withAsterisk
+        autosize
+        minRows={3}
       />
+
+
+<MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
+
+/>
+
+
+
+
 
 
 
