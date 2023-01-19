@@ -1,16 +1,26 @@
 form {
     width: 85%;
     margin: 5%;
+
+    text-align: start;
 }
 .date-time {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 
 .event-name {
-    width: "100%"
+    width: 100%
 }
 
-.input-field-area {
+.form-group{
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
 
-    
+
+.form-control {
+    width: 100%
 }
