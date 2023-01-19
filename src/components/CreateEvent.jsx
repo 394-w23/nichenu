@@ -56,9 +56,6 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
         setFormattedEndDateTime(endDateTime.format())
       }
     }
-
-
-
   }, [startDate, endDate, startTime, endTime])
 
   const tagsData = [
@@ -111,43 +108,45 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   });
 
   const [raiseAlert, setRaiseAlert] = useState(false); // to show the missing fields
+  const [alertMessage, setAlertMessage] = useState("Please fill in the required fields before submitting");
+
   const submitForm = (e) => {
     form.validate() // mantine 
     e.preventDefault()
     let formData = { ...form.values, start_timestamp: formattedStartDateTime, end_timestamp: formattedEndDateTime }
-
+    // validate start and end date and time
+    let now = moment(formattedStartDateTime);
+    let futureDate = moment(formattedEndDateTime);
+    if (futureDate.diff(now) > 0) {
+      console.log("The date is in the future.");
+      setAlertMessage("Please fill in the required fields before submitting");
+    } else {
+      console.log("The date is in the past or is the current date.");
+      setAlertMessage("The provided start date and time, and end date and time is not valid")
+      setRaiseAlert(true)
+    }
+    // if there issues with the form, show an alert
     if (
       !formData.start_timestamp ||
       !formData.end_timestamp ||
-      Object.values(form.errors).length > 0
+      Object.values(form.errors).length > 0 ||
+      futureDate.diff(now) <= 0
     ) {
       setRaiseAlert(true);
     } else {
       setRaiseAlert(false);
       update(formData)
       form.reset();
-
-      // FIXME: date and time fields not clearing
-      // setStartDate();
-      // setEndDate();
-      // setStartTime();
-      // setEndTime();
-      // setFormattedStartDateTime();
-      // setFormattedEndDateTime();
-
       // navigate to show events.
-
       setCurrDisplay("events");
 
     }
   }
 
-
-
   return (
     <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
       {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
-        Please fill in the required fields before submitting
+        {alertMessage}
       </Alert>
       }
 
@@ -160,7 +159,6 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
         placeholder="Describe your event here"
         label="Description"
         {...form.getInputProps('desc')}
-
       />
 
       <Input.Wrapper style={{ marginBottom: 10 }} label="Start date and start time" withAsterisk>
