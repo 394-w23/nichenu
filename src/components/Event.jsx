@@ -45,7 +45,7 @@ const Event = ({ event, user }) => {
                 </div>
             </div>
             <div className="event-icon">
-                <ActionIcon onClick={JoinEvent}>
+                <ActionIcon onClick={JoinEvent} style={{ zIndex: "0" }}>
                     <RiAddCircleLine size={24} />
                 </ActionIcon>
             </div>
