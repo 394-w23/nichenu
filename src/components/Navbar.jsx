@@ -55,6 +55,7 @@ const StyledNavButton = styled.div`
   font-weight: 600;
   height: 100%;
   padding: 0 20px;
+  cursor: pointer;
   ${(props) => props.underline && `text-decoration: underline`};
 `;
 
