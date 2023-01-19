@@ -27,13 +27,12 @@ const App = () => {
   if (!data) return <h1>No data found</h1>;
   // setCurrUser(Object.values(data.users).filter(user=>user.id===1001))
 
-
   return (
     <div className="App">
       <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       <div className="content">
         {
-          currDisplay === "events" ? <EventList eventList={Object.values(data.events)}/> 
+          currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={currUser} /> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
           : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/>

@@ -2,34 +2,36 @@ import './Event.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
 import { ActionIcon } from '@mantine/core';
+import { useDbUpdate } from '../utils/firebase';
 
-const Event = ({ event }) => {
+const Event = ({ event, user }) => {
+    const currUser = 1001; /////////////////////////////// CHANGE LATER
+    const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/${currUser}`);
+    const [updateUser, resultUser] = useDbUpdate(`/users/${currUser}/event_ids/${event.id}`);
+
     const months = ["Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     const start = new Date(event.start_timestamp);
     const end = new Date(event.end_timestamp);
 
-    const JoinEvent = ({ eventId, events, userId, setEvents }) => {
-        // const messageId = uuid();
-        const [update, result] = useDbUpdate(`/events/${eventId}/users/${userId}`);
-        // const [message, setMessage] = useState("");
-        const submitMessage = (e) => {
-          e.preventDefault();
-          if (!e.target[0].value) return;
-      
-          const currDate = Date.now();
-      
-          const newUser = {
-            id: messageId,
-            user: 1001, ///////////////////////////////////////////// Change later 
-          };
-          update(newMessage);
-          messages.push(newMessage);
-          setMessages(messages);
-          e.target.reset();
-          // setMessage("")
-        }
+    const JoinEvent = (e) => {
+        e.preventDefault();
+        // if (!e.target.value) return;
+
+        // const [update, result] = useDbUpdate(`/events/${event.id}/users/${user.id}`);
+        updateEvent({
+            id: currUser,
+        });
+
+        updateUser({
+            id: event.id,
+        });
+        //   e.target.reset();
     }
+
+
+
+
     return (
         <div className="event-card">
             <div className="calendar">
@@ -42,8 +44,8 @@ const Event = ({ event }) => {
                     {parseTimeString(start)} - {parseTimeString(end)}
                 </div>
             </div>
-            <div className="event-icon" onClick={JoinEvent}>
-                <ActionIcon>
+            <div className="event-icon">
+                <ActionIcon onClick={JoinEvent}>
                     <RiAddCircleLine size={24} />
                 </ActionIcon>
             </div>
