@@ -70,9 +70,9 @@ const StyledNavArea = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 8vh;
+  height: 8%;
   position: fixed;
-  width: 100vw;
+  width: 100%;
   bottom: 0;
   background-color: #efefef;
 `;
