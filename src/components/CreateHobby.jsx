@@ -1,10 +1,11 @@
 import './CreateHobby.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
-import { ActionIcon, MultiSelect  } from '@mantine/core';
+import { ActionIcon, Button, MultiSelect, Textarea, TextInput  } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useForm } from '@mantine/form';
 
 
 export const CreateHobby = ({ user, setCurrDisplay }) => {
@@ -47,6 +48,44 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   }
 
 
+  const formRef = useRef(null); // to disable form submission on enter
+  
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
+
+  const form = useForm({
+    initialValues: {
+      id: hobbyId,
+      name: '',
+      desc: '',
+      tags: tags,
+      owner: 1001,
+      img: "",
+      message_chat: {
+        id: messageChatId,
+        users: [1001] //FIXME: change this to the signed in user's ID
+      },
+
+    },
+
+
+    validate: {
+      name: (value) => value == '' && 'Please enter event name',
+      desc: (value) => desc == "" && 'Please enter event desc'
+    },
+
+    // proceed
+  });
+
+
+
+
+
+
 
 
   const tagsData = [
@@ -79,9 +118,61 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
 ];
 
 
+
+const submitForm = (e) => {
+  form.validate() // mantine 
+  e.preventDefault()
+  let formData = form.values
+  // if there issues with the form, show an alert
+  if (
+    Object.values(form.errors).length > 0
+  ) {
+    setRaiseAlert(true);
+  } else {
+    setRaiseAlert(false);
+    // update(formData)
+    console.log(formData)
+    form.reset();
+    // navigate to show events.
+    // setCurrDisplay("events");
+  }
+}
   
   return (
-    <form onSubmit={(submit)}>
+
+    <>
+    
+    <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
+      {/* {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
+        {alertMessage}
+      </Alert>
+      } */}
+
+      <TextInput
+        style={{ marginBottom: 10 }}
+        {...form.getInputProps('name')}
+        label="Hobby Name" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" withAsterisk />
+      
+      <Textarea
+        style={{ marginBottom: 10 }}
+        placeholder="Describe your hobby here"
+        label="Description"
+        {...form.getInputProps('desc')}
+        withAsterisk
+      />
+
+
+
+
+      <div style={{ textAlign: "center" }}>
+        <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
+      </div>
+
+
+    </form>
+
+
+    {/* <form onSubmit={(submit)}>
       <div className="form-group row">
         <label htmlFor="" className="col-4 col-form-label">Hobby Name</label>
         <div className="col-8">
@@ -106,7 +197,12 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         <button name="submit" type="submit" className="btn btn-primary">Submit</button>
         </div>
       </div>
-    </form>
+
+
+    </form> */}
+
+    </>
+
   );
 };
 
