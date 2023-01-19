@@ -2,16 +2,16 @@ import styled from "styled-components";
 import "./Navbar.css";
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine";
 import { ActionIcon, Menu, Button } from "@mantine/core";
-import {HiOutlineUserGroup} from "@react-icons/all-files/hi/HiOutlineUserGroup";
-import {HiOutlineCalendar} from "@react-icons/all-files/hi/HiOutlineCalendar";
+import { HiOutlineUserGroup } from "@react-icons/all-files/hi/HiOutlineUserGroup";
+import { HiOutlineCalendar } from "@react-icons/all-files/hi/HiOutlineCalendar";
 
 
-const MenuToggle = ({setSelection}) => (
+const MenuToggle = ({ setSelection }) => (
   <Menu shadow="md" width={200}>
     <Menu.Target>
-    <ActionIcon size="xl">
-          <RiAddCircleLine size={32} style={{transform: "scale(1.3)"}} />
-    </ActionIcon>
+      <ActionIcon size="xl">
+        <RiAddCircleLine size={32} style={{ transform: "scale(1.2)" }} />
+      </ActionIcon>
     </Menu.Target>
     <Menu.Dropdown>
       <Menu.Item icon={<HiOutlineUserGroup size={14} />} onClick={() => setSelection("createHobby")}>Create Hobby</Menu.Item>
@@ -19,19 +19,26 @@ const MenuToggle = ({setSelection}) => (
     </Menu.Dropdown>
   </Menu>
 );
+
 // New Navbar
 const Navbar = ({ displayOptions, selection, setSelection }) => {
   return (
     <StyledNavArea>
       <StyledNavButton
+        className="nav-button"
         key={"events"}
         underline={selection == "events"}
         id={"events"}
         onClick={(e) => setSelection(e.target.id)}>
         events
       </StyledNavButton>
-      <MenuToggle setSelection = {setSelection}/>
+
+      <StyledNavButton className="nav-button">
+        <MenuToggle setSelection={setSelection} />
+      </StyledNavButton>
+
       <StyledNavButton
+        className="nav-button"
         key={"hobbies"}
         underline={selection == "hobbies"}
         id={"hobbies"}
@@ -55,6 +62,7 @@ const StyledNavButton = styled.div`
   font-weight: 600;
   height: 100%;
   padding: 0 20px;
+  cursor: pointer;
   ${(props) => props.underline && `text-decoration: underline`};
 `;
 
