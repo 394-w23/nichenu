@@ -5,9 +5,8 @@ import { ActionIcon } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 
 const Event = ({ event, user }) => {
-    const currUser = 1001; /////////////////////////////// CHANGE LATER
-    const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/${currUser}`);
-    const [updateUser, resultUser] = useDbUpdate(`/users/${currUser}/event_ids/${event.id}`);
+    const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/${user.uid}`);
+    const [updateUser, resultUser] = useDbUpdate(`/users/${user.uid}/event_ids/${event.id}`);
 
     const months = ["Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -20,7 +19,7 @@ const Event = ({ event, user }) => {
 
         // const [update, result] = useDbUpdate(`/events/${event.id}/users/${user.id}`);
         updateEvent({
-            id: currUser,
+            id: user.uid,
         });
 
         updateUser({
@@ -28,8 +27,6 @@ const Event = ({ event, user }) => {
         });
         //   e.target.reset();
     }
-
-
 
 
     return (
