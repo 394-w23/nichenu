@@ -27,13 +27,34 @@ const App = () => {
   if (!data) return <h1>No data found</h1>;
   // setCurrUser(Object.values(data.users).filter(user=>user.id===1001))
 
+
+ 
+function sortObjectsByField(field,objects) {
+    objects.sort(function(a, b) {
+        var nameA = a[field].toUpperCase(); // ignore upper and lowercase
+        var nameB = b[field].toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
+    return objects;
+}
+
+
+
+
+
   return (
     <div className="App">
       <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       <div className="content">
         {
           currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={currUser} /> 
-          : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies)} openMessages={openMessages}/> 
+          : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
           : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/>
           : currDisplay === "createEvent" ? <CreateEvent user={currUser} setCurrDisplay={setCurrDisplay}/>
