@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import Message from './Message';
 import styled from 'styled-components';
 import MessageComposer from './MessageComposer';
-import { ActionIcon } from '@mantine/core';
-import { RiUserAddLine } from "@react-icons/all-files/ri/RiUserAddLine"
+import { ActionIcon, Button } from '@mantine/core';
+import { RiAddFill } from "@react-icons/all-files/ri/RiAddFill"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
 import { useDbData } from '../utils/firebase';
 
@@ -28,12 +28,16 @@ const ChatRoom = ({ hobby, users }) => {
         scrollToBottom();
     }, [update]);
 
+    // Handle joining a hobby
+
+
     return (
         <StyledMainArea>
 
             <StyledSubHeader>
                 <span className="chatroom-name">{hobby.name}</span>
                 <StyledSubHeaderAvatars>
+                   
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
@@ -43,6 +47,16 @@ const ChatRoom = ({ hobby, users }) => {
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
+
+                    {/* <StyledMiniAvatar style={{marginLeft: 5, borderRadius: 100, width: 40, height: 40, backgroundColor: "green", color: "white"}}>
+                    <RiAddFill size={24}/>
+                    </StyledMiniAvatar> */}
+
+                    <Button style={{marginLeft: 5}} size="xs">Join</Button>
+
+            
+
+
                 </StyledSubHeaderAvatars>
             </StyledSubHeader>
 
@@ -89,8 +103,9 @@ border-bottom: 1px solid #ccc;
 
 const StyledSubHeaderAvatars = styled.div`
 display: flex;
-padding-left: 1vw;
+padding-left: 1.4vw;
 border-left: 1px solid #ccc;
+align-items: center;
 `
 
 const StyledMiniAvatar = styled.div`
