@@ -135,30 +135,22 @@ const [raiseAlert, setRaiseAlert] = useState(false) //
 const [alertMessage, setAlertMessage] = useState("Please fill in the required fields")
 const submitForm = (e) => {
   form.validate() // mantine 
-
   console.log(form.errors)
   console.log("Working")
   e.preventDefault()
   let formData = {...form.values, tags: tags} 
   // // if there issues with the form, show an alert
-
-  // check duplicate hobby name
-  // console.log(result)
-
-
-
   if (
     Object.values(form.errors).length > 0
-  
   ) {
     setRaiseAlert(true);
   } else {
     setRaiseAlert(false);
-  //   // update(formData)
+     update(formData)
     console.log(formData)
     // form.reset();
   //   // navigate to show events.
-  //   // setCurrDisplay("events");
+     setCurrDisplay("hobbies");
   }
   
 }
