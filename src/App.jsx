@@ -8,7 +8,7 @@ import CreateHobby from './components/CreateHobby';
 import CreateEvent from './components/CreateEvent';
 import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDbData } from './utils/firebase';
+import { useDbData, useAuth } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
 import Auth from './components/Auth';
 
@@ -16,7 +16,8 @@ const App = () => {
   const [data, error] = useDbData("/");
   const [currDisplay, setCurrDisplay] = useState("auth");
   const [hobby, setHobby] = useState("hobbies");
-  const [currUser, setCurrUser] = useState();
+  const currUser = useAuth()
+  // const [currUser, setCurrUser] = useState();
   const displayOptions = ["events","hobbies","auth"];
 
   const openMessages= (hobby) => {

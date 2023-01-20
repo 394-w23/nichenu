@@ -34,11 +34,11 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       name: '',
       desc: '',
       tags: tags,
-      owner: 1001,
+      owner: user.uid,
       img: "",
       message_chat: {
         id: messageChatId,
-        users: [1001] //FIXME: change this to the signed in user's ID
+        users: [user.uid] //FIXME: change this to the signed in user's ID
       },
     },
 
@@ -115,7 +115,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       content: "Welcome to \"" + e.target[0].value + "\"!",
       date: new Date().toISOString(),
       id: messageId,
-      user: 1001,
+      user: user.uid,
     });
       setCurrDisplay("hobbies");
     }

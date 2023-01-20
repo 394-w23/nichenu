@@ -11,7 +11,7 @@ export default function Auth({setCurrDisplay}) {
     const [update, result] = useDbUpdate(`/users/${user? user.uid : "unknown"}`);
     
     useEffect(() => {
-        console.log(user)
+        // console.log(user)
         if(user){
             // if user is not in the raeltime database, add them.
             let userData = {name: user.displayName, id: user.uid, profilePicture: user.photoURL, event_ids: [], hobbies_ids: [], }
