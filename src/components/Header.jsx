@@ -13,7 +13,7 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
     setPrevDisplay(currDisplay)
   }
 
-  return (<div className="header-top-row">
+  return (<div style={{display: currDisplay == "auth"? "none": "block"}} className="header-top-row">
     <div className="header-group">
       {currDisplay === "message" ?
         <ActionIcon className="back-button" onClick={() => goBack()}>
