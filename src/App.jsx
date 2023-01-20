@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData, useAuth } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
 import Auth from './components/Auth';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
   const [data, error] = useDbData("/");
@@ -20,8 +21,8 @@ const App = () => {
   
   // const currGoogleUser=useAuth()
   // const currGoogleUserId=currGoogleUser.uid
-  // const [currUser, setCurrUser] = useState();
-  const currUser=useAuth()
+  const [currUser, setCurrUser] = useState();
+  // const currUser=useAuth()
 
   const openMessages= (hobby) => {
     setHobby(hobby)
@@ -31,9 +32,23 @@ const App = () => {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
   
+  useEffect(()=>{
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setCurrUser(Object.values(data.users).filter(user=>user.id===uid))
+        console.log(currUser);
+      } else {
+        setCurrDisplay("auth")
+      }
+    });
+  }, [])
+  
+
 
   // useEffect(()=>{
-  //   setCurrUser(Object.values(data.users).filter(user=>user.id===currGoogleUserId))
+  //  setCurrUser(Object.values(data.users).filter(user=>user.id===currGoogleUserId))
   // },[])
   // console.log(currUser)
   // console.log(currGoogleUserId)
