@@ -6,7 +6,10 @@ import { HiOutlineUserGroup } from "@react-icons/all-files/hi/HiOutlineUserGroup
 const Hobby = ({ hobby, openMessages }) => {
     return (
         <div className="hobby-card" onClick={() => openMessages(hobby)}>
-            {hobby.img ? <img src={hobby.img}/> : <HiOutlineUserGroup className='hobby-img' size={70} />}
+            {hobby.img ? <img src={hobby.img}/> : 
+            // <HiOutlineUserGroup className='hobby-img' size={70} />
+            <img src="../../public/group.png" style={{width: "80%", padding: 10}}/>
+            }
             <div className="hobby-info" >
                 <div className="hobby-name">{hobby.name}</div>
                 <div>
