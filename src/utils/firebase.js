@@ -4,6 +4,8 @@ import { getDatabase, onValue, ref, update, set } from 'firebase/database';
 import {getStorage, getDownloadURL} from 'firebase/storage';
 import {ref as strgRef} from 'firebase/storage' ;
 import { useEffect, useState, useCallback } from 'react';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -56,3 +58,57 @@ const makeResult = (error) => {
   const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
   return { timestamp, error, message };
 };
+
+
+
+
+// TODO: Make this into a class
+
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
+export const FirebaseSignIn = async()=> {
+  signInWithPopup(auth,provider)
+      .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          console.log(user)
+          // ...
+      }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+          console.log(error)
+      });
+
+}
+
+
+
+
+
+export const useAuth = () => {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+      auth.onAuthStateChanged(user => {
+          if (user) {
+              setUser(user)
+          } else {
+            setUser()
+          }
+      });
+  }, []);
+
+  return user
+}
+
+
