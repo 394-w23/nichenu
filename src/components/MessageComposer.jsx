@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { ActionIcon, Input } from '@mantine/core';
 import { RiSendPlane2Line } from "@react-icons/all-files/ri/RiSendPlane2Line";
-import { useDbUpdate } from '../utils/firebase';
+import { useAuth, useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
 import "./MessageComposer"
 
@@ -10,6 +10,8 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
   const messageId = uuid();
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   // const [message, setMessage] = useState("");
+  const user = useAuth();
+
 
   const submitMessage = (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
       id: messageId,
       content: e.target[0].value,
       date: new Date(currDate).toISOString(),
-      user: 1001, ///////////////////////////////////////////// Change later 
+      user: user.uid, ///////////////////////////////////////////// Change later 
     };
     update(newMessage);
 
