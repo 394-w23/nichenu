@@ -10,13 +10,14 @@ import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
+import Auth from './components/Auth';
 
 const App = () => {
   const [data, error] = useDbData("/");
-  const [currDisplay, setCurrDisplay] = useState("hobbies");
+  const [currDisplay, setCurrDisplay] = useState("auth");
   const [hobby, setHobby] = useState("hobbies");
   const [currUser, setCurrUser] = useState();
-  const displayOptions = ["events","hobbies"];
+  const displayOptions = ["events","hobbies","auth"];
 
   const openMessages= (hobby) => {
     setHobby(hobby)
@@ -27,32 +28,14 @@ const App = () => {
   if (!data) return <h1>No data found</h1>;
   // setCurrUser(Object.values(data.users).filter(user=>user.id===1001))
 
-
- 
-function sortObjectsByField(field,objects) {
-    objects.sort(function(a, b) {
-        var nameA = a[field].toUpperCase(); // ignore upper and lowercase
-        var nameB = b[field].toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-    return objects;
-}
-
-
-
-
-
   return (
     <div className="App">
       <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       <div className="content">
         {
+
+currDisplay == "auth" ? <Auth/>:
+
           currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={currUser} /> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
@@ -61,7 +44,7 @@ function sortObjectsByField(field,objects) {
           : <div></div>
         }
       </div>
-      {currDisplay !== 'message' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
+      {currDisplay !== 'message' || currDisplay !== 'auth' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
     </div>
   );
 };
