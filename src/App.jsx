@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
@@ -16,9 +16,12 @@ const App = () => {
   const [data, error] = useDbData("/");
   const [currDisplay, setCurrDisplay] = useState("auth");
   const [hobby, setHobby] = useState("hobbies");
-  const currUser = useAuth()
-  // const [currUser, setCurrUser] = useState();
   const displayOptions = ["events","hobbies","auth"];
+  
+  // const currGoogleUser=useAuth()
+  // const currGoogleUserId=currGoogleUser.uid
+  // const [currUser, setCurrUser] = useState();
+  const currUser=useAuth()
 
   const openMessages= (hobby) => {
     setHobby(hobby)
@@ -27,7 +30,13 @@ const App = () => {
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
-  // setCurrUser(Object.values(data.users).filter(user=>user.id===1001))
+  
+
+  // useEffect(()=>{
+  //   setCurrUser(Object.values(data.users).filter(user=>user.id===currGoogleUserId))
+  // },[])
+  // console.log(currUser)
+  // console.log(currGoogleUserId)
 
   return (
     <div className="App">
