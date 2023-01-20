@@ -34,8 +34,7 @@ const App = () => {
       <div className="content">
         {
 
-currDisplay == "auth" ? <Auth/>:
-
+          currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay}/>:
           currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={currUser} /> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
@@ -44,7 +43,7 @@ currDisplay == "auth" ? <Auth/>:
           : <div></div>
         }
       </div>
-      {currDisplay !== 'message' || currDisplay !== 'auth' && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
+      { (currDisplay !== 'message' && currDisplay !== 'auth') && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
     </div>
   );
 };

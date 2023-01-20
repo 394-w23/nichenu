@@ -11,6 +11,7 @@ import { useDbData } from '../utils/firebase';
 
 const ChatRoom = ({ hobby, users }) => {
     const [update, result] = useDbData(`/hobbies/${hobby.id}/message_chat`)
+
     let sortedMessages = update && Object.values(update.messages)
         ? Object.values(update.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
         : Object.values(hobby.message_chat.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
@@ -30,7 +31,6 @@ const ChatRoom = ({ hobby, users }) => {
 
     // Handle joining a hobby
 
-
     return (
         <StyledMainArea>
 
@@ -48,15 +48,9 @@ const ChatRoom = ({ hobby, users }) => {
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
 
-                    {/* <StyledMiniAvatar style={{marginLeft: 5, borderRadius: 100, width: 40, height: 40, backgroundColor: "green", color: "white"}}>
-                    <RiAddFill size={24}/>
-                    </StyledMiniAvatar> */}
-
                     <Button style={{marginLeft: 5}} size="xs">Join</Button>
 
-            
-
-
+        
                 </StyledSubHeaderAvatars>
             </StyledSubHeader>
 

@@ -13,14 +13,16 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
     setPrevDisplay(currDisplay)
   }
 
-  return (<div style={{display: currDisplay == "auth"? "none": "block"}} className="header-top-row">
+  return (<div style={{display: currDisplay == "auth"? "none": "flex"}} className="header-top-row">
     <div className="header-group">
       {currDisplay === "message" ?
         <ActionIcon className="back-button" onClick={() => goBack()}>
           <RiArrowLeftSLine className="back-arrow" size={32} />
         </ActionIcon> : <div></div>}
       <h1 className="app-name">nicheNU</h1>
-      <div style={{width: currDisplay === "message"? 30: 0}} ></div>
+      
+      <div style={{width: currDisplay === "message"? 30: 0}}></div>    
+    
     </div>
   </div>);
 }

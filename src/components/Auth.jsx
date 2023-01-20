@@ -9,7 +9,6 @@ export default function Auth({setCurrDisplay}) {
     const user = useAuth();
     const [data, error] = useDbData("/");
     const [update, result] = useDbUpdate(`/users/${user? user.uid : "unknown"}`);
-   
     
     useEffect(() => {
         console.log(user)
