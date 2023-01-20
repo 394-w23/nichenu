@@ -1,7 +1,7 @@
 import './CreateHobby.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
-import { ActionIcon, Alert, Button, MultiSelect, Textarea, TextInput  } from '@mantine/core';
+import { ActionIcon, Alert, Button, MultiSelect, Textarea, TextInput } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
 import uuid from 'react-uuid';
 import { useRef, useState } from 'react';
@@ -19,42 +19,8 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const [data, error] = useDbData("/");
 
 
-  const formRef2 = useRef(null); // to disable form submission on enter
+  const formRef = useRef(null); // to disable form submission on enter
 
- 
-  // const submit = (e) => {
-  //   e.preventDefault();
-  //   if (!e.target[0].value) return;
-
-  //   const currDate = Date.now();
-
-  //   update({
-  //     id: hobbyId,
-  //     name: e.target[0].value,
-  //     desc: e.target[1].value,
-  //     tags: tags,
-  //     owner: 1001, ///////////////////////////////////////////////////// Change later 
-  //     img: "",
-  //     message_chat: {
-  //       id: messageChatId,
-  //       users: [1001] ///////////////////////////////////////////////////// Change later 
-  //     },
-  //   });
-
-  //   updateInitialMessage({
-  //     content: "Welcome to \"" + e.target[0].value + "\"!",
-  //     date: new Date(currDate).toISOString(),
-  //     id: messageId,
-  //     user: 1001,
-  //   });
-
-  //   e.target.reset()
-  //   setTags([])
-  //   setCurrDisplay('hobbies')
-  // }
-
-
-  
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -62,7 +28,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   };
 
 
-  const form = useForm({
+  const form2 = useForm({
     initialValues: {
       id: hobbyId,
       name: '',
@@ -74,26 +40,21 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         id: messageChatId,
         users: [1001] //FIXME: change this to the signed in user's ID
       },
-
     },
-
-  
-
-   
 
     validate: {
       name: (value) => {
-        let currentHobbyNames =Object.values(data.hobbies).map(x=> x.name);
-        let hobbyNameExists = currentHobbyNames.includes(form.values.name);
-              if(value == ""){
-                return "Please enter hobby n"
-              }
-              if(hobbyNameExists){
-                return "Hobby already exists"
-              }
+        let currentHobbyNames = Object.values(data.hobbies).map(x => x.name);
+        let hobbyNameExists = currentHobbyNames.includes(form2.values.name);
+        if (value == "") {
+          return "Please enter hobby name"
+        }
+        if (hobbyNameExists) {
+          return "Hobby already exists"
+        }
       },
 
-      desc: (value) => value == "" && 'Please enter hobby description'
+      desc: (value) =>(value == ''? 'Please enter hobby description': null)
     },
 
     // proceed
@@ -102,93 +63,94 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
 
 
   const tagsData = [
-  { value: 'academic', label: 'Academic' },
-  { value: 'animals', label: 'Animals' },
-  { value: 'arts', label: 'Arts' },
-  { value: 'board-games', label: 'Board Games' },
-  { value: 'books', label: 'Books' }, 
-  { value: 'clothing', label: 'Clothing'},
-  { value: 'collecting', label: 'Collecting'},
-  { value: 'crafts', label: 'Crafts'},
-  { value: 'dance', label: 'Dance'},
-  { value: 'fitness', label: 'Fitness'},
-  { value: 'food', label: 'Food'},
-  { value: 'garden', label: 'Garden'},
-  { value: 'indoor', label: 'Indoor'},
-  { value: 'making', label: 'Making'},
-  { value: 'music', label: 'Music'},
-  { value: 'nature', label: 'Nature' },
-  { value: 'niche', label: 'Niche' },
-  { value: 'outdoor', label: 'Outdoor' },
-  { value: 'social', label: 'Social' },
-  { value: 'sports', label: 'Sports' },
-  { value: 'tv-film', label: 'TV Film' },
-  { value: 'theatre', label: 'Theatre' },
-  { value: 'travel', label: 'Travel' },
-  { value: 'video-games', label: 'Video Games' },
-  { value: 'visual', label: 'Visual' },
-  { value: 'volunteer', label: 'Volunteer' }
-];
+    { value: 'academic', label: 'Academic' },
+    { value: 'animals', label: 'Animals' },
+    { value: 'arts', label: 'Arts' },
+    { value: 'board-games', label: 'Board Games' },
+    { value: 'books', label: 'Books' },
+    { value: 'clothing', label: 'Clothing' },
+    { value: 'collecting', label: 'Collecting' },
+    { value: 'crafts', label: 'Crafts' },
+    { value: 'dance', label: 'Dance' },
+    { value: 'fitness', label: 'Fitness' },
+    { value: 'food', label: 'Food' },
+    { value: 'garden', label: 'Garden' },
+    { value: 'indoor', label: 'Indoor' },
+    { value: 'making', label: 'Making' },
+    { value: 'music', label: 'Music' },
+    { value: 'nature', label: 'Nature' },
+    { value: 'niche', label: 'Niche' },
+    { value: 'outdoor', label: 'Outdoor' },
+    { value: 'social', label: 'Social' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'tv-film', label: 'TV Film' },
+    { value: 'theatre', label: 'Theatre' },
+    { value: 'travel', label: 'Travel' },
+    { value: 'video-games', label: 'Video Games' },
+    { value: 'visual', label: 'Visual' },
+    { value: 'volunteer', label: 'Volunteer' }
+  ];
 
 
-const [raiseAlert, setRaiseAlert] = useState(false) // 
-const [alertMessage, setAlertMessage] = useState("Please fill in the required fields")
-const submitForm = (e) => {
-  form.validate() // mantine 
-  console.log(form.errors)
-  console.log("Working")
-  e.preventDefault()
-  let formData = {...form.values, tags: tags} 
-  // // if there issues with the form, show an alert
-  if (
-    Object.values(form.errors).length > 0
-  ) {
-    setRaiseAlert(true);
-  } else {
-    setRaiseAlert(false);
-     update(formData)
-    console.log(formData)
-    // form.reset();
-  //   // navigate to show events.
-     setCurrDisplay("hobbies");
+  const [raiseAlert, setRaiseAlert] = useState(false) // 
+  const [alertMessage, setAlertMessage] = useState("Please fill in the required fields")
+
+  const submitForm = (e) => {
+    form2.validate() // mantine 
+    e.preventDefault()
+    // FIXME: something wrong with the form validation
+    // !form2.values.desc && form2.setFieldError('desc', "Please enter desc")
+    let formData = { ...form2.values, tags: tags }
+    // // if there issues with the form, show an alert
+    if (
+      Object.values(form2.errors).length > 0||
+      !form2.values.desc ||
+      !form2.values.name
+    ) {
+      setRaiseAlert(true);
+    } else {
+      setRaiseAlert(false);
+      update(formData)
+      updateInitialMessage({
+      content: "Welcome to \"" + e.target[0].value + "\"!",
+      date: new Date().toISOString(),
+      id: messageId,
+      user: 1001,
+    });
+      setCurrDisplay("hobbies");
+    }
+
   }
-  
-}
-  
+
   return (
 
     <>
-    
-    
-    <form onSubmit={submitForm} >
-      
-      {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
-        Please fill in the required fields
-      </Alert>
-      }
+      <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
 
-      
-    
+        {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
+          Please fill in the required fields
+        </Alert>
+        }
 
-      <TextInput
-        style={{ marginBottom: 10 }}
-        {...form.getInputProps('name')}
-        label="Hobby Name" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" withAsterisk />
-      
-      <Textarea
-        style={{ marginBottom: 10 }}
-        placeholder="Describe your hobby here"
-        label="Description"
-        {...form.getInputProps('desc')}
-        withAsterisk
-        autosize
-        minRows={3}
-      />
+        <TextInput
+          style={{ marginBottom: 10 }}
+          {...form2.getInputProps('name')}
+          label="Hobby Name" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" withAsterisk />
+
+        <Textarea
+          style={{ marginBottom: 10 }}
+          placeholder="Describe your hobby here"
+          label="Description"
+          {...form2.getInputProps('desc')}
+          withAsterisk
+          autosize
+          minRows={3}
+        />
 
 
-<MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
+        <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
 
-/>
+        />
 
 
 
@@ -197,15 +159,15 @@ const submitForm = (e) => {
 
 
 
-      <div style={{ textAlign: "center" }}>
-        <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
-      </div>
+        <div style={{ textAlign: "center" }}>
+          <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
+        </div>
 
 
-    </form>
+      </form>
 
 
-    {/* <form onSubmit={(submit)}>
+      {/* <form onSubmit={(submit)}>
       <div className="form-group row">
         <label htmlFor="" className="col-4 col-form-label">Hobby Name</label>
         <div className="col-8">
