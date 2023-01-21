@@ -13,7 +13,7 @@ const Message = ({ message, users }) => {
     return (
         <div className="message">
 
-            {user && user.photoURL? <img className="message-avatar" src={user.photoURL}></img>:  <div className="message-avatar">
+            {user && user.photoURL? <img className="message-avatar" src={user.profilePicture}></img>:  <div className="message-avatar">
                 <RiUser3Line size={20} />
             </div>
             

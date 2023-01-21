@@ -18,12 +18,17 @@ const App = () => {
   const [currDisplay, setCurrDisplay] = useState("auth");
   const [hobby, setHobby] = useState("hobbies");
   const displayOptions = ["events","hobbies","auth"];
-  
-  // const currGoogleUser=useAuth()
-  // const currGoogleUserId=currGoogleUser.uid
-  const [currUser, setCurrUser] = useState();
-  // const currUser=useAuth()
-
+  const user = useAuth();
+  // let userFromDB = user && data && data.users[user.uid];
+  const [userFromDB, setUserFromDB] = useState()
+ 
+  useEffect(() => {
+    if(user && data){
+      setUserFromDB(data.users[user.uid])
+      setCurrDisplay('hobbies')
+    }
+  },[user, data])
+ 
   const openMessages= (hobby) => {
     setHobby(hobby)
     setCurrDisplay("message")
@@ -32,39 +37,18 @@ const App = () => {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
   
-  useEffect(()=>{
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setCurrUser(Object.values(data.users).filter(user=>user.id===uid))
-        console.log(currUser);
-      } else {
-        setCurrDisplay("auth")
-      }
-    });
-  }, [])
-  
-
-
-  // useEffect(()=>{
-  //  setCurrUser(Object.values(data.users).filter(user=>user.id===currGoogleUserId))
-  // },[])
-  // console.log(currUser)
-  // console.log(currGoogleUserId)
 
   return (
     <div className="App">
       <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       <div className="content">
         {
-
           currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay}/>:
-          currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={currUser} /> 
+          currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={userFromDB} /> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
-          : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/>
-          : currDisplay === "createEvent" ? <CreateEvent user={currUser} setCurrDisplay={setCurrDisplay}/>
+          : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay}/>
+          : currDisplay === "createEvent" ? <CreateEvent user={userFromDB} setCurrDisplay={setCurrDisplay}/>
           : <div></div>
         }
       </div>

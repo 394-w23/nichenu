@@ -94,7 +94,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       desc: '',
       start_timestamp: '', ///////////////////////////////////////////////////// Change later 
       end_timestamp: '', ///////////////////////////////////////////////////// Change later 
-      owner: user.uid,
+      owner: user.id,
       message_chat: [],
     },
 
