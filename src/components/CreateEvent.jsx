@@ -96,9 +96,9 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       end_timestamp: '', ///////////////////////////////////////////////////// Change later 
       owner: user.id,
       message_chat: [],
+      users: {[user.id]: user.id}
     },
-
-
+    
     validate: {
       name: (value) => value == '' && 'Please enter event name'
     },

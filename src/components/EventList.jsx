@@ -6,6 +6,9 @@ import { Title, Divider } from '@mantine/core'
 const EventList = ({ eventList, user }) => {
     const [events, setEvents] = useState(eventList);
 
+
+    console.log(events)
+ 
     return (
         <div>
             <br></br>
@@ -13,7 +16,7 @@ const EventList = ({ eventList, user }) => {
             <Title order={2}>My Events</Title>
             {/* <Divider size="sm" color="#777" /> */}
             {
-                events.filter((event) => Object.values(user.event_ids).includes(event.id)).sort((x, y) => (new Date(x.start_timestamp) - new Date(y.start_timestamp))).map((event) => <Event key={event.id} event={event} user={user}/>)
+             user.event_ids && events.filter((event) => Object.values(event.users).includes(user.id)).sort((x, y) => (new Date(x.start_timestamp) - new Date(y.start_timestamp))).map((event) => <Event key={event.id} event={event} user={user}/>)
             }
             <br></br>
 
