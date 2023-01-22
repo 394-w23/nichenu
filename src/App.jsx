@@ -21,13 +21,19 @@ const App = () => {
   const user = useAuth();
   // let userFromDB = user && data && data.users[user.uid];
   const [userFromDB, setUserFromDB] = useState()
+  let flag = true;
  
   useEffect(() => {
     if(user && data){
-      setUserFromDB(data.users[user.uid])
-      setCurrDisplay('hobbies')
+      setUserFromDB(data.users[user.uid]);
+      // setCurrDisplay('hobbies');
+      flag = false;
     }
   }, [user, data])
+
+  useEffect(() => {
+    setCurrDisplay('hobbies');
+  }, [flag])
  
   const openMessages= (hobby) => {
     setHobby(hobby)
