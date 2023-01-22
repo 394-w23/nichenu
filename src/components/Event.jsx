@@ -1,12 +1,14 @@
 import './Event.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
-import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
+import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine";
+import { RiIndeterminateCircleLine } from "@react-icons/all-files/ri/RiIndeterminateCircleLine";
 import { ActionIcon } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 
-const Event = ({ event, user }) => {
-    const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/${user.id}`);
-    const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/${event.id}`);
+const Event = ({ event, user, added, setCurrDisplay }) => {
+    const [updateEventList, resultEventList] = useDbUpdate(`/events/`); 
+    const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/`);
+    const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/`);
 
     const months = ["Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -17,15 +19,35 @@ const Event = ({ event, user }) => {
         e.preventDefault();
         // if (!e.target.value) return;
 
-        // const [update, result] = useDbUpdate(`/events/${event.id}/users/${user.id}`);
         updateEvent({
-            id: user.id,
+            [user.id]: user.id,
         });
 
         updateUser({
-            id: event.id,
+            [event.id]: event.id,
         });
-        //   e.target.reset();
+        setCurrDisplay("events")
+    }
+
+    const RemoveEvent = (e) => {
+        e.preventDefault();
+        // if (!e.target.value) return;
+        
+        if (Object.values(event.users).length == 1) {
+            updateEventList({
+                [event.id]: null,
+            });
+        } else {
+            updateEvent({
+                [user.id]: null,
+            });
+    
+            updateUser({
+                [event.id]: null,
+            });
+        }
+        
+        setCurrDisplay("events")
     }
 
 
@@ -38,13 +60,19 @@ const Event = ({ event, user }) => {
             <div className="event-info">
                 <div className="event-name">{event.name}</div>
                 <div>
-                    {parseTimeString(start)} - {parseTimeString(end)}
+                    {months[start.getMonth()]} {start.getDate()}, {parseTimeString(start)} - {months[end.getMonth()]} {end.getDate()}, {parseTimeString(end)}
                 </div>
             </div>
             <div className="event-icon">
-                <ActionIcon onClick={JoinEvent} style={{ zIndex: "0" }}>
-                    <RiAddCircleLine size={24} />
-                </ActionIcon>
+                {
+                    added
+                    ? (<ActionIcon onClick={RemoveEvent} style={{ zIndex: "0" }}>
+                                <RiIndeterminateCircleLine size={24} />
+                            </ActionIcon>)
+                    : (<ActionIcon onClick={JoinEvent} style={{ zIndex: "0" }}>
+                                <RiAddCircleLine size={24} />
+                            </ActionIcon>)
+                }
             </div>
 
            

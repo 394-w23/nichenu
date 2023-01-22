@@ -112,7 +112,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   const submitForm = (e) => {
     form.validate() // mantine 
     e.preventDefault()
-    let formData = { ...form.values, start_timestamp: formattedStartDateTime, end_timestamp: formattedEndDateTime }
+    let formData = { ...form.values, start_timestamp: formattedStartDateTime, end_timestamp: formattedEndDateTime, id: eventId }
     // validate start and end date and time
     let now = moment(formattedStartDateTime);
     let futureDate = moment(formattedEndDateTime);

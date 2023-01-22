@@ -103,7 +103,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     e.preventDefault()
     // FIXME: something wrong with the form validation
     // !form2.values.desc && form2.setFieldError('desc', "Please enter desc")
-    let formData = { ...form2.values, tags: tags }
+    let formData = { ...form2.values, tags: tags, id: hobbyId }
     // // if there issues with the form, show an alert
     if (
       Object.values(form2.errors).length > 0||
@@ -116,11 +116,11 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       update(formData)
 
       updateInitialMessage({
-      content: "Welcome to \"" + e.target[0].value + "\"!",
-      date: new Date().toISOString(),
-      id: messageId,
-      user: user.id,
-    });
+        content: "Welcome to \"" + e.target[0].value + "\"!",
+        date: new Date().toISOString(),
+        id: messageId,
+        user: user.id,
+      });
       setCurrDisplay("hobbies");
     }
   }

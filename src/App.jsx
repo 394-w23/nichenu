@@ -27,12 +27,13 @@ const App = () => {
       setUserFromDB(data.users[user.uid])
       setCurrDisplay('hobbies')
     }
-  },[user, data])
+  }, [user, data])
  
   const openMessages= (hobby) => {
     setHobby(hobby)
     setCurrDisplay("message")
   }
+  
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
@@ -44,7 +45,7 @@ const App = () => {
       <div className="content">
         {
           currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay}/>:
-          currDisplay === "events" ? <EventList eventList={data.events? Object.values(data.events) : []} user={userFromDB} /> 
+          currDisplay === "events" ? <EventList eventList={data.events? Object.values(data.events) : []} user={userFromDB} setCurrDisplay={setCurrDisplay}/> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies? Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
           : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay}/>
