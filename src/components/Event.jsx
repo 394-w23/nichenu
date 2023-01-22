@@ -9,6 +9,7 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
     const [updateEventList, resultEventList] = useDbUpdate(`/events/`); 
     const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/`);
     const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/`);
+    let participants = Object.values(event.users).length
 
     const months = ["Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -26,6 +27,9 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
         updateUser({
             [event.id]: event.id,
         });
+
+        event.users[user.id] = user.id;
+        setEvents(events);
 
         setCurrDisplay("events");
     }
@@ -48,6 +52,8 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
             updateUser({
                 [event.id]: null,
             });
+
+            delete event.users[user.id]
         }
 
         setCurrDisplay("events");
@@ -64,6 +70,9 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
                 <div className="event-name">{event.name}</div>
                 <div>
                     {months[start.getMonth()]} {start.getDate()}, {parseTimeString(start)} - {months[end.getMonth()]} {end.getDate()}, {parseTimeString(end)}
+                </div>
+                <div>
+                    { participants } / 100000000000000000 participants
                 </div>
             </div>
             <div className="event-icon">
