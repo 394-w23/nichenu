@@ -52,7 +52,8 @@ const App = () => {
         {
           currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay}/>:
           currDisplay === "events" ? <EventList eventList={data.events? Object.values(data.events) : []} user={userFromDB} setCurrDisplay={setCurrDisplay}/> 
-          : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies? Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} openMessages={openMessages}/> 
+          // : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies} user={userFromDB} openMessages={openMessages}/> 
+          : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies} user={userFromDB} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
           : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay}/>
           : currDisplay === "createEvent" ? <CreateEvent user={userFromDB} setCurrDisplay={setCurrDisplay}/>
