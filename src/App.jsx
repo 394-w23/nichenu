@@ -11,45 +11,51 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDbData, useAuth } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
 import Auth from './components/Auth';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
   const [data, error] = useDbData("/");
   const [currDisplay, setCurrDisplay] = useState("auth");
   const [hobby, setHobby] = useState("hobbies");
   const displayOptions = ["events","hobbies","auth"];
-  
-  // const currGoogleUser=useAuth()
-  // const currGoogleUserId=currGoogleUser.uid
-  // const [currUser, setCurrUser] = useState();
-  const currUser=useAuth()
+  const user = useAuth();
+  // let userFromDB = user && data && data.users[user.uid];
+  const [userFromDB, setUserFromDB] = useState()
+  let flag = true;
+ 
+  useEffect(() => {
+    if(user && data){
+      setUserFromDB(data.users[user.uid]);
+      // setCurrDisplay('hobbies');
+      flag = false;
+    }
+  }, [user, data])
 
+  useEffect(() => {
+    setCurrDisplay('hobbies');
+  }, [flag])
+ 
   const openMessages= (hobby) => {
     setHobby(hobby)
     setCurrDisplay("message")
   }
+  
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
   
-
-  // useEffect(()=>{
-  //   setCurrUser(Object.values(data.users).filter(user=>user.id===currGoogleUserId))
-  // },[])
-  // console.log(currUser)
-  // console.log(currGoogleUserId)
 
   return (
     <div className="App">
       <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay}/>
       <div className="content">
         {
-
           currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay}/>:
-          currDisplay === "events" ? <EventList eventList={Object.values(data.events)} user={currUser} /> 
-          : currDisplay === "hobbies" ? <HobbyList hobbyList={Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))} openMessages={openMessages}/> 
+          currDisplay === "events" ? <EventList eventList={data.events? Object.values(data.events) : []} user={userFromDB} setCurrDisplay={setCurrDisplay}/> 
+          : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies? Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} openMessages={openMessages}/> 
           : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
-          : currDisplay === "createHobby" ? <CreateHobby user={currUser} setCurrDisplay={setCurrDisplay}/>
-          : currDisplay === "createEvent" ? <CreateEvent user={currUser} setCurrDisplay={setCurrDisplay}/>
+          : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay}/>
+          : currDisplay === "createEvent" ? <CreateEvent user={userFromDB} setCurrDisplay={setCurrDisplay}/>
           : <div></div>
         }
       </div>

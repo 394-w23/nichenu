@@ -94,11 +94,11 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       desc: '',
       start_timestamp: '', ///////////////////////////////////////////////////// Change later 
       end_timestamp: '', ///////////////////////////////////////////////////// Change later 
-      owner: user.uid,
+      owner: user.id,
       message_chat: [],
+      users: {[user.id]: user.id}
     },
-
-
+    
     validate: {
       name: (value) => value == '' && 'Please enter event name'
     },
@@ -112,7 +112,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   const submitForm = (e) => {
     form.validate() // mantine 
     e.preventDefault()
-    let formData = { ...form.values, start_timestamp: formattedStartDateTime, end_timestamp: formattedEndDateTime }
+    let formData = { ...form.values, start_timestamp: formattedStartDateTime, end_timestamp: formattedEndDateTime, id: eventId }
     // validate start and end date and time
     let now = moment(formattedStartDateTime);
     let futureDate = moment(formattedEndDateTime);

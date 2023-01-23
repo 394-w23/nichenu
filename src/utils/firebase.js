@@ -112,3 +112,24 @@ export const useAuth = () => {
 }
 
 
+
+
+// export const useAuth = () => {
+//     const [currUser, setCurrUser] = useState(null);
+
+//     useEffect(()=>{
+//     const auth = getAuth();
+//     const unsubscribe = onAuthStateChanged(auth, (user) => {
+//       if (user) {
+//         const uid = user.uid;
+//         setCurrUser(uid)
+//         console.log(currUser);
+//       } else {
+//         setCurrUser(null);
+//       }
+//     });
+//     return () => unsubscribe();
+//   }, []);
+
+//     return currUser;
+// }

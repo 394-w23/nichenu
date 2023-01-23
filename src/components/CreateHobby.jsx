@@ -19,6 +19,8 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const [data, error] = useDbData("/");
 
 
+
+
   const formRef = useRef(null); // to disable form submission on enter
 
   const handleKeyDown = (event) => {
@@ -34,11 +36,12 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       name: '',
       desc: '',
       tags: tags,
-      owner: user.uid,
+      owner: user.id,
       img: "",
       message_chat: {
         id: messageChatId,
-        users: [user.uid] //FIXME: change this to the signed in user's ID
+        users: [user.id] //FIXME: change this to the signed in user's ID
+      
       },
     },
 
@@ -100,7 +103,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     e.preventDefault()
     // FIXME: something wrong with the form validation
     // !form2.values.desc && form2.setFieldError('desc', "Please enter desc")
-    let formData = { ...form2.values, tags: tags }
+    let formData = { ...form2.values, tags: tags, id: hobbyId }
     // // if there issues with the form, show an alert
     if (
       Object.values(form2.errors).length > 0||
@@ -111,15 +114,15 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     } else {
       setRaiseAlert(false);
       update(formData)
+
       updateInitialMessage({
-      content: "Welcome to \"" + e.target[0].value + "\"!",
-      date: new Date().toISOString(),
-      id: messageId,
-      user: user.uid,
-    });
+        content: "Welcome to \"" + e.target[0].value + "\"!",
+        date: new Date().toISOString(),
+        id: messageId,
+        user: user.id,
+      });
       setCurrDisplay("hobbies");
     }
-
   }
 
   return (
@@ -146,27 +149,12 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
           autosize
           minRows={3}
         />
-
-
         <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
-
         />
-
-
-
-
-
-
-
-
         <div style={{ textAlign: "center" }}>
           <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
         </div>
-
-
       </form>
-
-
       {/* <form onSubmit={(submit)}>
       <div className="form-group row">
         <label htmlFor="" className="col-4 col-form-label">Hobby Name</label>
