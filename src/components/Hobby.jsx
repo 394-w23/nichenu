@@ -30,31 +30,31 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
         setCurrDisplay("hobbies");
     }
 
-    const LeaveHobby = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // if (!e.target.value) return;
+    // const LeaveHobby = (e) => {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     // if (!e.target.value) return;
         
-        if (Object.values(hobby.message_chat.users).length == 1) {
-            setHobbies(hobbies.filter((h) => h.id != hobby.id));
+    //     if (Object.values(hobby.message_chat.users).length == 1) {
+    //         setHobbies(hobbies.filter((h) => h.id != hobby.id));
 
-            updateHobbyList({
-                [hobby.id]: null,
-            });
-        } else {
-            updateHobby({
-                [user.id]: null,
-            });
+    //         updateHobbyList({
+    //             [hobby.id]: null,
+    //         });
+    //     } else {
+    //         updateHobby({
+    //             [user.id]: null,
+    //         });
     
-            updateUser({
-                [hobby.id]: null,
-            });
+    //         updateUser({
+    //             [hobby.id]: null,
+    //         });
 
-            delete hobby.message_chat.users[user.id]
-        }
+    //         delete hobby.message_chat.users[user.id]
+    //     }
 
-        setCurrDisplay("hobbies");
-    }
+    //     setCurrDisplay("hobbies");
+    // }
 
     const openChat = (e) => {
         if (added) {
@@ -88,7 +88,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 <div className="hobbylist-button">
                     {
                         added
-                        ? <Button onClick={LeaveHobby} style={{marginLeft: 5}} size="xs" color="red">Leave</Button>
+                        ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
                         : <Button onClick={JoinHobby} style={{marginLeft: 5}} size="xs">Join</Button>
                     }
                 </div>

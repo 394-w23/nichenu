@@ -6,11 +6,14 @@ import MessageComposer from './MessageComposer';
 import { ActionIcon, Button } from '@mantine/core';
 import { RiAddFill } from "@react-icons/all-files/ri/RiAddFill"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
-import { useDbData } from '../utils/firebase';
+import { useDbData, useDbUpdate } from '../utils/firebase';
 
 
-const ChatRoom = ({ hobby, users }) => {
+const ChatRoom = ({ hobby, users, user, setCurrDisplay }) => {
     const [update, result] = useDbData(`/hobbies/${hobby.id}/message_chat`)
+    const [updateHobbyList, resultHobbyList] = useDbUpdate(`/hobbies/`); 
+    const [updateHobby, resultHobby] = useDbUpdate(`/hobbies/${hobby.id}/message_chat/users/`);
+    const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/hobby_ids/`);
 
     let sortedMessages = update && Object.values(update.messages)
         ? Object.values(update.messages).sort((message1, message2) => (new Date(message1.date)).getTime() - (new Date(message2.date)).getTime())
@@ -29,7 +32,32 @@ const ChatRoom = ({ hobby, users }) => {
         scrollToBottom();
     }, [update]);
 
-    // Handle joining a hobby
+    // Handle leaving a hobby
+    const LeaveHobby = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // if (!e.target.value) return;
+        
+        if (Object.values(hobby.message_chat.users).length == 1) {
+            setHobbies(hobbies.filter((h) => h.id != hobby.id));
+
+            updateHobbyList({
+                [hobby.id]: null,
+            });
+        } else {
+            updateHobby({
+                [user.id]: null,
+            });
+    
+            updateUser({
+                [hobby.id]: null,
+            });
+
+            delete hobby.message_chat.users[user.id]
+        }
+
+        setCurrDisplay("hobbies");
+    }
 
     return (
         <StyledMainArea>
@@ -37,8 +65,8 @@ const ChatRoom = ({ hobby, users }) => {
             <StyledSubHeader>
                 <span className="chatroom-name">{hobby.name}</span>
                 <StyledSubHeaderAvatars>
-                   
-                    <StyledMiniAvatar>
+                <Button onClick={LeaveHobby} style={{marginLeft: 5}} size="xs" color="red">Leave</Button>
+                    {/* <StyledMiniAvatar>
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
                     <StyledMiniAvatar>
@@ -46,7 +74,7 @@ const ChatRoom = ({ hobby, users }) => {
                     </StyledMiniAvatar>
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
-                    </StyledMiniAvatar>
+                    </StyledMiniAvatar> */}
         
                 </StyledSubHeaderAvatars>
             </StyledSubHeader>

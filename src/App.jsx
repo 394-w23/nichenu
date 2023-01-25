@@ -56,7 +56,7 @@ const App = () => {
           currDisplay === "events" ? <EventList eventList={data.events? Object.values(data.events) : []} user={userFromDB} setCurrDisplay={setCurrDisplay}/> 
           // : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies} user={userFromDB} openMessages={openMessages}/> 
           : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies? Object.values(data.hobbies).sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={userFromDB} openMessages={openMessages} setCurrDisplay={setCurrDisplay}/> 
-          : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)}/>
+          : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)} user={userFromDB} setCurrDisplay={setCurrDisplay}/>
           : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay}/>
           : currDisplay === "createEvent" ? <CreateEvent user={userFromDB} setCurrDisplay={setCurrDisplay}/>
           : <div></div>
