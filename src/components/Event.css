@@ -14,12 +14,12 @@
 
 .calendar {
     background: #fff;
-    width: 30%;
+    width: 24%;
     height: 20vw;
     min-width: 60px;
     min-height: 60px;
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 70px;
+    max-height: 70px;
     margin: 3%;
     /* border: 1px solid #000; */
     border-radius: 12px;
@@ -41,9 +41,9 @@
 }
 
 .event-info {
-    width: 64%;
+    width: 70%;
     height: 70px;
-    font-size: max(min(3vw, 14px), 10px);
+    font-size: max(min(3vw, 12px), 10px);
     text-align: left;
 }
 
@@ -60,5 +60,7 @@
     align-items: center;
     justify-content: start;
     height: 70%;
+    margin: 38px 4% auto auto;
+    transform: scale(1.2)
 }
 
