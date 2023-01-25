@@ -14,6 +14,7 @@ import { RiErrorWarningLine } from "@react-icons/all-files/ri/RiErrorWarningLine
 export const CreateEvent = ({ user, setCurrDisplay }) => {
   const eventId = uuid();
   const [update, result] = useDbUpdate(`/events/${eventId}`)
+  const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/`);
   const [tags, setTags] = useState([]);
   const currentTime = new Date();
   // handle event dates
@@ -136,6 +137,10 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       setRaiseAlert(false);
       update(formData)
       form.reset();
+
+      updateUser({
+        [eventId]: eventId,
+      });
       // navigate to show events.
       setCurrDisplay("events");
 

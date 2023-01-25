@@ -14,6 +14,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const messageChatId = uuid(); ////////////////////////////////////// Do we want to make hobbyId and messageChatId the same?
   const messageId = uuid(); ////////////////////////////////////////// Added initial welcome message because the messages object can't be empty
   const [update, result] = useDbUpdate(`/hobbies/${hobbyId}`);
+  const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/hobby_ids/`);
   const [updateInitialMessage, resultInitialMessage] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   const [tags, setTags] = useState([]);
   const [data, error] = useDbData("/");
@@ -115,6 +116,10 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     } else {
       setRaiseAlert(false);
       update(formData)
+
+      updateUser({
+        [hobbyId]: hobbyId,
+      })
 
       updateInitialMessage({
         content: "Welcome to \"" + e.target[0].value + "\"!",
