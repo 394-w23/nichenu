@@ -40,8 +40,9 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       img: "",
       message_chat: {
         id: messageChatId,
-        users: [user.id] //FIXME: change this to the signed in user's ID
-      
+        users: {
+          [user.id]: user.id,    //FIXME: change this to the signed in user's ID
+        } 
       },
     },
 

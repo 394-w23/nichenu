@@ -47,9 +47,6 @@ const ChatRoom = ({ hobby, users }) => {
                     <StyledMiniAvatar>
                         <RiUser3Line size={16} />
                     </StyledMiniAvatar>
-
-                    <Button style={{marginLeft: 5}} size="xs">Join</Button>
-
         
                 </StyledSubHeaderAvatars>
             </StyledSubHeader>

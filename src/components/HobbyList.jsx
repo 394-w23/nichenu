@@ -3,19 +3,34 @@ import { useState } from 'react';
 import './HobbyList.css';
 import { Title, Divider } from '@mantine/core'
 
-const HobbyList = ({ hobbyList, user, openMessages }) => {
+const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
     const [hobbies, setHobbies] = useState(hobbyList); 
 
     // let hasHobbies = true; //user.hobby_ids
+    let hasHobbies = user.hobby_ids;
 
     console.log(hobbies)
 
     return (
         <div>
+            <br></br>
+            <Title order={2}>My Hobbies</Title>
             {
-                hobbies.map((hobby) => <Hobby key={hobby.id} hobby={hobby} openMessages={openMessages} />)
+                hasHobbies 
+                ? hobbies.filter((hobby) => Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={true} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} />)
+                : <div className="empty-event-text">Go join hobbies!</div> 
+            }
+
+            <br></br>
+            <Title order={2}>Other Hobbies</Title>
+            {
+                hasHobbies
+                ? hobbies.filter((hobby) => !Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} />)
+                : hobbies.map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} />)
             }
         </div>
+
+
         // <div>
         //     <br></br>
         //     <Title order={2}>My Hobbies</Title>

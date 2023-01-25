@@ -10,6 +10,7 @@
     /* border: 1px solid #000; */
     border-radius: 12px;
     margin: 10px auto;
+    cursor: pointer;
 }
 
 .hobby-image {
