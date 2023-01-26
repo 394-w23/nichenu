@@ -16,7 +16,7 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
   return (<div style={{display: currDisplay == "auth"? "none": "flex"}} className="header-top-row">
     <div className="header-group">
       {currDisplay === "message" ?
-        <div style={{width: "24%"}}><ActionIcon className="back-button" onClick={() => goBack()}>
+        <div style={{width: "25%"}}><ActionIcon className="back-button" onClick={() => goBack()}>
         <RiArrowLeftSLine className="back-arrow" size={32} />
       </ActionIcon></div> : <div style={{width: "25%"}}></div>}
       {/* <div style={{width: currDisplay === "message"? 0: 80}}></div>     */}
