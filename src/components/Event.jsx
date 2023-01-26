@@ -2,7 +2,7 @@ import './Event.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine";
 import { RiIndeterminateCircleLine } from "@react-icons/all-files/ri/RiIndeterminateCircleLine";
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon, Button } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 
 const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents }) => {
@@ -83,13 +83,17 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
             </div>
             <div className="event-icon">
                 {
+                    // added
+                    // ? (<ActionIcon onClick={RemoveEvent} style={{ zIndex: "0" }}>
+                    //             <RiIndeterminateCircleLine size={24} />
+                    //         </ActionIcon>)
+                    // : (<ActionIcon onClick={JoinEvent} style={{ zIndex: "0" }}>
+                    //             <RiAddCircleLine size={24} />
+                    //         </ActionIcon>)
+
                     added
-                    ? (<ActionIcon onClick={RemoveEvent} style={{ zIndex: "0" }}>
-                                <RiIndeterminateCircleLine size={24} />
-                            </ActionIcon>)
-                    : (<ActionIcon onClick={JoinEvent} style={{ zIndex: "0" }}>
-                                <RiAddCircleLine size={24} />
-                            </ActionIcon>)
+                    ? <Button onClick={RemoveEvent} style={{ marginLeft: 5}} size="xs" color="red">Leave</Button>
+                    : <Button onClick={JoinEvent} style={{ marginLeft: 5 }} size="xs">Join</Button>
                 }
             </div>
 
