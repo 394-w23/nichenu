@@ -8,7 +8,7 @@ import { useAuth } from '../utils/firebase'
 const Message = ({ message, users }) => {
     // console.log("this")
     const user = useAuth();
-    
+    // console.log(user.photoURL)
 
     return (
         <div className="message">

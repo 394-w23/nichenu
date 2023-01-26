@@ -27,7 +27,7 @@
 .message-avatar{
     height: 50px;
     width: 50px;
-    background-color: #ccc;
+    /* background-color: #ccc; */
     display: flex;
     justify-content: center;
     align-items: center;

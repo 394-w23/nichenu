@@ -73,7 +73,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
             <Modal opened={modalOpened} onClose={() => setModalOpened(false)} withCloseButton={false} overlayColor={"#222"} overlayOpacity={0.45}>
                 Join the hobby to chat with its members!
             </Modal>
-            <div className="hobby-card" onClick={openChat}>
+            <div className="hobby-card" >
                 {hobby.img ? <img className="hobby-image" src={hobby.img} /> :
                     // <HiOutlineUserGroup className='hobby-img' size={70} />
                     <img className="hobby-image" src="../../public/group.png" style={{ width: "80%", padding: 15 }} />
