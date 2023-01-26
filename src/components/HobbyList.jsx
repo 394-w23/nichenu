@@ -5,9 +5,9 @@ import { Title, Divider } from '@mantine/core'
 
 const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
     const [hobbies, setHobbies] = useState(hobbyList); 
-
+    const [hasHobbies, setHasHobbies] = useState(user.hobby_ids !== null);
     // let hasHobbies = true; //user.hobby_ids
-    let hasHobbies = user.hobby_ids;
+    // let hasHobbies = user.hobby_ids;
 
     console.log(hobbies)
 
@@ -17,7 +17,7 @@ const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
             <Title order={2}>My Hobbies</Title>
             {
                 hasHobbies 
-                ? hobbies.filter((hobby) => Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={true} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} />)
+                ? hobbies.filter((hobby) => Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={true} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies}/>)
                 : <div className="empty-event-text">Go join hobbies!</div> 
             }
 
@@ -25,8 +25,8 @@ const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
             <Title order={2}>Other Hobbies</Title>
             {
                 hasHobbies
-                ? hobbies.filter((hobby) => !Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} />)
-                : hobbies.map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} />)
+                ? hobbies.filter((hobby) => !Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies}/>)
+                : hobbies.map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies}/>)
             }
         </div>
 

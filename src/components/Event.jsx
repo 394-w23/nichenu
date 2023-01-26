@@ -5,7 +5,7 @@ import { RiIndeterminateCircleLine } from "@react-icons/all-files/ri/RiIndetermi
 import { ActionIcon } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 
-const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
+const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents }) => {
     const [updateEventList, resultEventList] = useDbUpdate(`/events/`); 
     const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/`);
     const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/`);
@@ -30,6 +30,7 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
 
         event.users[user.id] = user.id;
         setEvents(events);
+        setHasEvents(user.event_ids !== null)
 
         setCurrDisplay("events");
     }
@@ -44,6 +45,11 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
             updateEventList({
                 [event.id]: null,
             });
+            
+            updateUser({
+                [event.id]: null,
+            });
+
         } else {
             updateEvent({
                 [user.id]: null,
@@ -55,7 +61,7 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events }) => {
 
             delete event.users[user.id]
         }
-
+        setHasEvents(user.event_ids !== null)
         setCurrDisplay("events");
     }
 

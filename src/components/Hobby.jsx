@@ -1,12 +1,14 @@
 import './Hobby.css';
 import Tag from './Tag.jsx';
 import { useEffect, useState } from 'react';
-import { HiOutlineUserGroup } from "@react-icons/all-files/hi/HiOutlineUserGroup";
-import { Button, Modal } from '@mantine/core';
+// import { HiOutlineChatBubbleLeftEllipsis } from "@react-icons/all-files/hi/HiOutlineChatBubbleLeftEllipsis";
+import { HiOutlineChatAlt } from "@react-icons/all-files/hi/HiOutlineChatAlt";
+import { HiOutlineCalendar } from "@react-icons/all-files/hi/HiOutlineCalendar";
+import { Button, Modal, ActionIcon } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
 
-const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, hobbies }) => {
-    const [updateHobbyList, resultHobbyList] = useDbUpdate(`/hobbies/`); 
+const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, hobbies, setHasHobbies}) => {
+    const [updateHobbyList, resultHobbyList] = useDbUpdate(`/hobbies/`);
     const [updateHobby, resultHobby] = useDbUpdate(`/hobbies/${hobby.id}/message_chat/users/`);
     const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/hobby_ids/`);
     const [modalOpened, setModalOpened] = useState(false);
@@ -26,6 +28,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
 
         hobby.message_chat.users[user.id] = user.id;
         setHobbies(hobbies);
+        setHasHobbies(user.hobby_ids !== null)
 
         setCurrDisplay("hobbies");
     }
@@ -34,7 +37,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
     //     e.preventDefault();
     //     e.stopPropagation();
     //     // if (!e.target.value) return;
-        
+
     //     if (Object.values(hobby.message_chat.users).length == 1) {
     //         setHobbies(hobbies.filter((h) => h.id != hobby.id));
 
@@ -45,7 +48,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
     //         updateHobby({
     //             [user.id]: null,
     //         });
-    
+
     //         updateUser({
     //             [hobby.id]: null,
     //         });
@@ -71,9 +74,9 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 Join the hobby to chat with its members!
             </Modal>
             <div className="hobby-card" onClick={openChat}>
-                {hobby.img ? <img className="hobby-image" src={hobby.img}/> : 
-                // <HiOutlineUserGroup className='hobby-img' size={70} />
-                <img className="hobby-image" src="../../public/group.png" style={{width: "80%", padding: 15}}/>
+                {hobby.img ? <img className="hobby-image" src={hobby.img} /> :
+                    // <HiOutlineUserGroup className='hobby-img' size={70} />
+                    <img className="hobby-image" src="../../public/group.png" style={{ width: "80%", padding: 15 }} />
                 }
                 <div className="hobby-info" >
                     <div className="hobby-name">{hobby.name}</div>
@@ -88,13 +91,19 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 <div className="hobbylist-button">
                     {
                         added
-                        ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
-                        : <Button onClick={JoinHobby} style={{marginLeft: 5}} size="xs">Join</Button>
+                        ? <ActionIcon size="xl" onClick={openChat} color="blue">
+                            <HiOutlineChatAlt size={32} style={{ transform: "scale(1.2)" }} />
+                        </ActionIcon>
+                        // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
+                        : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                    }
+                    {
+
                     }
                 </div>
             </div>
         </div>
-        
+
     );
 }
 

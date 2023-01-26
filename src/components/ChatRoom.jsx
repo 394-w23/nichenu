@@ -41,9 +41,11 @@ const ChatRoom = ({ hobby, users, user, setCurrDisplay }) => {
         if (Object.values(hobby.message_chat.users).length == 1) {
             setHobbies(hobbies.filter((h) => h.id != hobby.id));
 
+            
             updateHobbyList({
                 [hobby.id]: null,
             });
+
         } else {
             updateHobby({
                 [user.id]: null,
