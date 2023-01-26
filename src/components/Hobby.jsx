@@ -3,7 +3,8 @@ import Tag from './Tag.jsx';
 import { useEffect, useState } from 'react';
 // import { HiOutlineChatBubbleLeftEllipsis } from "@react-icons/all-files/hi/HiOutlineChatBubbleLeftEllipsis";
 import { HiOutlineChatAlt } from "@react-icons/all-files/hi/HiOutlineChatAlt";
-import { HiOutlineCalendar } from "@react-icons/all-files/hi/HiOutlineCalendar";
+import { HiOutlineChatAlt2 } from "@react-icons/all-files/hi/HiOutlineChatAlt2";
+import { HiChatAlt2 } from "@react-icons/all-files/hi/HiChatAlt2";
 import { Button, Modal, ActionIcon } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
 
@@ -92,7 +93,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                     {
                         added
                         ? <ActionIcon size="xl" onClick={openChat} color="blue">
-                            <HiOutlineChatAlt size={32} style={{ transform: "scale(1.2)" }} />
+                            <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
                         </ActionIcon>
                         // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
                         : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
