@@ -1,5 +1,5 @@
 import './Message.css'
-import { findUserDisplayName } from '../utils/helpers'
+import { findUserDisplayName, findUserProfilePicture } from '../utils/helpers'
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
 import moment from 'moment'
 import { useAuth } from '../utils/firebase'
@@ -13,7 +13,7 @@ const Message = ({ message, users }) => {
     return (
         <div className="message">
 
-            {user && user.photoURL? <img className="message-avatar" src={user.profilePicture}></img>:  <div className="message-avatar">
+            {user && user.photoURL? <img className="message-avatar" src={findUserProfilePicture(message.user, users)}></img>:  <div className="message-avatar">
                 <RiUser3Line size={20} />
             </div>
             
