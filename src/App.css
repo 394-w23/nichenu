@@ -15,7 +15,7 @@
   padding-bottom: 10vh;
 }
 
-::-webkit-scrollbar{
+/* ::-webkit-scrollbar{
   width: 0.9vw;
   position: fixed;
   right: 0;
@@ -29,7 +29,7 @@
 ::-webkit-scrollbar-thumb:hover{
  background: -webkit-linear-gradient(transparent,#00C6FF);
  background: linear-gradient(transparent,#00C6FF);
-}
+} */
 
 .App-logo {
   height: 40vmin;
