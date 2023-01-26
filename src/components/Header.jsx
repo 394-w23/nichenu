@@ -2,6 +2,7 @@ import { ActionIcon, Button } from "@mantine/core";
 import { useState } from "react";
 import "./Header.css";
 import { RiArrowLeftSLine } from "@react-icons/all-files/ri/RiArrowLeftSLine"
+import { FirebaseLogout } from "../utils/firebase";
 const Header = ({ currDisplay, setCurrDisplay }) => {
 
   const [prevDisplay, setPrevDisplay] = useState(currDisplay)
@@ -11,6 +12,12 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
 
   if (currDisplay !== prevDisplay && currDisplay !== 'message') {
     setPrevDisplay(currDisplay)
+  }
+
+  const logout = () => {
+    FirebaseLogout().then(()=> {
+      console.log("logged out")
+    })
   }
 
   return (<div style={{display: currDisplay == "auth"? "none": "flex"}} className="header-top-row">
@@ -23,7 +30,7 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
       <h1 className="app-name">nicheNU</h1>      
       {/* <div style={{width: currDisplay === "message"? 20: 0}}></div>     */}
       <div style={{width: "25%",display: "flex", justifyContent: "right"}}>
-        <Button size="xs">Logout</Button>
+        <Button onClick={logout} size="xs">Logout</Button>
       </div>
       
     </div>

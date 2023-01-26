@@ -4,7 +4,7 @@ import { getDatabase, onValue, ref, update, set } from 'firebase/database';
 import {getStorage, getDownloadURL} from 'firebase/storage';
 import {ref as strgRef} from 'firebase/storage' ;
 import { useEffect, useState, useCallback } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -88,7 +88,14 @@ export const FirebaseSignIn = async()=> {
           // ...
           console.log(error)
       });
+}
 
+export const FirebaseLogout = async() => {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
 }
 
 

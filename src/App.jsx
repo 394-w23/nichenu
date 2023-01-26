@@ -28,6 +28,8 @@ const App = () => {
       setUserFromDB(data.users[user.uid]);
       setCurrDisplay('hobbies');
       // flag = false;
+    }else if(!user && currDisplay !== "auth"){
+      setCurrDisplay('auth')
     }
   }, [user, data])
 
