@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { HiOutlineChatAlt } from "@react-icons/all-files/hi/HiOutlineChatAlt";
 import { HiOutlineChatAlt2 } from "@react-icons/all-files/hi/HiOutlineChatAlt2";
 import { HiChatAlt2 } from "@react-icons/all-files/hi/HiChatAlt2";
-import { Button, Modal, ActionIcon } from '@mantine/core';
+import { Button, Modal, ActionIcon, Title } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
 
 const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, hobbies, setHasHobbies}) => {
@@ -80,8 +80,8 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                     <img className="hobby-image" src="../../public/group.png" style={{ width: "80%", padding: 15 }} />
                 }
                 <div className="hobby-info" >
-                    <div className="hobby-name">{hobby.name}</div>
-                    <div>
+                    <Title className="hobby-name" lineClamp={1}>{hobby.name}</Title>
+                    <div className='hobby-tags'>
                         {
                             hobby.tags
                                 ? Object.values(hobby.tags).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)
