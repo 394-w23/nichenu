@@ -93,6 +93,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       id: eventId,
       name: '',
       desc: '',
+      location:'',
       start_timestamp: '', ///////////////////////////////////////////////////// Change later 
       end_timestamp: '', ///////////////////////////////////////////////////// Change later 
       owner: user.id,
@@ -164,6 +165,10 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
         label="Description"
         {...form.getInputProps('desc')}
       />
+      <TextInput
+        style={{ marginBottom: 10 }}
+        {...form.getInputProps('location')}
+        label="Location" placeholder="e.g. Norris, The Lake, Mudd" withAsterisk />
 
       <Input.Wrapper style={{ marginBottom: 10 }} label="Start date and start time" withAsterisk>
         <div className="date-time">

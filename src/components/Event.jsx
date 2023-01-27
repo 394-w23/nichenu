@@ -2,11 +2,11 @@ import './Event.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine";
 import { RiIndeterminateCircleLine } from "@react-icons/all-files/ri/RiIndeterminateCircleLine";
-import { ActionIcon, Button, Title } from '@mantine/core';
+import { ActionIcon, Button, Title, Text } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 
 const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents }) => {
-    const [updateEventList, resultEventList] = useDbUpdate(`/events/`); 
+    const [updateEventList, resultEventList] = useDbUpdate(`/events/`);
     const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/`);
     const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/`);
     let participants = Object.values(event.users).length
@@ -38,14 +38,14 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
     const RemoveEvent = (e) => {
         e.preventDefault();
         // if (!e.target.value) return;
-        
+
         if (Object.values(event.users).length == 1) {
             setEvents(events.filter((ev) => ev.id != event.id));
 
             updateEventList({
                 [event.id]: null,
             });
-            
+
             updateUser({
                 [event.id]: null,
             });
@@ -54,7 +54,7 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
             updateEvent({
                 [user.id]: null,
             });
-    
+
             updateUser({
                 [event.id]: null,
             });
@@ -78,8 +78,12 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
                 <div>
                     {months[start.getMonth()]} {start.getDate()}, {parseTimeString(start)} - {months[end.getMonth()]} {end.getDate()}, {parseTimeString(end)}
                 </div>
+
+                <Text lineClamp={1}>
+                    <i><u>Location</u></i>: {event.location}
+                </Text>
                 <div>
-                    { participants } participants
+                    {participants} participants
                 </div>
             </div>
             <div className="event-icon">
@@ -93,12 +97,12 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
                     //         </ActionIcon>)
 
                     added
-                    ? <Button onClick={RemoveEvent} style={{ marginLeft: 5}} size="xs" color="red">Leave</Button>
-                    : <Button onClick={JoinEvent} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                        ? <Button onClick={RemoveEvent} style={{ marginLeft: 5 }} size="xs" color="red">Leave</Button>
+                        : <Button onClick={JoinEvent} style={{ marginLeft: 5 }} size="xs">Join</Button>
                 }
             </div>
 
-           
+
 
         </div>
     );
