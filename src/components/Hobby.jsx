@@ -75,9 +75,9 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 Join the hobby to chat with its members!
             </Modal>
             <div className="hobby-card" >
-                {hobby.img ? <img className="hobby-image" src={hobby.img} /> :
+                {hobby.img ? <img className="hobby-image" referrerPolicy="no-referrer" src={hobby.img} /> :
                     // <HiOutlineUserGroup className='hobby-img' size={70} />
-                    <img className="hobby-image" src="../../public/group.png" style={{ width: "80%", padding: 15 }} />
+                    <img className="hobby-image" src="/group.png" style={{ width: "80%", padding: 15 }} />
                 }
                 <div className="hobby-info" >
                     <Title className="hobby-name" lineClamp={1}>{hobby.name}</Title>
