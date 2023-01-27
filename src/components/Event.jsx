@@ -2,7 +2,7 @@ import './Event.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine";
 import { RiIndeterminateCircleLine } from "@react-icons/all-files/ri/RiIndeterminateCircleLine";
-import { ActionIcon, Button, Text, Title } from '@mantine/core';
+import { ActionIcon, Button, Title } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 
 const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents }) => {
@@ -73,14 +73,13 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
                 <div className="calendar-day">{start.getDate()}</div>
             </div>
             <div className="event-info">
+                <Title className="event-name" size="h5" lineClamp={1}>{event.name}</Title>
                 {/* <div className="event-name">{event.name}</div> */}
-                <Title size="h5" lineClamp={2}>{event.name}</Title>
                 <div>
-                    
                     {months[start.getMonth()]} {start.getDate()}, {parseTimeString(start)} - {months[end.getMonth()]} {end.getDate()}, {parseTimeString(end)}
                 </div>
                 <div>
-                    { participants } / 10000 participants
+                    { participants } participants
                 </div>
             </div>
             <div className="event-icon">

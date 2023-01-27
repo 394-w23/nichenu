@@ -9,7 +9,7 @@ const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
     // let hasHobbies = true; //user.hobby_ids
     // let hasHobbies = user.hobby_ids;
 
-    console.log(hobbies)
+    // console.log(hobbies)
 
     return (
         <div>

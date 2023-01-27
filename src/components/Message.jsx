@@ -13,10 +13,11 @@ const Message = ({ message, users }) => {
     return (
         <div className="message">
 
-            {user && user.photoURL? <img className="message-avatar" src={findUserProfilePicture(message.user, users)}></img>:  <div className="message-avatar">
+            {user && user.photoURL? <img className="message-avatar" referrerPolicy="no-referrer" src={findUserProfilePicture(message.user, users)}></img>:  <div className="message-avatar">
                 <RiUser3Line size={20} />
             </div>
-            
+
+
             }
 
             <div className="message-body">
