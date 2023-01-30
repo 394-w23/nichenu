@@ -12,18 +12,10 @@ export default function Auth({setCurrDisplay}) {
    
 
     
-    // useEffect(() => {
-    //     // console.log(user)
-    //     if(user){
-    //         // if user is not in the raeltime database, add them.
-    //     //     let userData = {name: user.displayName, id: user.uid, profilePicture: user.photoURL, event_ids: [], hobbies_ids: [], }
-    //     //     if(!data.users[user.uid]){
-    //     //         update(userData)
-    //     //     }
-    //     // setCurrDisplay('hobbies')
-    //     console.log(user)
-    //     }
-    // },[user])
+    //TODO: Auth emulator on port 9099
+    //TODO: DB emulator port 9000
+    //TODO: Hosting port 5000
+    //TODO: Storage on 9199
     
     
   
