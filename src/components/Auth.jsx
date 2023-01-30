@@ -31,10 +31,10 @@ export default function Auth({setCurrDisplay}) {
         <div style={{ padding: 30, overflow: "hidden" }}>
             <img src="/people.jpg" height="300" />
             <Text >Welcome to</Text>
-            <Title>NicheNu</Title>
-            <Text style={{ marginTop: 20 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </Text>
+            <Title>nicheNU</Title>
+            <Text style={{ marginTop: 20 }}>Find your niche!</Text>
             <div style={{ height: 70 }}></div>
-            <Button onClick={FirebaseSignIn} leftIcon={<RiGoogleFill />}>Signin with Google</Button>
+            <Button onClick={FirebaseSignIn} leftIcon={<RiGoogleFill />}>Sign in with Google</Button>
         </div>
     )
 }
