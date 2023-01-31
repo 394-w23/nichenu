@@ -8,7 +8,7 @@ import CreateHobby from './components/CreateHobby';
 import CreateEvent from './components/CreateEvent';
 import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDbData, useAuth, useDbUpdate } from './utils/firebase';
+import { useDbData, useAuth, useDbUpdate, testValues } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
 import Auth from './components/Auth';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -23,7 +23,6 @@ const App = () => {
   // let userFromDB = user && data && data.users[user.uid];
   const [userFromDB, setUserFromDB] = useState()
   // let flag = true;
-
   useEffect(() => {
     if (user && data && currDisplay === "auth") {
       if (!data.users[user.uid]) {
