@@ -19,7 +19,7 @@ describe ('Test App', () => {
     cy.get('[data-cy=hobby-list]').should('contain', 'Other Hobbies');
   });
 
-  it ('clicking sign in button works', () => {
+  it ('clicks to event page and checks if event list page is opened', () => {
     cy.visit ('/');
     cy.get('[data-cy=to-event-button]').click();
     cy.get('[data-cy=event-list]').should('contain', 'My Events');
