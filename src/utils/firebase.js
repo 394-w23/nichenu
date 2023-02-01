@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref, update, set } from 'firebase/database';
-import {getStorage, getDownloadURL} from 'firebase/storage';
-import {ref as strgRef} from 'firebase/storage' ;
+import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from 'firebase/database';
+import { getStorage, getDownloadURL } from 'firebase/storage';
+import { ref as strgRef } from 'firebase/storage';
 import { useEffect, useState, useCallback } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, connectAuthEmulator, signInWithCredential } from "firebase/auth";
 
@@ -24,34 +24,33 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
-const database = getDatabase();
-const storage = getStorage();
+const database = getDatabase(app);
+// const storage = getStorage(app);
 const auth = getAuth();
 
 export const testValues = () => {
   console.log("--------")
-  console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
-  console.log(windows.EMULATION)
+  // console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
+  // console.log(windows.EMULATION)
   console.log(import.meta.env.NODE_ENV)
   console.log(import.meta.env.NODE_ENV !== 'production')
 }
 
 console.log("--------")
-console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
-console.log(windows.EMULATION)
+// console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
+// console.log(windows.EMULATION)
 console.log(import.meta.env.NODE_ENV)
 console.log(import.meta.env.NODE_ENV !== 'production')
 
-if (!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') {
+if (import.meta.env.NODE_ENV !== 'production') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectDatabaseEmulator(database, "localhost", 9000);
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
   signInWithCredential(auth, GoogleAuthProvider.credential(
     '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
   ));
 
   // set flag to avoid connecting twice, e.g., because of an editor hot-reload
-  windows.EMULATION = true;
 }
 
 export const useDbData = (path) => {
@@ -90,34 +89,37 @@ const makeResult = (error) => {
 
 
 // TODO: Make this into a class
-
-const auth = getAuth();
 const provider = new GoogleAuthProvider();
-
-export const FirebaseSignIn = async()=> {
-  signInWithPopup(auth,provider)
-      .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          // The signed-in user info.
-          const user = result.user;
-          console.log(user)
-          // ...
-      }).catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.customData.email;
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          // ...
-          console.log(error)
-      });
+export const FirebaseSignIn = async () => {
+  // if ((!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') || windows.EMULATION) {
+    connectAuthEmulator(auth, "http://127.0.0.1:9099");
+    signInWithCredential(auth, GoogleAuthProvider.credential(
+      '{"sub": "gfU51pa2MiPSTFcODMa5NNNlReRR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+    ))
+  // } else {
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       // ...
+  //     }).catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.customData.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //       console.log(error)
+  //     });
+  // }
 }
 
-export const FirebaseLogout = async() => {
+export const FirebaseLogout = async () => {
   signOut(auth).then(() => {
     // Sign-out successful.
   }).catch((error) => {
@@ -133,13 +135,13 @@ export const useAuth = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-      auth.onAuthStateChanged(user => {
-          if (user) {
-              setUser(user)
-          } else {
-            setUser()
-          }
-      });
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        setUser(user)
+      } else {
+        setUser()
+      }
+    });
   }, []);
 
   return user
