@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: '16'
       - run: npm i
-      - run: CI=false npm run build --if-present #npm run build --if-present; warnings == errors
+      - run: CI=false npm run build:dev --if-present #npm run build --if-present; warnings == errors
       - run: npm test
   
   cypress:
