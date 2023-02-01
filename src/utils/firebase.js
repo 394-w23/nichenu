@@ -26,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 // const storage = getStorage(app);
-const auth = getAuth(app);
+const auth = getAuth();
 
 if (import.meta.env.MODE !== 'prod') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
