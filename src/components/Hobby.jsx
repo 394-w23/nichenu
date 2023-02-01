@@ -113,9 +113,10 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 </div>
 
             </div>
-
-            <div>
-                {showDescription && <Text>{hobby.desc}</Text>}
+        {showDescription && 
+            <div className='hobby-expandable'>
+            
+                 <Text>{hobby.desc}</Text>
 
                 <div className='hobby-tags'>
                         { 
@@ -127,7 +128,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                     </div>
 
             </div>
-
+        }
 
 
 
