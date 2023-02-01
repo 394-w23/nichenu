@@ -11,7 +11,7 @@ const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
 
 
     return (
-        <div>
+        <div data-cy="hobby-list">
             <br></br>
             <Title order={2}>My Hobbies</Title>
             {

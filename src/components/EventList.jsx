@@ -9,7 +9,7 @@ const EventList = ({ eventList, user, setCurrDisplay }) => {
 
     // let hasEvents = user.event_ids; 
     return (
-        <div>
+        <div data-cy="event-list">
             <br></br>
             <Title order={2}>My Events</Title>
             {

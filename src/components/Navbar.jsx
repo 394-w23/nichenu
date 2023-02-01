@@ -25,6 +25,7 @@ const Navbar = ({ displayOptions, selection, setSelection }) => {
   return (
     <StyledNavArea>
       <StyledNavButton
+        data-cy="to-event-button"
         className="nav-button"
         key={"events"}
         underline={selection == "events"}
