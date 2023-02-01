@@ -4,7 +4,8 @@ import { getDatabase, onValue, ref, update, set } from 'firebase/database';
 import {getStorage, getDownloadURL} from 'firebase/storage';
 import {ref as strgRef} from 'firebase/storage' ;
 import { useEffect, useState, useCallback } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, connectAuthEmulator, signInWithCredential } from "firebase/auth";
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,10 +24,36 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
-const database = getDatabase(app);
-const storage = getStorage(app);
-// export const temp_ref = strgRef(storage,"gs://nichenu.appspot.com/hobby_images/fishing_rod.png");
-// export const getImgURL = (img_ref) => (getDownloadURL(img_ref).then( (url) => ))
+const database = getDatabase();
+const storage = getStorage();
+const auth = getAuth();
+
+export const testValues = () => {
+  console.log("--------")
+  console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
+  console.log(windows.EMULATION)
+  console.log(import.meta.env.NODE_ENV)
+  console.log(import.meta.env.NODE_ENV !== 'production')
+}
+
+console.log("--------")
+console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
+console.log(windows.EMULATION)
+console.log(import.meta.env.NODE_ENV)
+console.log(import.meta.env.NODE_ENV !== 'production')
+
+if (!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "localhost", 9000);
+
+  signInWithCredential(auth, GoogleAuthProvider.credential(
+    '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+  ));
+
+  // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+  windows.EMULATION = true;
+}
+
 export const useDbData = (path) => {
   const [data, setData] = useState();
   const [error, setError] = useState(null);
@@ -118,25 +145,3 @@ export const useAuth = () => {
   return user
 }
 
-
-
-
-// export const useAuth = () => {
-//     const [currUser, setCurrUser] = useState(null);
-
-//     useEffect(()=>{
-//     const auth = getAuth();
-//     const unsubscribe = onAuthStateChanged(auth, (user) => {
-//       if (user) {
-//         const uid = user.uid;
-//         setCurrUser(uid)
-//         console.log(currUser);
-//       } else {
-//         setCurrUser(null);
-//       }
-//     });
-//     return () => unsubscribe();
-//   }, []);
-
-//     return currUser;
-// }

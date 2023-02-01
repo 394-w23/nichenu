@@ -26,7 +26,7 @@ export default function Auth({setCurrDisplay}) {
             <Title>nicheNU</Title>
             <Text style={{ marginTop: 20 }}>Find your niche!</Text>
             <div style={{ height: 70 }}></div>
-            <Button onClick={FirebaseSignIn} leftIcon={<RiGoogleFill />}>Sign in with Google</Button>
+            <Button onClick={FirebaseSignIn} leftIcon={<RiGoogleFill data-testid="sign-in"/>}>Sign in with Google</Button>
         </div>
     )
 }
