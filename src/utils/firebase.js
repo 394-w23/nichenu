@@ -28,28 +28,14 @@ const database = getDatabase(app);
 // const storage = getStorage(app);
 const auth = getAuth(app);
 
-export const testValues = () => {
-  console.log("--------")
-  // console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
-  // console.log(windows.EMULATION)
-  console.log(import.meta.env.MODE)
-  console.log(import.meta.env.MODE !== 'prod')
-}
-
-console.log("--------")
-// console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
-// console.log(windows.EMULATION)
-console.log(import.meta.env.MODE)
-console.log(import.meta.env.MODE !== 'prod')
-
-if (import.meta.env.NODE_ENV !== 'prod') {
+if (import.meta.env.MODE !== 'prod') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
   connectDatabaseEmulator(database, "127.0.0.1", 9000);
   signInWithCredential(auth, GoogleAuthProvider.credential(
     '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
   ));
 
-  // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+  // set flag to avoid connecting twice, e.g., because of an editor hot-reload. deprecated issue since emulators used build
 }
 
 export const useDbData = (path) => {

@@ -8,7 +8,7 @@ import CreateHobby from './components/CreateHobby';
 import CreateEvent from './components/CreateEvent';
 import ChatRoom from './components/ChatRoom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDbData, useAuth, useDbUpdate,testValues } from './utils/firebase';
+import { useDbData, useAuth, useDbUpdate } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
 import Auth from './components/Auth';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -45,7 +45,6 @@ const App = () => {
     setCurrDisplay("message")
   }
 
-  testValues()
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
