@@ -20,7 +20,7 @@ export default function Auth({setCurrDisplay}) {
     
   
     return (
-        <div style={{ padding: 30, overflow: "hidden" }}>
+        <div data-cy="login-page" style={{ padding: 30, overflow: "hidden" }}>
             <img src="/people.jpg" height="300" />
             <Text >Welcome to</Text>
             <Title>nicheNU</Title>
