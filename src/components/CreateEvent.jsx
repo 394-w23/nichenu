@@ -38,7 +38,6 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       let s_date = moment(startDate, "MM/DD/YYYY");
       let s_time = moment(startTime, "hh:mm a");
       let startDateTime = s_date.add(s_time.hours(), 'hours').add(s_time.minutes(), 'minutes');
-      console.log(startDateTime.format());
 
 
       if (startDateTime.format()) {

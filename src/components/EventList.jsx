@@ -7,10 +7,7 @@ const EventList = ({ eventList, user, setCurrDisplay }) => {
     const [events, setEvents] = useState(eventList);
     const [hasEvents, setHasEvents] = useState(user.event_ids !== null);
 
-    // let hasEvents = user.event_ids;
-
-    console.log(events)
- 
+    // let hasEvents = user.event_ids; 
     return (
         <div>
             <br></br>
