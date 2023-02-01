@@ -35,7 +35,7 @@ jobs:
       - uses: cypress-io/github-action@v4
         with:
           build: npm run build
-          start: npm run em:start --token "${{ secrets.FIREBASE_DEPLOY_TOKEN }}"
+          start: npm run em:start 
           wait-on: http://localhost:8080
 
 
