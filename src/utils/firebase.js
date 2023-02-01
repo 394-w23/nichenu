@@ -5,7 +5,7 @@ import { getStorage, getDownloadURL } from 'firebase/storage';
 import { ref as strgRef } from 'firebase/storage';
 import { useEffect, useState, useCallback } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, connectAuthEmulator,signInWithCredential } from "firebase/auth";
-import.meta.env.NODE_ENV !== 'production'
+// import.meta.env.NODE_ENV !== 'production'
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -25,9 +25,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
-const database = getDatabase();
 const storage = getStorage(app);
 const auth = getAuth(app);
+const database = getDatabase(app);
 
 export const testValues = () => {
   console.log("--------")
@@ -37,17 +37,25 @@ export const testValues = () => {
   console.log(import.meta.env.NODE_ENV !== 'production')
 }
 
-//if (!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') {
-connectAuthEmulator(auth, "http://127.0.0.1:9099");
-connectDatabaseEmulator(database, "localhost", 9000);
+// if (!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') {
+//   connectAuthEmulator(auth, "http://127.0.0.1:9099");
+//   connectDatabaseEmulator(database, "localhost", 9000);
 
-signInWithCredential(auth, GoogleAuthProvider.credential(
-  '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
-));
+//   signInWithCredential(auth, GoogleAuthProvider.credential(
+//     '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+//   ));
 
-// set flag to avoid connecting twice, e.g., because of an editor hot-reload
-windows.EMULATION = true;
-//}
+//   // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+//   windows.EMULATION = true;
+// }
+if (import.meta.env.REACT_APP_EMULATE) {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(db, "127.0.0.1", 9000);
+
+  signInWithCredential(auth, GoogleAuthProvider.credential(
+    '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+  ));
+}
 
 
 // export const temp_ref = strgRef(storage,"gs://nichenu.appspot.com/hobby_images/fishing_rod.png");

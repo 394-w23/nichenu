@@ -10,7 +10,8 @@
     "coverage": "vitest run --coverage",
     "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
     "em:exec": "firebase emulators:exec --import=./saved-data 'npm start'",
-    "em:execui": "firebase emulators:exec --ui --import=./saved-data 'npm start'"
+    "em:execui": "firebase emulators:exec --ui --import=./saved-data 'npm start'",
+    "cy:open": "cypress open --e2e"
   },
   "dependencies": {
     "@mantine/core": "^5.10.0",
@@ -33,6 +34,7 @@
     "@vitest/coverage-c8": "^0.25.8",
     "@vitest/ui": "^0.25.8",
     "c8": "^7.12.0",
+    "cypress": "^12.5.0",
     "jsdom": "^20.0.3",
     "vite": "^4.0.0"
   }

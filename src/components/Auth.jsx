@@ -28,13 +28,13 @@ export default function Auth({setCurrDisplay}) {
     
   
     return (
-        <div style={{ padding: 30, overflow: "hidden" }}>
+        <div data-cy="login-page" style={{ padding: 30, overflow: "hidden" }}>
             <img src="/people.jpg" height="300" />
             <Text >Welcome to</Text>
             <Title>nicheNU</Title>
             <Text style={{ marginTop: 20 }}>Find your niche!</Text>
             <div style={{ height: 70 }}></div>
-            <Button onClick={FirebaseSignIn} leftIcon={<RiGoogleFill />}>Sign in with Google</Button>
+            <Button data-cy="login-button" onClick={FirebaseSignIn} leftIcon={<RiGoogleFill />}>Sign in with Google</Button>
         </div>
     )
 }
