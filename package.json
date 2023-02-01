@@ -2,7 +2,7 @@
   "name": "vite-template-react",
   "version": "1.2.0",
   "scripts": {
-    "start": "vite",
+    "start": "vite --mode prod",
     "dev": "vite",
     "cy:open": "cypress open --e2e",
     "em:start": "vite build --mode dev && firebase emulators:start --import=./saved-data --export-on-exit",
