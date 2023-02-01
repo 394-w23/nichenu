@@ -26,26 +26,25 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 // const storage = getStorage(app);
-const auth = getAuth();
+const auth = getAuth(app);
 
 export const testValues = () => {
   console.log("--------")
   // console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
   // console.log(windows.EMULATION)
-  console.log(import.meta.env.NODE_ENV)
-  console.log(import.meta.env.NODE_ENV !== 'production')
+  console.log(import.meta.env.MODE)
+  console.log(import.meta.env.MODE !== 'prod')
 }
 
 console.log("--------")
 // console.log(!windows.EMULATION && import.meta.env.NODE_ENV !== 'production')
 // console.log(windows.EMULATION)
-console.log(import.meta.env.NODE_ENV)
-console.log(import.meta.env.NODE_ENV !== 'production')
+console.log(import.meta.env.MODE)
+console.log(import.meta.env.MODE !== 'prod')
 
-if (import.meta.env.NODE_ENV !== 'production') {
+if (import.meta.env.NODE_ENV !== 'prod') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
   connectDatabaseEmulator(database, "127.0.0.1", 9000);
-
   signInWithCredential(auth, GoogleAuthProvider.credential(
     '{"sub": "sbz6ijYT7K1gL4MGXmqfeSnoQ3QR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
   ));
@@ -91,32 +90,27 @@ const makeResult = (error) => {
 // TODO: Make this into a class
 const provider = new GoogleAuthProvider();
 export const FirebaseSignIn = async () => {
-  // if ((!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') || windows.EMULATION) {
-    connectAuthEmulator(auth, "http://127.0.0.1:9099");
-    signInWithCredential(auth, GoogleAuthProvider.credential(
-      '{"sub": "gfU51pa2MiPSTFcODMa5NNNlReRR", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
-    ))
-  // } else {
-  //   signInWithPopup(auth, provider)
-  //     .then((result) => {
-  //       // This gives you a Google Access Token. You can use it to access the Google API.
-  //       const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const token = credential.accessToken;
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //       // ...
-  //     }).catch((error) => {
-  //       // Handle Errors here.
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.customData.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //       console.log(error)
-  //     });
-  // }
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        console.log(error)
+      });
+  
 }
 
 export const FirebaseLogout = async () => {

@@ -5,10 +5,10 @@
     "start": "vite",
     "dev": "vite",
     "cy:open": "cypress open --e2e",
-    "em:start": "npm run build && firebase emulators:start --import=./saved-data --export-on-exit",
+    "em:start": "vite build --mode dev && firebase emulators:start --import=./saved-data --export-on-exit",
     "em:run": "firebase emulators:exec --import=./saved-data 'npm start'",
     "em:execui": "firebase emulators:exec --ui --import=./saved-data 'npm start'",
-    "build": "vite build",
+    "build": "vite build --mode prod",
     "serve": "vite preview",
     "test": "vitest --ui",
     "coverage": "vitest run --coverage"
