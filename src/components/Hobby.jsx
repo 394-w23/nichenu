@@ -5,14 +5,16 @@ import { useEffect, useState } from 'react';
 import { HiOutlineChatAlt } from "@react-icons/all-files/hi/HiOutlineChatAlt";
 import { HiOutlineChatAlt2 } from "@react-icons/all-files/hi/HiOutlineChatAlt2";
 import { HiChatAlt2 } from "@react-icons/all-files/hi/HiChatAlt2";
-import { Button, Modal, ActionIcon, Title } from '@mantine/core';
+import { Button, Modal, ActionIcon, Title, Text } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
 
-const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, hobbies, setHasHobbies}) => {
+const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, hobbies, setHasHobbies }) => {
     const [updateHobbyList, resultHobbyList] = useDbUpdate(`/hobbies/`);
     const [updateHobby, resultHobby] = useDbUpdate(`/hobbies/${hobby.id}/message_chat/users/`);
     const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/hobby_ids/`);
     const [modalOpened, setModalOpened] = useState(false);
+
+    const [showDescription, setShowDescription] = useState(false);
 
     const JoinHobby = (e) => {
         e.preventDefault();
@@ -69,22 +71,29 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
     }
 
 
+
+
+
     return (
-        <div>
-            <Modal opened={modalOpened} onClose={() => setModalOpened(false)} withCloseButton={false} overlayColor={"#222"} overlayOpacity={0.45}>
+        <div className="big-hobby-card">
+            {/* <Modal opened={modalOpened} onClose={() => setModalOpened(false)} withCloseButton={false} overlayColor={"#222"} overlayOpacity={0.45}>
                 Join the hobby to chat with its members!
-            </Modal>
-            <div className="hobby-card" >
+            </Modal> */}
+
+            <div className="hobby-card" onClick={() => setShowDescription(!showDescription)} >
                 {hobby.img ? <img className="hobby-image" referrerPolicy="no-referrer" src={hobby.img} /> :
                     // <HiOutlineUserGroup className='hobby-img' size={70} />
                     <img className="hobby-image" src="/group.png" style={{ width: "80%", padding: 15 }} />
                 }
                 <div className="hobby-info" >
+
                     <Title className="hobby-name" lineClamp={1}>{hobby.name}</Title>
+           
                     <div className='hobby-tags'>
-                        {
+                        { 
                             hobby.tags
-                                ? Object.values(hobby.tags).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)
+                                ? 
+                                !showDescription && Object.values(hobby.tags).slice(0,2).map(tag =><Tag key={tag + hobby.id} tagName={tag} />)
                                 : <div></div>
                         }
                     </div>
@@ -92,17 +101,36 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 <div className="hobbylist-button">
                     {
                         added
-                        ? <ActionIcon size="xl" onClick={openChat} color="blue">
-                            <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
-                        </ActionIcon>
-                        // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
-                        : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                            ? <ActionIcon size="xl" onClick={openChat} color="blue">
+                                <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
+                            </ActionIcon>
+                            // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
+                            : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
                     }
                     {
 
                     }
                 </div>
+
             </div>
+
+            <div>
+                {showDescription && <Text>{hobby.desc}</Text>}
+
+                <div className='hobby-tags'>
+                        { 
+                            hobby.tags
+                                ? 
+                                showDescription && Object.values(hobby.tags).map(tag =><Tag key={tag + hobby.id} tagName={tag} />)
+                                : <div></div>
+                        }
+                    </div>
+
+            </div>
+
+
+
+
         </div>
 
     );
