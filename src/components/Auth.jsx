@@ -14,7 +14,7 @@ export default function Auth({setCurrDisplay}) {
     
     //TODO: Auth emulator on port 9099
     //TODO: DB emulator port 9000
-    //TODO: Hosting port 5000
+    //TODO: Hosting port 8080
     //TODO: Storage on 9199
     
     
