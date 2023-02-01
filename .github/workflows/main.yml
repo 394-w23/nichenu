@@ -33,4 +33,4 @@ jobs:
         with:
           build: npm run build
           start: npm run em:start
-          wait-on: http://localhost:5173
+          wait-on: http://localhost:8080
