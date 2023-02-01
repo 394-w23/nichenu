@@ -28,7 +28,7 @@ const database = getDatabase(app);
 // const storage = getStorage(app);
 const auth = getAuth(app);
 
-if (import.meta.env.MODE !== 'prod') {
+if (import.meta.env.REACT_APP_EMULATE && import.meta.env.MODE !== 'prod') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
   connectDatabaseEmulator(database, "127.0.0.1", 9000);
   signInWithCredential(auth, GoogleAuthProvider.credential(
