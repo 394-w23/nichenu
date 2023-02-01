@@ -31,5 +31,6 @@ jobs:
 
       - uses: cypress-io/github-action@v4
         with:
-          start: npm run em:start
+          build: npm run build dev
+          start: npm run em:starttest
           wait-on: http://localhost:8080
