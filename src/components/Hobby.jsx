@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 // import { HiOutlineChatBubbleLeftEllipsis } from "@react-icons/all-files/hi/HiOutlineChatBubbleLeftEllipsis";
 import { HiOutlineChatAlt } from "@react-icons/all-files/hi/HiOutlineChatAlt";
 import { HiOutlineChatAlt2 } from "@react-icons/all-files/hi/HiOutlineChatAlt2";
-import {RiArrowDownSLine}  from "@react-icons/all-files/ri/RiArrowDownSLine";
-import {RiArrowUpSLine} from "@react-icons/all-files/ri/RiArrowUpSLine";
+import { RiArrowDownSLine } from "@react-icons/all-files/ri/RiArrowDownSLine";
+import { RiArrowUpSLine } from "@react-icons/all-files/ri/RiArrowUpSLine";
 import { HiChatAlt2 } from "@react-icons/all-files/hi/HiChatAlt2";
 import { Button, Modal, ActionIcon, Title, Text } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
@@ -91,59 +91,56 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
 
                     {
                         showDescription ? <Title className="hobby-name" lineClamp={2}>{hobby.name}</Title> :
-                        <Title className="hobby-name"  lineClamp={1}>{hobby.name}</Title>
+                            <Title className="hobby-name" lineClamp={1}>{hobby.name}</Title>
                     }
-           
+
                     <div className='hobby-tags'>
-                        { 
+                        {
                             hobby.tags
-                                ? 
-                                !showDescription && Object.values(hobby.tags).slice(0,2).map(tag =><Tag key={tag + hobby.id} tagName={tag} />)
+                                ?
+                                !showDescription && Object.values(hobby.tags).slice(0, 2).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)
                                 : <div></div>
                         }
                     </div>
                 </div>
-                { added && showDescription ?
-                <div className={`hobbylist-buttons description-${showDescription} added-${added}`}>
-                    <Button onClick={LeaveHobby} style={{marginLeft: 5}} size="xs" color="red">Leave</Button>
-                    
-                    <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
-                        <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
-                    </ActionIcon>
-                </div> :
-                <div className={`hobbylist-buttons description-${showDescription}`}>{
-                    added
-                        ? <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
+                {added && showDescription ?
+                    <div className={`hobbylist-buttons description-${showDescription} added-${added}`}>
+                        <Button onClick={LeaveHobby} style={{ marginLeft: 5 }} size="xs" color="red">Leave</Button>
+
+                        <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
                             <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
                         </ActionIcon>
-                        // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
-                        : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
-                }</div>
+                    </div> :
+                    <div className={`hobbylist-buttons description-${showDescription}`}>{
+                        added
+                            ? <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
+                                <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
+                            </ActionIcon>
+                            // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
+                            : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                    }</div>
                 }
 
             </div>
-        {showDescription && 
-            <div className='hobby-expandable'>
-            
-                 <Text>{hobby.desc}</Text>
+            {showDescription &&
+                <div className='hobby-expandable'>
 
-                <div className='hobby-tags'>
-                        { 
+                    <Text>{hobby.desc}</Text>
+
+                    <div className='hobby-tags'>
+                        {
                             hobby.tags
-                                ? 
-                                showDescription && Object.values(hobby.tags).sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase())).map(tag =><Tag key={tag + hobby.id} tagName={tag} />)
+                                ?
+                                showDescription && Object.values(hobby.tags).sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase())).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)
                                 : <div></div>
                         }
                     </div>
 
+                </div>
+            }
+            <div className="carrot">
+                {showDescription ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
             </div>
-        }
-        <div className="carrot">
-            {showDescription? <RiArrowUpSLine/> : <RiArrowDownSLine/>}
-        </div>
-
-
-
         </div>
 
     );

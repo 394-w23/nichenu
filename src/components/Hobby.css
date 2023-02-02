@@ -1,10 +1,17 @@
-.hobby-tags{
-    overflow: hidden;
-    width: 100%;
-    height: 90%;
-    /* display: flex; */
-    /* justify-content: flex-start; */
+.big-hobby-card {
+    background: #efefef;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    min-width: 220px;
+    max-width: 1000px;
+    min-height: 100px;
+    align-items: flex-start;
 
+    /* border: 1px solid #000; */
+    border-radius: 12px;
+    margin: 10px auto;
+    cursor: pointer;
 }
 
 .hobby-card {
@@ -24,20 +31,9 @@
 
 }
 
-.big-hobby-card {
-    background: #efefef;
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    min-width: 220px;
-    max-width: 1000px;
-    min-height: 100px;
-    align-items: flex-start;
-
-    /* border: 1px solid #000; */
-    border-radius: 12px;
-    margin: 10px auto;
-    cursor: pointer;
+.hobby-card.description-true .hobby-name{
+    font-size: max(min(7vw, 25px), 12px);
+    /* align-items: center; */
 }
 
 
@@ -55,21 +51,15 @@
     border-radius: 12px;
     object-fit: cover;
 }
-/* .hobby-img {
-    background: #fff;
-    width: 30%;
-    height: 20vw;
-    min-width: 60px;
-    min-height: 60px;
-    max-width: 80px;
-    max-height: 80px;
-    margin: 3%;
-    border: 1px solid #000;
-    border-radius: 12px;
-    object-fit: cover;
-} */
 
+.hobby-tags{
+    overflow: hidden;
+    width: 100%;
+    height: 90%;
+    /* display: flex; */
+    /* justify-content: flex-start; */
 
+}
 
 .hobby-info {
     width: 50%;
@@ -85,25 +75,15 @@
     /* align-items: center; */
 }
 
-.hobby-info.description-true .hobby-name{
-    font-size: max(min(7vw, 25px), 12px);
-    /* text-align: center; */
-}
-
 .hobby-name {
     font-weight: bold;
     font-size: max(min(4vw, 18px), 12px);
 }
 
 
-
-.hobby-card.description-true .hobby-name{
+.hobby-info.description-true .hobby-name{
     font-size: max(min(7vw, 25px), 12px);
-    /* align-items: center; */
-}
-
-.hobbylist-buttons.description-true.added-true {
-    padding-top: 3%;
+    /* text-align: center; */
 }
 
 .hobbylist-buttons {
@@ -116,6 +96,10 @@
     align-items:flex-end
     /* padding-top: 3%; */
     /* justify-content: space-between; */
+}
+
+.hobbylist-buttons.description-true.added-true {
+    padding-top: 3%;
 }
 
 .hobby-expandable{
