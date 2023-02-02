@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 // import { HiOutlineChatBubbleLeftEllipsis } from "@react-icons/all-files/hi/HiOutlineChatBubbleLeftEllipsis";
 import { HiOutlineChatAlt } from "@react-icons/all-files/hi/HiOutlineChatAlt";
 import { HiOutlineChatAlt2 } from "@react-icons/all-files/hi/HiOutlineChatAlt2";
+import {RiArrowDownSLine}  from "@react-icons/all-files/ri/RiArrowDownSLine";
+import {RiArrowUpSLine} from "@react-icons/all-files/ri/RiArrowUpSLine";
 import { HiChatAlt2 } from "@react-icons/all-files/hi/HiChatAlt2";
 import { Button, Modal, ActionIcon, Title, Text } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
@@ -75,12 +77,12 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
 
 
     return (
-        <div className="big-hobby-card">
+        <div className="big-hobby-card" onClick={() => setShowDescription(!showDescription)}>
             {/* <Modal opened={modalOpened} onClose={() => setModalOpened(false)} withCloseButton={false} overlayColor={"#222"} overlayOpacity={0.45}>
                 Join the hobby to chat with its members!
             </Modal> */}
 
-            <div className="hobby-card" onClick={() => setShowDescription(!showDescription)} >
+            <div className="hobby-card">
                 {hobby.img ? <img className="hobby-image" referrerPolicy="no-referrer" src={hobby.img} /> :
                     // <HiOutlineUserGroup className='hobby-img' size={70} />
                     <img className="hobby-image" src="/group.png" style={{ width: "80%", padding: 15 }} />
@@ -122,13 +124,16 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                         { 
                             hobby.tags
                                 ? 
-                                showDescription && Object.values(hobby.tags).map(tag =><Tag key={tag + hobby.id} tagName={tag} />)
+                                showDescription && Object.values(hobby.tags).sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase())).map(tag =><Tag key={tag + hobby.id} tagName={tag} />)
                                 : <div></div>
                         }
                     </div>
 
             </div>
         }
+        <div className="carrot">
+            {showDescription? <RiArrowUpSLine/> : <RiArrowDownSLine/>}
+        </div>
 
 
 
