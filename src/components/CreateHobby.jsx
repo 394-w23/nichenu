@@ -88,9 +88,9 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     { value: 'outdoor', label: 'Outdoor' },
     { value: 'social', label: 'Social' },
     { value: 'sports', label: 'Sports' },
-    { value: 'tv-film', label: 'TV Film' },
     { value: 'theatre', label: 'Theatre' },
     { value: 'travel', label: 'Travel' },
+    { value: 'tv-film', label: 'TV & Film' },
     { value: 'video-games', label: 'Video Games' },
     { value: 'visual', label: 'Visual' },
     { value: 'volunteer', label: 'Volunteer' }

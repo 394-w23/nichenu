@@ -38,31 +38,31 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
         setCurrDisplay("hobbies");
     }
 
-    // const LeaveHobby = (e) => {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     // if (!e.target.value) return;
+    const LeaveHobby = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // if (!e.target.value) return;
 
-    //     if (Object.values(hobby.message_chat.users).length == 1) {
-    //         setHobbies(hobbies.filter((h) => h.id != hobby.id));
+        if (Object.values(hobby.message_chat.users).length == 1) {
+            setHobbies(hobbies.filter((h) => h.id != hobby.id));
 
-    //         updateHobbyList({
-    //             [hobby.id]: null,
-    //         });
-    //     } else {
-    //         updateHobby({
-    //             [user.id]: null,
-    //         });
+            updateHobbyList({
+                [hobby.id]: null,
+            });
+        } else {
+            updateHobby({
+                [user.id]: null,
+            });
 
-    //         updateUser({
-    //             [hobby.id]: null,
-    //         });
+            updateUser({
+                [hobby.id]: null,
+            });
 
-    //         delete hobby.message_chat.users[user.id]
-    //     }
+            delete hobby.message_chat.users[user.id]
+        }
 
-    //     setCurrDisplay("hobbies");
-    // }
+        setCurrDisplay("hobbies");
+    }
 
     const openChat = (e) => {
         if (added) {
@@ -77,19 +77,22 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
 
 
     return (
-        <div className="big-hobby-card" onClick={() => setShowDescription(!showDescription)}>
+        <div className={`big-hobby-card description-${showDescription}`} onClick={() => setShowDescription(!showDescription)}>
             {/* <Modal opened={modalOpened} onClose={() => setModalOpened(false)} withCloseButton={false} overlayColor={"#222"} overlayOpacity={0.45}>
                 Join the hobby to chat with its members!
             </Modal> */}
 
-            <div className="hobby-card">
+            <div className={`hobby-card description-${showDescription}`}>
                 {hobby.img ? <img className="hobby-image" referrerPolicy="no-referrer" src={hobby.img} /> :
                     // <HiOutlineUserGroup className='hobby-img' size={70} />
                     <img className="hobby-image" src="/group.png" style={{ width: "80%", padding: 15 }} />
                 }
-                <div className="hobby-info" >
+                <div className={`hobby-info description-${showDescription}`}>
 
-                    <Title className="hobby-name" lineClamp={1}>{hobby.name}</Title>
+                    {
+                        showDescription ? <Title className="hobby-name" lineClamp={2}>{hobby.name}</Title> :
+                        <Title className="hobby-name"  lineClamp={1}>{hobby.name}</Title>
+                    }
            
                     <div className='hobby-tags'>
                         { 
@@ -100,18 +103,17 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                         }
                     </div>
                 </div>
-                <div className="hobbylist-button">
+                <div className="hobbylist-buttons">
+                { added && showDescription ? <Button onClick={LeaveHobby} style={{marginLeft: 5}} size="xs" color="red">Leave</Button> : <></>}
                     {
                         added
-                            ? <ActionIcon size="xl" onClick={openChat} color="blue">
+                            ? <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
                                 <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
                             </ActionIcon>
                             // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
                             : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
                     }
-                    {
-
-                    }
+                    
                 </div>
 
             </div>
