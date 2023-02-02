@@ -161,37 +161,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
           <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
         </div>
       </form>
-      {/* <form onSubmit={(submit)}>
-      <div className="form-group row">
-        <label htmlFor="" className="col-4 col-form-label">Hobby Name</label>
-        <div className="col-8">
-          <input id="" name="" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" type="text" className="form-control" required="required" />
-        </div>
-      </div>
-      <div className="form-group row">
-        <label className="col-4 col-form-label" htmlFor="textarea">Description</label>
-        <div className="col-8">
-          <textarea id="textarea" name="textarea" placeholder="Describe your hobby here" cols="40" rows="3" className="form-control" required="required"></textarea>
-        </div>
-      </div>
-
-      <div className="form-group row">
-      <label className="col-4">Tags</label>
-      <div className="col-8">
-      <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} clearable/>
-      </div>
-      </div>
-      <div className="form-group row">
-        <div className="offset-4 col-8">
-        <button name="submit" type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </div>
-
-
-    </form> */}
-
     </>
-
   );
 };
 
