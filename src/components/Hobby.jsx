@@ -103,18 +103,23 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                         }
                     </div>
                 </div>
-                <div className="hobbylist-buttons">
-                { added && showDescription ? <Button onClick={LeaveHobby} style={{marginLeft: 5}} size="xs" color="red">Leave</Button> : <></>}
-                    {
-                        added
-                            ? <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
-                                <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
-                            </ActionIcon>
-                            // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
-                            : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
-                    }
+                { added && showDescription ?
+                <div className={`hobbylist-buttons description-${showDescription} added-${added}`}>
+                    <Button onClick={LeaveHobby} style={{marginLeft: 5}} size="xs" color="red">Leave</Button>
                     
-                </div>
+                    <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
+                        <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
+                    </ActionIcon>
+                </div> :
+                <div className={`hobbylist-buttons description-${showDescription}`}>{
+                    added
+                        ? <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
+                            <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
+                        </ActionIcon>
+                        // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
+                        : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                }</div>
+                }
 
             </div>
         {showDescription && 
