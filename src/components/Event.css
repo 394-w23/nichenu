@@ -103,10 +103,17 @@
 }
 
 .event-info {
-    width: 70%;
-    height: 70px;
-    font-size: max(min(3vw, 12px), 10px);
+    width: 50%;
+    min-height: 70px;
+    font-size: max(min(3vw, 14px), 10px);
     text-align: left;
+}
+
+.event-info.description-true {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
 }
 
 .event-name {
