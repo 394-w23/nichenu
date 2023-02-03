@@ -136,14 +136,17 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
                         <Text>
                             <i><u>Location</u></i>: {event.location}
                         </Text>
+
+                        {event.hobby !== undefined ?
+                            <div className="event-hobby-name">
+                                <i><u>Hobby</u></i>: {hobbies[event.hobby].name}
+                            </div> : <></>
+                        }
+
                         <div>
                             {participants} participant{participants>1 ? "s" : ""}
                         </div>
-                        {event.hobby !== undefined ?
-                            <div className="event-hobby-name">
-                                <i><u>Hobby Name</u></i>: {event.hobby}
-                            </div> : <></>
-                        }
+                        
                     </div>
 
                     

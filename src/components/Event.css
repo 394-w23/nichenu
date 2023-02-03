@@ -62,7 +62,7 @@
 }
 
 .event-info-details.description-false {
-    font-size: 7.5px;
+    font-size: 10px;
 }
 
 .event-description {
@@ -104,7 +104,7 @@
 }
 
 .event-info {
-    width: 50%;
+    width: 55%;
     min-height: 70px;
     font-size: max(min(3vw, 14px), 10px);
     text-align: left;
@@ -126,7 +126,7 @@
 }
 
 .event-expandable{
-    margin:1% 5% 0% 5%;
+    margin: 1% 5% 0% 5%;
     text-align: left;
     width: 95%;
 }

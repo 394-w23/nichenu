@@ -41,7 +41,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
             title: `You joined the ${hobby.name} hobby!`,
             message: 'Go to "My Hobbies" to see your hobby!',
             autoClose: 3000,
-          })
+        })
     }
 
     const LeaveHobby = (e) => {
@@ -72,7 +72,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
             title: `You left the ${hobby.name} hobby!`,
             message: 'Go to "Other Hobbies" to rejoin this hobby!',
             autoClose: 3000,
-          })
+        })
     }
 
     const openChat = (e) => {
@@ -116,8 +116,6 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                 </div>
                 {added && showDescription ?
                     <div className={`hobbylist-buttons description-${showDescription} added-${added}`}>
-                        <Button onClick={LeaveHobby} style={{ marginLeft: 5 }} size="xs" color="red">Leave</Button>
-
                         <ActionIcon className="leave" size="xl" onClick={openChat} color="blue">
                             <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
                         </ActionIcon>
@@ -134,19 +132,26 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
 
             </div>
             {showDescription &&
-                <div className='hobby-expandable'>
+                <div className="hobby-expandable-cols">
+                    <div className='hobby-expandable'>
 
-                    <Text>{hobby.desc}</Text>
+                        <Text>{hobby.desc}</Text>
 
-                    <div className='hobby-tags'>
-                        {
-                            hobby.tags
-                                ?
-                                showDescription && Object.values(hobby.tags).sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase())).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)
-                                : <div></div>
-                        }
+                        <div className='hobby-tags'>
+                            {
+                                hobby.tags
+                                    ?
+                                    showDescription && Object.values(hobby.tags).sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase())).map(tag => <Tag key={tag + hobby.id} tagName={tag} />)
+                                    : <div></div>
+                            }
+                        </div>
+
                     </div>
-
+                    {
+                        added && <div>
+                            <Button onClick={LeaveHobby} style={{ marginTop: "10%" }} size="xs" color="red">Leave</Button>
+                        </div>
+                    }
                 </div>
             }
             <div className="carrot">

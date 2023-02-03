@@ -7,7 +7,6 @@
     max-width: 1000px;
     min-height: 100px;
     align-items: flex-start;
-
     /* border: 1px solid #000; */
     border-radius: 12px;
     margin: 10px auto;
@@ -102,12 +101,19 @@
     padding-top: 3%;
 }
 
-.hobby-expandable{
-    margin:1% 5% 0% 5%;
+.hobby-expandable {
+    margin: 1% 5% 0% 5%;
     text-align: left;
 }
 
-.carrot{
+.hobby-expandable-cols {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.carrot {
     margin: 0;
     width: 100%;
     padding: 0;
