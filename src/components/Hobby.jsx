@@ -9,6 +9,7 @@ import { RiArrowUpSLine } from "@react-icons/all-files/ri/RiArrowUpSLine";
 import { HiChatAlt2 } from "@react-icons/all-files/hi/HiChatAlt2";
 import { Button, Modal, ActionIcon, Title, Text } from '@mantine/core';
 import { useDbData, useDbUpdate } from '../utils/firebase';
+import { showNotification } from '@mantine/notifications';
 
 const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, hobbies, setHasHobbies }) => {
     const [updateHobbyList, resultHobbyList] = useDbUpdate(`/hobbies/`);
@@ -36,6 +37,11 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
         setHasHobbies(user.hobby_ids !== null)
 
         setCurrDisplay("hobbies");
+        showNotification({
+            title: `You joined the ${hobby.name} hobby!`,
+            message: 'Go to "My Hobbies" to see your hobby!',
+            autoClose: 3000,
+          })
     }
 
     const LeaveHobby = (e) => {
@@ -62,6 +68,11 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
         }
 
         setCurrDisplay("hobbies");
+        showNotification({
+            title: `You left the ${hobby.name} hobby!`,
+            message: 'Go to "Other Hobbies" to rejoin this hobby!',
+            autoClose: 3000,
+          })
     }
 
     const openChat = (e) => {

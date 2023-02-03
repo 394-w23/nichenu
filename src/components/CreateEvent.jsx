@@ -9,7 +9,7 @@ import { DatePicker, TimeInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import moment from 'moment';
 import { RiErrorWarningLine } from "@react-icons/all-files/ri/RiErrorWarningLine"
-
+import { showNotification } from '@mantine/notifications';
 
 export const CreateEvent = ({ user, setCurrDisplay }) => {
   const eventId = uuid();
@@ -125,6 +125,11 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       setCurrDisplay("events");
 
     }
+    showNotification({
+      title: `You created the ${form.values.name} event!`,
+      message: 'Go to "My Events" to see your new event!',
+      autoClose: 3000,
+    })
   }
 
   return (

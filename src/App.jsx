@@ -12,6 +12,8 @@ import { useDbData, useAuth, useDbUpdate } from './utils/firebase';
 import { findUserDisplayName } from './utils/helpers';
 import Auth from './components/Auth';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
 const App = () => {
   const [data, error] = useDbData("/");
@@ -51,22 +53,27 @@ const App = () => {
 
 
   return (
-    <div className="App">
-      <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay} />
-      <div className="content">
-        {
-          currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay} /> :
-            currDisplay === "events" ? <EventList eventList={data.events ? Object.values(data.events) : []} user={userFromDB} setCurrDisplay={setCurrDisplay} />
-              // : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies} user={userFromDB} openMessages={openMessages}/> 
-              : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies ? Object.values(data.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={userFromDB} openMessages={openMessages} setCurrDisplay={setCurrDisplay} />
-                : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)} user={userFromDB} setCurrDisplay={setCurrDisplay} />
-                  : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay} />
-                    : currDisplay === "createEvent" ? <CreateEvent user={userFromDB} setCurrDisplay={setCurrDisplay} />
-                      : <div></div>
-        }
-      </div>
-      {(currDisplay !== 'message' && currDisplay !== 'auth') && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
-    </div>
+    <MantineProvider withNormalizeCSS withGlobalStyles>
+      <NotificationsProvider position="top-left">
+        <div className="App">
+          <Header currDisplay={currDisplay} setCurrDisplay={setCurrDisplay} />
+          <div className="content">
+            {
+              currDisplay == "auth" ? <Auth setCurrDisplay={setCurrDisplay} /> :
+                currDisplay === "events" ? <EventList eventList={data.events ? Object.values(data.events) : []} user={userFromDB} setCurrDisplay={setCurrDisplay} />
+                  // : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies} user={userFromDB} openMessages={openMessages}/> 
+                  : currDisplay === "hobbies" ? <HobbyList hobbyList={data.hobbies ? Object.values(data.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={userFromDB} openMessages={openMessages} setCurrDisplay={setCurrDisplay} />
+                    : currDisplay === "message" ? <ChatRoom hobby={hobby} users={Object.values(data.users)} user={userFromDB} setCurrDisplay={setCurrDisplay} />
+                      : currDisplay === "createHobby" ? <CreateHobby user={userFromDB} setCurrDisplay={setCurrDisplay} />
+                        : currDisplay === "createEvent" ? <CreateEvent user={userFromDB} setCurrDisplay={setCurrDisplay} />
+                          : <div></div>
+            }
+          </div>
+          {(currDisplay !== 'message' && currDisplay !== 'auth') && <Navbar displayOptions={displayOptions} selection={currDisplay} setSelection={setCurrDisplay} />}
+        </div>
+      </NotificationsProvider>
+    </MantineProvider>
+
   );
 };
 

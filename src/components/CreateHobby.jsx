@@ -7,7 +7,7 @@ import uuid from 'react-uuid';
 import { useRef, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { RiErrorWarningLine } from '@react-icons/all-files/ri/RiErrorWarningLine';
-
+import { showNotification } from '@mantine/notifications';
 
 export const CreateHobby = ({ user, setCurrDisplay }) => {
   const hobbyId = uuid();
@@ -129,6 +129,11 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       });
       setCurrDisplay("hobbies");
     }
+    showNotification({
+      title: `You created the ${form2.values.name} hobby!`,
+      message: 'Go to "My Hobbies" to see your new hobby!',
+      autoClose: 3000,
+    })
   }
 
   return (

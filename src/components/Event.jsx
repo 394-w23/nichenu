@@ -7,6 +7,7 @@ import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine";
 import { RiIndeterminateCircleLine } from "@react-icons/all-files/ri/RiIndeterminateCircleLine";
 import { ActionIcon, Button, Title, Text } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
+import { showNotification } from '@mantine/notifications';
 
 const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents }) => {
     const [updateEventList, resultEventList] = useDbUpdate(`/events/`);
@@ -37,6 +38,11 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
         setHasEvents(user.event_ids !== null)
 
         setCurrDisplay("events");
+        showNotification({
+            title: `You joined the ${event.name} event!`,
+            message: 'Go to "My Events" to see your event!',
+            autoClose: 3000,
+          })
     }
 
     const RemoveEvent = (e) => {
@@ -67,6 +73,11 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
         }
         setHasEvents(user.event_ids !== null)
         setCurrDisplay("events");
+        showNotification({
+            title: `You left the ${event.name} event!`,
+            message: 'Go to "Other Events" to rejoin this event!',
+            autoClose: 3000,
+          })
     }
 
 
