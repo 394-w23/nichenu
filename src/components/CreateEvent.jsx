@@ -151,7 +151,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
         {...form.getInputProps('desc')}
       />
 
-      <Select label="Hobby" value={hobby} searchable onChange={setHobby} data={hobbies} clearable />
+      <Select label="Associated Hobby" value={hobby} searchable onChange={setHobby} data={hobbies} clearable />
 
       <TextInput
         style={{ marginBottom: 10 }}

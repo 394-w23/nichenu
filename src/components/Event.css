@@ -45,11 +45,6 @@
 .event-info-details > * {
     background-color: #DDEBF1;
     color: #0B6E99;
-
-    width: 94%;
-    
-    /* display: inline-block; */
-    margin-right: 10px;
     padding: 2px;
     border-radius: 5px;
     padding-left: 6px;
@@ -126,9 +121,13 @@
 }
 
 .event-expandable{
-    margin: 1% 5% 0% 5%;
+    background-color: #d1d1d1;
+    margin: 1% 3% 0% 3%;
     text-align: left;
-    width: 95%;
+    width: 94%;
+    border-radius: 12px;
+    padding: 10px;
+
 }
 
 .carrot{

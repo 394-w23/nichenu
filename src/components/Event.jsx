@@ -139,7 +139,7 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
 
                         {event.hobby !== undefined ?
                             <div className="event-hobby-name">
-                                <i><u>Hobby</u></i>: {hobbies[event.hobby].name}
+                                <i><u>Associated Hobby</u></i>: {hobbies[event.hobby].name}
                             </div> : <></>
                         }
 
