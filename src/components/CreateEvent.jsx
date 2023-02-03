@@ -176,7 +176,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       </Input.Wrapper>
 
       <div style={{ textAlign: "center" }}>
-        <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
+        <Button style={{ marginTop: 10 }} type="submit">Create Event</Button>
       </div>
 
 

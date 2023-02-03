@@ -163,7 +163,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
         />
         <div style={{ textAlign: "center" }}>
-          <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
+          <Button style={{ marginTop: 10 }} type="submit">Create Hobby</Button>
         </div>
       </form>
     </>
