@@ -19,9 +19,12 @@ const EventList = ({ hobbyList, eventList, user, setCurrDisplay }) => {
 
     return (
         <div data-cy="event-list">
-            <form>
-                <TextInput type="search" placeholder="Search" icon={<HiSearch></HiSearch>} value={query} onChange={handleChange} />
-            </form>
+            <div className="search-bar">
+                <form>
+                    <TextInput type="search" placeholder="Search" icon={<HiSearch></HiSearch>} value={query} onChange={handleChange} />
+                </form>
+            </div>
+
             <Title order={2}>My Events</Title>
             {
                 hasEvents

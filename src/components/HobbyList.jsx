@@ -16,7 +16,6 @@ const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
     return (
         <div data-cy="hobby-list">
             <div className="search-bar">
-
                 <form>
                      <TextInput type="search" placeholder="Search" icon={<HiSearch></HiSearch>}  value={query} onChange={handleChange} />
                 </form>
