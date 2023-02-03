@@ -59,7 +59,6 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
       let e_date = moment(endDate, "MM/DD/YYYY");
       let e_time = moment(endTime, "hh:mm a");
       let endDateTime = e_date.add(e_time.hours(), 'hours').add(e_time.minutes(), 'minutes');
-      console.log(endDateTime.format());
 
       if (endDateTime.format()) {
         setFormattedEndDateTime(endDateTime.format())
