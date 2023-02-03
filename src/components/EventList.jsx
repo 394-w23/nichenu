@@ -4,7 +4,7 @@ import './EventList.css';
 import { Title, Divider } from '@mantine/core'
 
 const EventList = ({ hobbyList, eventList, user, setCurrDisplay }) => {
-    const [events, setEvents] = useState(eventList);
+    const [events, setEvents] = useState(eventList.filter(event =>  Date.now() <= new Date(event.end_timestamp) ));
     const [hobbies, setHobbies] = useState(hobbyList);
     const [hasEvents, setHasEvents] = useState(user.event_ids !== null);
     // console.log(hobbies.filter((hb) => hb.id === "2a042630-4fc9-4d7b-ffed-d2e2ac6fe246"))
