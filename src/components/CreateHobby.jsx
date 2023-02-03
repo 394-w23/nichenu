@@ -7,7 +7,7 @@ import uuid from 'react-uuid';
 import { useRef, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { RiErrorWarningLine } from '@react-icons/all-files/ri/RiErrorWarningLine';
-
+import { showNotification } from '@mantine/notifications';
 
 export const CreateHobby = ({ user, setCurrDisplay }) => {
   const hobbyId = uuid();
@@ -88,9 +88,9 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     { value: 'outdoor', label: 'Outdoor' },
     { value: 'social', label: 'Social' },
     { value: 'sports', label: 'Sports' },
-    { value: 'tv-film', label: 'TV Film' },
     { value: 'theatre', label: 'Theatre' },
     { value: 'travel', label: 'Travel' },
+    { value: 'tv-film', label: 'TV & Film' },
     { value: 'video-games', label: 'Video Games' },
     { value: 'visual', label: 'Visual' },
     { value: 'volunteer', label: 'Volunteer' }
@@ -129,6 +129,11 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       });
       setCurrDisplay("hobbies");
     }
+    showNotification({
+      title: `You created the ${form2.values.name} hobby!`,
+      message: 'Go to "My Hobbies" to see your new hobby!',
+      autoClose: 3000,
+    })
   }
 
   return (
@@ -158,40 +163,10 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
         />
         <div style={{ textAlign: "center" }}>
-          <Button style={{ marginTop: 10 }} type="submit">Submit</Button>
+          <Button style={{ marginTop: 10 }} type="submit">Create Hobby</Button>
         </div>
       </form>
-      {/* <form onSubmit={(submit)}>
-      <div className="form-group row">
-        <label htmlFor="" className="col-4 col-form-label">Hobby Name</label>
-        <div className="col-8">
-          <input id="" name="" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" type="text" className="form-control" required="required" />
-        </div>
-      </div>
-      <div className="form-group row">
-        <label className="col-4 col-form-label" htmlFor="textarea">Description</label>
-        <div className="col-8">
-          <textarea id="textarea" name="textarea" placeholder="Describe your hobby here" cols="40" rows="3" className="form-control" required="required"></textarea>
-        </div>
-      </div>
-
-      <div className="form-group row">
-      <label className="col-4">Tags</label>
-      <div className="col-8">
-      <MultiSelect value={tags} searchable onChange={setTags} data={tagsData} clearable/>
-      </div>
-      </div>
-      <div className="form-group row">
-        <div className="offset-4 col-8">
-        <button name="submit" type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </div>
-
-
-    </form> */}
-
     </>
-
   );
 };
 

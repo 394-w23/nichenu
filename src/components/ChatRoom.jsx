@@ -7,7 +7,7 @@ import { ActionIcon, Button } from '@mantine/core';
 import { RiAddFill } from "@react-icons/all-files/ri/RiAddFill"
 import { RiUser3Line } from "@react-icons/all-files/ri/RiUser3Line"
 import { useDbData, useDbUpdate } from '../utils/firebase';
-
+import { showNotification } from '@mantine/notifications';
 
 const ChatRoom = ({ hobby, users, user, setCurrDisplay }) => {
     const [update, result] = useDbData(`/hobbies/${hobby.id}/message_chat`)
@@ -60,6 +60,11 @@ const ChatRoom = ({ hobby, users, user, setCurrDisplay }) => {
         }
 
         setCurrDisplay("hobbies");
+        showNotification({
+            title: `You left the ${hobby.name} hobby!`,
+            message: 'Go to "Other Hobbies" to rejoin this hobby!',
+            autoClose: 3000,
+          })
     }
 
     return (
