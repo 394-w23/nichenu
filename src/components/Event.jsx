@@ -9,18 +9,17 @@ import { ActionIcon, Button, Title, Text } from '@mantine/core';
 import { useDbUpdate } from '../utils/firebase';
 import { showNotification } from '@mantine/notifications';
 
-const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents }) => {
+const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEvents, setHobbies, hobbies }) => {
     const [updateEventList, resultEventList] = useDbUpdate(`/events/`);
     const [updateEvent, resultEvent] = useDbUpdate(`/events/${event.id}/users/`);
     const [updateUser, resultUser] = useDbUpdate(`/users/${user.id}/event_ids/`);
     const [showDescription, setShowDescription] = useState(false);
     let participants = Object.values(event.users).length
-
     const months = ["Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     const start = new Date(event.start_timestamp);
     const end = new Date(event.end_timestamp);
-
+    // console.log(events.filter((ev) => ev.id == event.id))
     const JoinEvent = (e) => {
         e.preventDefault();
         // if (!e.target.value) return;
@@ -44,7 +43,6 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
             autoClose: 3000,
           })
     }
-
     const RemoveEvent = (e) => {
         e.preventDefault();
         // if (!e.target.value) return;
@@ -139,8 +137,13 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
                             <i><u>Location</u></i>: {event.location}
                         </Text>
                         <div>
-                            {participants} participants
+                            {participants} participant{participants>1 ? "s" : ""}
                         </div>
+                        {event.hobby !== undefined ?
+                            <div className="event-hobby-name">
+                                <i><u>Hobby Name</u></i>: {event.hobby}
+                            </div> : <></>
+                        }
                     </div>
 
                     
