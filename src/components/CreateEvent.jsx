@@ -32,7 +32,7 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
 
   useEffect(() => {
     if (data) {
-      setHobbies(Object.values(data.hobbies).map(x => { return { label: x.name, value: x.id } }))
+      setHobbies(Object.values(data.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())).map(x => { return { label: x.name, value: x.id } }))
     }
   }, [data])
 
