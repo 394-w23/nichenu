@@ -1,4 +1,4 @@
-.search-bar{
+.search-bar-hobbies {
     /* display: flex; */
     width: 90%;
     min-width: 220px;
@@ -6,6 +6,7 @@
     /* align-items: flex-start; */
     margin: auto;
 }
-.search-bar > * {
+.search-bar-hobbies > * {
     margin-top: 4vh;
+    width: 90%;
 }

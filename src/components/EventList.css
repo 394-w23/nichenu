@@ -2,12 +2,12 @@
     font-size: 20px;
     color: #656565;
 }
-.search-bar > * {
+.search-bar-events > form {
     margin-top: 4vh;
-    margin-bottom: 3vh;
+    width: 90%;
 }
 
-.search-bar{
+.search-bar-events {
     /* display: flex; */
     width: 90%;
     min-width: 220px;
