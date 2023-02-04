@@ -7,6 +7,7 @@ import uuid from 'react-uuid';
 import { useRef, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { RiErrorWarningLine } from '@react-icons/all-files/ri/RiErrorWarningLine';
+import { HiOutlineUpload } from '@react-icons/all-files/hi/HiOutlineUpload';
 import { showNotification } from '@mantine/notifications';
 import { getDownloadURL, ref as sRef, uploadBytes } from 'firebase/storage';
 
@@ -193,10 +194,9 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
           minRows={3}
         />
 
-        <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
-        />
+        <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable/>
 
-        <FileInput label="Image" placeholder="Upload Hobby Image" accept="image/png,image/jpeg" value={image} onChange={setImage} />
+        <FileInput className="hobby-image-upload" label="Image" placeholder="Upload Hobby Image" icon={<HiOutlineUpload/>} accept="image/png,image/jpeg" value={image} onChange={setImage} />
 
         <div style={{ textAlign: "center" }}>
           <Button style={{ marginTop: 10 }} type="submit">Create Hobby</Button>

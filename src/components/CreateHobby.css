@@ -2,3 +2,8 @@ form {
     width: 85%;
     margin: 5%;
 }
+
+.hobby-image-upload {
+    width: 30vh;
+    margin-top: 8px;
+}
