@@ -1,13 +1,14 @@
 import './CreateHobby.css'
 import { parseTimeString } from '../utils/helpers' // TODO: use moment js
 import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
-import { ActionIcon, Alert, Button, MultiSelect, Textarea, TextInput } from '@mantine/core';
-import { useDbData, useDbUpdate } from '../utils/firebase';
+import { ActionIcon, Alert, Button, FileInput, MultiSelect, Textarea, TextInput } from '@mantine/core';
+import { useDbData, useDbUpdate, getDbStorage } from '../utils/firebase';
 import uuid from 'react-uuid';
 import { useRef, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { RiErrorWarningLine } from '@react-icons/all-files/ri/RiErrorWarningLine';
 import { showNotification } from '@mantine/notifications';
+import { getDownloadURL, ref as sRef, uploadBytes } from 'firebase/storage';
 
 export const CreateHobby = ({ user, setCurrDisplay }) => {
   const hobbyId = uuid();
@@ -18,6 +19,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const [updateInitialMessage, resultInitialMessage] = useDbUpdate(`/hobbies/${hobbyId}/message_chat/messages/${messageId}`);
   const [tags, setTags] = useState([]);
   const [data, error] = useDbData("/");
+  const [image, setImage] = useState(null);
 
 
 
@@ -43,7 +45,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         id: messageChatId,
         users: {
           [user.id]: user.id,    //FIXME: change this to the signed in user's ID
-        } 
+        }
       },
     },
 
@@ -59,7 +61,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         }
       },
 
-      desc: (value) =>(value == ''? 'Please enter hobby description': null)
+      desc: (value) => (value == '' ? 'Please enter hobby description' : null)
     },
 
     // proceed
@@ -108,26 +110,56 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     let formData = { ...form2.values, tags: tags, id: hobbyId }
     // // if there issues with the form, show an alert
     if (
-      Object.values(form2.errors).length > 0||
+      Object.values(form2.errors).length > 0 ||
       !form2.values.desc ||
       !form2.values.name
     ) {
       setRaiseAlert(true);
     } else {
       setRaiseAlert(false);
-      update(formData)
 
-      updateUser({
-        [hobbyId]: hobbyId,
-      })
+      if (image) {
+        // Upload hobby with image
+        const imageName = user.id + "_" + Date.now();
+        const storageRef = sRef(getDbStorage(), `/hobby_images/${imageName}`);
 
-      updateInitialMessage({
-        content: "Welcome to \"" + e.target[0].value + "\"!",
-        date: new Date().toISOString(),
-        id: messageId,
-        user: user.id,
-      });
-      setCurrDisplay("hobbies");
+        uploadBytes(storageRef, image).then((snapshot) => {
+          console.log('Uploaded a hobby image file!');
+        }).then(() => {
+          getDownloadURL(storageRef).then((url) => {
+            formData.img = url;
+          }).then(() => {
+            update(formData)
+  
+            updateUser({
+              [hobbyId]: hobbyId,
+            })
+      
+            updateInitialMessage({
+              content: "Welcome to \"" + e.target[0].value + "\"!",
+              date: new Date().toISOString(),
+              id: messageId,
+              user: user.id,
+            });
+            setCurrDisplay("hobbies");
+          });
+        });
+      } else {
+        // Upload hobby without image (default image)
+        update(formData)
+
+        updateUser({
+          [hobbyId]: hobbyId,
+        })
+  
+        updateInitialMessage({
+          content: "Welcome to \"" + e.target[0].value + "\"!",
+          date: new Date().toISOString(),
+          id: messageId,
+          user: user.id,
+        });
+        setCurrDisplay("hobbies");
+      }    
     }
     showNotification({
       title: `You created the ${form2.values.name} hobby!`,
@@ -160,8 +192,12 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
           autosize
           minRows={3}
         />
+
         <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable
         />
+
+        <FileInput label="Image" placeholder="Upload Hobby Image" accept="image/png,image/jpeg" value={image} onChange={setImage} />
+
         <div style={{ textAlign: "center" }}>
           <Button style={{ marginTop: 10 }} type="submit">Create Hobby</Button>
         </div>

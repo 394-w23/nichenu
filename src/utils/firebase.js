@@ -25,8 +25,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
-// const storage = getStorage(app);
+const storage = getStorage(app);
 const auth = getAuth(app);
+
 
 if (import.meta.env.MODE !== 'prod') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
@@ -64,12 +65,15 @@ export const useDbUpdate = (path) => {
   return [updateData, result];
 }
 
+export const getDbStorage = () => {
+  return storage;
+}
+
 const makeResult = (error) => {
   const timestamp = Date.now();
   const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
   return { timestamp, error, message };
 };
-
 
 
 
