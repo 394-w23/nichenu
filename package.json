@@ -6,7 +6,7 @@
     "dev": "vite",
     "cy:open": "cypress open --e2e",
     "em:start": "npm run build:dev && firebase emulators:start --import=./saved-data --export-on-exit",
-    "em:run": "firebase emulators:exec --import=./saved-data 'npm start'",
+    "em:exec": "npm run build:dev && firebase emulators:start --import=./saved-data",
     "em:execui": "firebase emulators:exec --ui --import=./saved-data 'npm start'",
     "build": "vite build --mode prod",
     "build:dev": "vite build --mode dev",
