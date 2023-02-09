@@ -132,50 +132,53 @@ export const CreateEvent = ({ user, setCurrDisplay }) => {
   }
 
   return (
-    <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
+    <form data-cy="create-event-form" onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
       {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
         {alertMessage}
       </Alert>
       }
 
       <TextInput
+        data-cy="add-event-name"
         style={{ marginBottom: 10 }}
         {...form.getInputProps('name')}
         label="Event name" placeholder="e.g. Rihanna Concert, Knitfest, Smash tournament" withAsterisk />
 
       <Textarea
+        data-cy="add-event-desc"
         style={{ marginBottom: 10 }}
         placeholder="Describe your event here"
         label="Description"
         {...form.getInputProps('desc')}
       />
 
-      <Select label="Associated Hobby" value={hobby} searchable onChange={setHobby} data={hobbies} clearable />
+      <Select data-cy="add-event-associated-hobby" label="Associated Hobby" value={hobby} searchable onChange={setHobby} data={hobbies} clearable />
 
       <TextInput
+        data-cy="add-event-location"
         style={{ marginBottom: 10 }}
         {...form.getInputProps('location')}
         label="Location" placeholder="e.g. Norris, The Lake, Mudd" withAsterisk />
 
       <Input.Wrapper style={{ marginBottom: 10 }} label="Start date and start time" withAsterisk>
         <div className="date-time">
-          <DatePicker onChange={(value) => setStartDate(value)} value={startDate} placeholder="Pick Start Date" firstDayOfWeek="sunday" withAsterisk minDate={new Date()} />
-          <TimeInput onChange={(value) => setStartTime(value)} value={startTime} format="12"
+          <DatePicker data-cy="add-event-start-date" onChange={(value) => setStartDate(value)} value={startDate} placeholder="Pick Start Date" firstDayOfWeek="sunday" withAsterisk minDate={new Date()} />
+          <TimeInput data-cy="add-event-start-time" onChange={(value) => setStartTime(value)} value={startTime} format="12"
             required
           />
         </div>
       </Input.Wrapper>
 
 
-      <Input.Wrapper style={{ marginBottom: 10 }} label="End date and start time" withAsterisk>
+      <Input.Wrapper style={{ marginBottom: 10 }} label="End date and end time" withAsterisk>
         <div className="date-time">
-          <DatePicker onChange={(value) => setEndDate(value)} value={endDate} placeholder="Pick End Date" firstDayOfWeek="sunday" withAsterisk minDate={startDate ? startDate : new Date()} />
-          <TimeInput onChange={(value) => setEndTime(value)} format="12" />
+          <DatePicker data-cy="add-event-end-date" onChange={(value) => setEndDate(value)} value={endDate} placeholder="Pick End Date" firstDayOfWeek="sunday" withAsterisk minDate={startDate ? startDate : new Date()} />
+          <TimeInput data-cy="add-event-end-time" onChange={(value) => setEndTime(value)} format="12" />
         </div>
       </Input.Wrapper>
 
       <div style={{ textAlign: "center" }}>
-        <Button style={{ marginTop: 10 }} type="submit">Create Event</Button>
+        <Button data-cy="create-event-submit-button" style={{ marginTop: 10 }} type="submit">Create Event</Button>
       </div>
 
 

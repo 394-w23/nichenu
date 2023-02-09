@@ -14,8 +14,8 @@ const MenuToggle = ({ setSelection }) => (
       </ActionIcon>
     </Menu.Target>
     <Menu.Dropdown>
-      <Menu.Item icon={<HiOutlineUserGroup size={14} />} onClick={() => setSelection("createHobby")}>Create Hobby</Menu.Item>
-      <Menu.Item icon={<HiOutlineCalendar size={14} />} onClick={() => setSelection("createEvent")}>Create Event</Menu.Item>
+      <Menu.Item data-cy="create-hobby-button" icon={<HiOutlineUserGroup size={14} />} onClick={() => setSelection("createHobby")}>Create Hobby</Menu.Item>
+      <Menu.Item data-cy="create-event-button" icon={<HiOutlineCalendar size={14} />} onClick={() => setSelection("createEvent")}>Create Event</Menu.Item>
     </Menu.Dropdown>
   </Menu>
 );
@@ -34,7 +34,7 @@ const Navbar = ({ displayOptions, selection, setSelection }) => {
         events
       </StyledNavButton>
 
-      <StyledNavButton className="nav-button">
+      <StyledNavButton data-cy="open-add-button" className="nav-button">
         <MenuToggle setSelection={setSelection} />
       </StyledNavButton>
 

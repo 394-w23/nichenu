@@ -25,15 +25,5 @@ describe ('Test App', () => {
     cy.get('[data-cy=event-list]').should('contain', 'My Events');
     cy.get('[data-cy=event-list]').should('contain', 'Other Events');
   });
-
-  // it ('opens with hobby list page with My Hobbies', () => {
-  //   cy.visit ('/');
-  //   cy.get('[data-cy=hobby-list]').should('contain', 'My Hobbies');
-  // });
-
-  // it ('opens with hobby list page with Other Hobbies', () => {
-  //   cy.visit ('/');
-  //   cy.get('[data-cy=hobby-list]').should('contain', 'Other Hobbies');
-  // });
   
 });
