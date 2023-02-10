@@ -30,7 +30,7 @@ const Header = ({ currDisplay, setCurrDisplay }) => {
       <h1 className="app-name">nicheNU</h1>      
       {/* <div style={{width: currDisplay === "message"? 20: 0}}></div>     */}
       <div style={{width: "25%",display: "flex", justifyContent: "right"}}>
-        <Button onClick={logout} size="xs">Logout</Button>
+        <Button data-cy="logout-button" onClick={logout} size="xs">Logout</Button>
       </div>
       
     </div>
