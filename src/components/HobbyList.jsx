@@ -17,23 +17,29 @@ const HobbyList = ({ hobbyList, user, openMessages, setCurrDisplay }) => {
         <div data-cy="hobby-list">
             <div className="search-bar-hobbies">
                 <form>
-                     <TextInput type="search" placeholder="Search" icon={<HiSearch></HiSearch>}  value={query} onChange={handleChange} />
+                    <TextInput type="search" placeholder="Search" icon={<HiSearch></HiSearch>} value={query} onChange={handleChange} />
                 </form>
             </div>
-            <Title order={2}>My Hobbies</Title>
-            {
-                hasHobbies
-                    ? hobbies.filter((hobby) => Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={true} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies} />)
-                    : <div className="empty-event-text">Go join hobbies!</div>
-            }
 
+            <div data-cy="my-hobbies">
+                <Title order={2}>My Hobbies</Title>
+                {
+                    hasHobbies
+                        ? hobbies.filter((hobby) => Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={true} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies} />)
+                        : <div className="empty-event-text">Go join hobbies!</div>
+                }
+
+            </div>
+            <div data-cy="other-hobbies">
+                <Title order={2}>Other Hobbies</Title>
+                {
+                    hasHobbies
+                        ? hobbies.filter((hobby) => !Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies} />)
+                        : hobbies.map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies} />)
+                }
+            </div>
             <br></br>
-            <Title order={2}>Other Hobbies</Title>
-            {
-                hasHobbies
-                    ? hobbies.filter((hobby) => !Object.values(hobby.message_chat.users).includes(user.id)).map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies} />)
-                    : hobbies.map((hobby) => <Hobby key={hobby.id} hobby={hobby} user={user} openMessages={openMessages} added={false} setCurrDisplay={setCurrDisplay} setHobbies={setHobbies} hobbies={hobbies} setHasHobbies={setHasHobbies} />)
-            }
+
         </div>
     );
 }

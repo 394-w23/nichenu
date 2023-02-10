@@ -39,6 +39,7 @@ const Navbar = ({ displayOptions, selection, setSelection }) => {
       </StyledNavButton>
 
       <StyledNavButton
+        data-cy="to-hobby-button"
         className="nav-button"
         key={"hobbies"}
         underline={selection == "hobbies"}

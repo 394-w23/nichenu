@@ -119,8 +119,8 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
                             //         </ActionIcon>)
 
                             added
-                                ? <Button data-cy={`leave-event-${event.name.replace(' ', '')}`} onClick={RemoveEvent} style={{ marginLeft: 5 }} size="xs" color="red">Leave</Button>
-                                : <Button onClick={JoinEvent} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                                ? <Button data-cy={`leave-event-${event.name.replaceAll(' ', '')}`} onClick={RemoveEvent} style={{ marginLeft: 5 }} size="xs" color="red">Leave</Button>
+                                : <Button data-cy={`join-event-${event.name.replaceAll(' ', '')}`} onClick={JoinEvent} style={{ marginLeft: 5 }} size="xs">Join</Button>
                         }
                     </div>
                 </div>

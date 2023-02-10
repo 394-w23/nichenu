@@ -126,7 +126,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                                 <HiChatAlt2 size={32} style={{ transform: "scale(1.2)" }} />
                             </ActionIcon>
                             // ? <Button onClick={openChat} style={{marginLeft: 5}} size="xs">Chat</Button>
-                            : <Button onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                            : <Button data-cy={`join-hobby-${hobby.name.replaceAll(' ', '-')}`} onClick={JoinHobby} style={{ marginLeft: 5 }} size="xs">Join</Button>
                     }</div>
                 }
 
@@ -149,7 +149,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                     </div>
                     {
                         added && <div>
-                            <Button onClick={LeaveHobby} style={{ marginTop: "10%" }} size="xs" color="red">Leave</Button>
+                            <Button data-cy={`leave-hobby-${hobby.name.replaceAll(' ', '')}`} onClick={LeaveHobby} style={{ marginTop: "10%" }} size="xs" color="red">Leave</Button>
                         </div>
                     }
                 </div>
