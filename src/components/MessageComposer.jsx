@@ -35,7 +35,7 @@ const MessageComposer = ({ hobbyId, messages, setMessages }) => {
   }
 
   return (
-    <form data-cy="message-input" className="message-composer-container" onSubmit={submitMessage}
+    <form className="message-composer-container" onSubmit={submitMessage}
       style={{ margin: "10px auto", padding: "0", width: "90%"}}>
       <Input data-cy="message-input"
         placeholder='Write message' 
