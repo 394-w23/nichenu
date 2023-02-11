@@ -120,7 +120,7 @@ const Event = ({ event, user, added, setCurrDisplay, setEvents, events, setHasEv
 
                             added
                                 ? <Button data-cy={`leave-event-${event.name.replace(' ', '')}`} onClick={RemoveEvent} style={{ marginLeft: 5 }} size="xs" color="red">Leave</Button>
-                                : <Button onClick={JoinEvent} style={{ marginLeft: 5 }} size="xs">Join</Button>
+                                : <Button onClick={JoinEvent} data-cy={`join-event-${event.name.replace(' ', '')}`}  style={{ marginLeft: 5 }} size="xs">Join</Button>
                         }
                     </div>
                 </div>

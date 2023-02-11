@@ -26,11 +26,13 @@ const EventList = ({ hobbyList, eventList, user, setCurrDisplay }) => {
             </div>
 
             <Title order={2}>My Events</Title>
+            <div data-cy="my-event-list">
             {
                 hasEvents
                     ? events.filter((event) => Object.values(event.users).includes(user.id)).sort((x, y) => (new Date(x.start_timestamp) - new Date(y.start_timestamp))).map((event) => <Event key={event.id} event={event} user={user} added={true} setCurrDisplay={setCurrDisplay} setEvents={setEvents} events={events} setHasEvents={setHasEvents} hobbies={hobbies} />)
                     : <div className="empty-event-text">Go add events!</div>
             }
+                   </div>
             <br></br>
 
             <Title order={2}>Other Events</Title>
