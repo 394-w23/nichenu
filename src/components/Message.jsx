@@ -23,7 +23,7 @@ const Message = ({ message, users }) => {
                     <div className="message-user">{findUserDisplayName(message.user, users)}</div>
                     <div className="message-timestamp">{moment(message.date).fromNow()}</div>
                 </div>
-                <div>{message.content}</div>
+                <div data-cy="message-content">{message.content}</div>
             </div>
         </div>
     )
