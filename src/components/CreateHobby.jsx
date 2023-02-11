@@ -4,7 +4,7 @@ import { RiAddCircleLine } from "@react-icons/all-files/ri/RiAddCircleLine"
 import { ActionIcon, Alert, Button, FileInput, MultiSelect, Textarea, TextInput } from '@mantine/core';
 import { useDbData, useDbUpdate, getDbStorage } from '../utils/firebase';
 import uuid from 'react-uuid';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { RiErrorWarningLine } from '@react-icons/all-files/ri/RiErrorWarningLine';
 import { HiOutlineUpload } from '@react-icons/all-files/hi/HiOutlineUpload';
@@ -22,7 +22,15 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const [data, error] = useDbData("/");
   const [image, setImage] = useState(null);
 
+  const [duplicateHobby, setDuplicateHobby] = useState(false);
 
+
+  const [currentHobbyNames, setCurrentHobbyNames] = useState([]);
+  useEffect(() => {
+    if(data && data.hobbies){
+    setCurrentHobbyNames(Object.values(data.hobbies).map(x=> x.name))
+    }
+  }, [data])
 
 
   const formRef = useRef(null); // to disable form submission on enter
@@ -33,8 +41,8 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     }
   };
 
+  const form = useForm({
 
-  const form2 = useForm({
     initialValues: {
       id: hobbyId,
       name: '',
@@ -51,17 +59,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     },
 
     validate: {
-      name: (value) => {
-        let currentHobbyNames = Object.values(data.hobbies).map(x => x.name);
-        let hobbyNameExists = currentHobbyNames.includes(form2.values.name);
-        if (value == "") {
-          return "Please enter hobby name"
-        }
-        if (hobbyNameExists) {
-          return "Hobby already exists"
-        }
-      },
-
+      // name: (value) => 
       desc: (value) => (value == '' ? 'Please enter hobby description' : null)
     },
 
@@ -104,16 +102,32 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   const [alertMessage, setAlertMessage] = useState("Please fill in the required fields")
 
   const submitForm = (e) => {
-    form2.validate() // mantine 
+    form.validate() // mantine 
+
+
+    // form.validateField('name')
+
     e.preventDefault()
+   
     // FIXME: something wrong with the form validation
-    // !form2.values.desc && form2.setFieldError('desc', "Please enter desc")
-    let formData = { ...form2.values, tags: tags, id: hobbyId }
-    // // if there issues with the form, show an alert
+    // !form.values.desc && form.setFieldError('desc', "Please enter desc")
+    let formData = { ...form.values, tags: tags, id: hobbyId }
+    // if there issues with the form, show an alert
+    // handle the hobby name
+
+    let hobbyNameExists = currentHobbyNames.includes(form.values.name)
+    if (hobbyNameExists) {
+      setDuplicateHobby(true)
+    }else{
+      setDuplicateHobby(false)
+    }
+
+
     if (
-      Object.values(form2.errors).length > 0 ||
-      !form2.values.desc ||
-      !form2.values.name
+      Object.values(form.errors).length > 0 ||
+      !form.values.desc ||
+      !form.values.name ||
+      hobbyNameExists
     ) {
       setRaiseAlert(true);
     } else {
@@ -142,7 +156,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
               id: messageId,
               user: user.id,
             });
-            setCurrDisplay("hobbies");
+            // setCurrDisplay("hobbies");
           });
         });
       } else {
@@ -163,7 +177,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
       }    
     }
     showNotification({
-      title: `You created the ${form2.values.name} hobby!`,
+      title: `You created the ${form.values.name} hobby!`,
       message: 'Go to "My Hobbies" to see your new hobby!',
       autoClose: 3000,
     })
@@ -174,24 +188,31 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
     <>
       <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
 
-        {raiseAlert && <Alert icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
-          Please fill in the required fields
+        {raiseAlert && <Alert data-cy="alert" icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
+          {duplicateHobby ? "Hobby name already exists": "Please fill in the required fields"}
         </Alert>
         }
 
         <TextInput
+        required
+        data-cy="add-hobby-name"
           style={{ marginBottom: 10 }}
-          {...form2.getInputProps('name')}
-          label="Hobby Name" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" withAsterisk />
-
+          {...form.getInputProps('name')}
+          label="Hobby Name" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" withAsterisk 
+          caption={duplicateHobby? "Hobby already exists": ""}
+          status={duplicateHobby? "error": "basic"}
+          />
+          
         <Textarea
+                required
           style={{ marginBottom: 10 }}
           placeholder="Describe your hobby here"
           label="Description"
-          {...form2.getInputProps('desc')}
+          {...form.getInputProps('desc')}
           withAsterisk
           autosize
           minRows={3}
+          data-cy="add-hobby-desc"
         />
 
         <MultiSelect label="Tags" value={tags} searchable onChange={setTags} data={tagsData} clearable/>
@@ -199,7 +220,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         <FileInput className="hobby-image-upload" label="Image" placeholder="Upload Hobby Image" icon={<HiOutlineUpload/>} accept="image/png,image/jpeg" value={image} onChange={setImage} />
 
         <div style={{ textAlign: "center" }}>
-          <Button style={{ marginTop: 10 }} type="submit">Create Hobby</Button>
+          <Button data-cy="create-hobby-submit-button" style={{ marginTop: 10 }} type="submit">Create Hobby</Button>
         </div>
       </form>
     </>
