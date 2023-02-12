@@ -186,7 +186,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
   return (
 
     <>
-      <form onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
+      <form data-cy="create-hobby-form" onSubmit={submitForm} ref={formRef} onKeyDown={handleKeyDown}>
 
         {raiseAlert && <Alert data-cy="alert" icon={<RiErrorWarningLine />} title="Missing Fields" color="red">
           {duplicateHobby ? "Hobby name already exists": "Please fill in the required fields"}
@@ -194,8 +194,8 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
         }
 
         <TextInput
-        required
         data-cy="add-hobby-name"
+          // required
           style={{ marginBottom: 10 }}
           {...form.getInputProps('name')}
           label="Hobby Name" placeholder="e.g. Ukuleles, Badminton, Competitive Smash" withAsterisk 
@@ -204,7 +204,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
           />
           
         <Textarea
-                required
+                // required
           style={{ marginBottom: 10 }}
           placeholder="Describe your hobby here"
           label="Description"

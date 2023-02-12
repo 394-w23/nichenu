@@ -88,7 +88,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
 
 
     return (
-        <div className={`big-hobby-card description-${showDescription}`} onClick={() => setShowDescription(!showDescription)}>
+        <div className={`big-hobby-card description-${showDescription}`} data-cy={`hobby-expand-${hobby.name.replaceAll(' ', '-')}`} onClick={() => setShowDescription(!showDescription)}>
             {/* <Modal opened={modalOpened} onClose={() => setModalOpened(false)} withCloseButton={false} overlayColor={"#222"} overlayOpacity={0.45}>
                 Join the hobby to chat with its members!
             </Modal> */}
@@ -149,7 +149,7 @@ const Hobby = ({ hobby, user, openMessages, added, setCurrDisplay, setHobbies, h
                     </div>
                     {
                         added && <div>
-                            <Button data-cy={`leave-hobby-${hobby.name.replaceAll(' ', '')}`} onClick={LeaveHobby} style={{ marginTop: "10%" }} size="xs" color="red">Leave</Button>
+                            <Button data-cy={`leave-hobby-${hobby.name.replaceAll(' ', '-')}`} onClick={LeaveHobby} style={{ marginTop: "10%" }} size="xs" color="red">Leave</Button>
                         </div>
                     }
                 </div>
