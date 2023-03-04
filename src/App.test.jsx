@@ -1,11 +1,20 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
-import { useDbData, useDbUpdate } from "./utils/firebase";
+import { useDbData, useDbUpdate, useAuth } from "./utils/firebase";
+import data from "./TestData";
 import { when } from "jest-when";
 
-vi.mock("./utils/userProfile");
-vi.mock("./utils/firebase.js");
+// vi.mock("./utils/user");
+// vi.mock("./utils/firebase.js");
+vi.mock("./utils/firebase", async () => {
+  const original = await vi.importActual("./utils/firebase");
+  return {
+    ...original,
+    useDbData: vi.fn(),
+    useAuth: vi.fn(),
+  };
+});
 
 const testProfile = {
   displayName: "testUser",
@@ -13,35 +22,32 @@ const testProfile = {
   profilePic: "https://illustoon.com/photo/590.png",
 };
 
-describe("without authentication", () => {
-  // beforeEach(() => {
-  //   // useProfile.mockReturnValue([null]);
-  //   render(<App />);
-  // });
 
-  it("displays sign in page", () => {
-    expect(true).toBe(true);
+describe("Without Authentication", () => {
+  beforeEach(() => {
+    useAuth.mockReturnValue([]);
+    useDbData.mockReturnValue([data])
+  });
+
+  it("Displays login page is loading", async () => {
+    render(<App />);
+    await screen.findByText("Loading data...");
   });
 });
 
-// describe("after authentication", () => {
-//   beforeEach(() => {
-//     useProfile.mockReturnValue([testProfile]);
-//     when(useDbData).calledWith("/rides").mockReturnValue([testData["rides"]]);
-//     when(useDbData).calledWith("/users").mockReturnValue([testData["users"]]);
-//     useDbUpdate.mockReturnValue([null]);
-//     render(<App />);
-//   });
+describe("With Authentication", () => {
+  beforeEach(() => {
+    useAuth.mockReturnValue([]);
+    useDbData.mockReturnValue([data])
+  });
 
-//   it("verifies user is signed in", () => {
-//     expect(screen.getByText("Sign out")).toBeDefined();
-//   });
+  it("Can see the logout button after being signed in", async () => {
+    render(<App />);
+    await screen.getByText("Logout");
+  });
 
-//   it("displays ride from mock data", () => {
-//     expect(
-//       screen.getByText(
-//         "Destination: Chicago O'Hare International Airport (ORD)"
-//       )
-//     ).toBeDefined();
-//   });
-// });
+  it("Displays mock event data", async () => {
+    render(<App />);
+    await screen.getByText("Anime");
+  });
+});
