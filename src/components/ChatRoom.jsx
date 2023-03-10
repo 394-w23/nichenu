@@ -23,7 +23,7 @@ const ChatRoom = ({ hobby, users, user, setCurrDisplay }) => {
     const messagesRef = useRef({});
 
     const scrollToBottom = () => {
-        messagesRef.current?.scrollIntoView({ behavior: "auto" });
+        // messagesRef.current?.scrollIntoView({ behavior: "auto" });
     };
     useEffect(() => {
         if (update) {
