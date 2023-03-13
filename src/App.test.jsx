@@ -1,11 +1,12 @@
 import { describe, expect, } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import HobbyList from "./components/HobbyList";
 
 import * as testData from '../saved-data/nichenu-default-rtdb-export.json'
-import ChatRoom from "./components/ChatRoom";
-vi.mock("./utils/firebase.js");
+import ChatRoom from "./components/ChatRoom"; 
+import CreateEvent from "./components/CreateEvent";
+// vi.mock("./utils/firebase.js");
 // useDbData = vi.fn().mockReturnValue(testData)
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -45,6 +46,41 @@ describe("Testing Login Page", () => {
     // expect(mock).toHaveBeenCalledOnce()
     await screen.findByText("Find your niche!");
     expect(screen.getByText("Find your niche!")).toBeDefined()
+  });
+});
+
+describe("Testing Joining a Hobby", () => {
+  beforeEach(() => {
+    // console.log(testData.users)
+    render(<App />);
+  });
+
+  //removing hobby from list 
+  it("Removing Hobby From List", async () => {
+    Object.values(testData.users)[0].hobby_ids = null
+    render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Hobbies");
+    expect(screen.getByText("Go join hobbies!")).toBeDefined()
+  });
+
+  it("Joining Hobby From List", async () => {
+    Object.values(testData.users)[0].hobby_ids = ["c08aefbb-b767-8247-90b5-2c5d01463b89"]
+    render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Hobbies");
+    const joinButton = screen.getAllByText("Join")[0];
+    fireEvent.click(joinButton)
+    expect(Object.values(testData.users)[0].hobby_ids != null).toBeDefined()
+  });
+});
+
+describe("Testing Invalid Event Creation", () => {
+
+  it("Submitting Empty Create Event Form", async () => {
+    render(<CreateEvent user={Object.values(testData.users)[0]} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("Event name");
+    const createButton = screen.getByText("Submit");
+    fireEvent.click(createButton)
+    expect(screen.getByText("Missing Fields")).toBeDefined()
   });
 });
 
