@@ -64,7 +64,6 @@ describe("Testing Joining a Hobby", () => {
   });
 
   it("Joining Hobby From List", async () => {
-    Object.values(testData.users)[0].hobby_ids = ["c08aefbb-b767-8247-90b5-2c5d01463b89"]
     render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
     await screen.findByText("My Hobbies");
     const joinButton = screen.getAllByText("Join")[0];
