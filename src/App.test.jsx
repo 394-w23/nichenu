@@ -50,7 +50,7 @@ describe("Testing Login Page", () => {
 
 describe("Testing Hobby Page", () => {
   beforeEach(() => {
-    console.log(testData.users)
+    // console.log(testData.users)
     render(<App />);
   });
 
@@ -72,7 +72,7 @@ describe("Testing Hobby Page", () => {
 describe("Testing ChatRoom Page", () => {
 
   beforeEach(() => {
-    console.log(testData.users)
+    // console.log(testData.users)
     render(<App />);
   });
 
