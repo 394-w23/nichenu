@@ -2,10 +2,12 @@ import { describe, expect, } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import HobbyList from "./components/HobbyList";
+import EventList from "./components/EventList";
 
 import * as testData from '../saved-data/nichenu-default-rtdb-export.json'
 import ChatRoom from "./components/ChatRoom"; 
 import CreateEvent from "./components/CreateEvent";
+import CreateHobby from "./components/CreateHobby";
 // vi.mock("./utils/firebase.js");
 // useDbData = vi.fn().mockReturnValue(testData)
 Object.defineProperty(window, 'matchMedia', {
@@ -101,6 +103,30 @@ describe("Testing Hobby Page", () => {
     render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
     await screen.findByText("My Hobbies");
     expect(screen.getByText("Go join hobbies!")).toBeDefined()
+  });
+});
+
+
+ 
+
+//Clicking ‘create hobby takes you to the hobby creation form
+describe("Testing Clicking Create Hobby Button", () => {
+
+  it("Takes You To The Hobby Creation Form", async () => {
+    render(<CreateHobby user={Object.values(testData.users)[0]} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("Hobby Name");
+    expect(screen.getByText("Description")).toBeDefined()
+  });
+});
+
+//Test leaving an event adds it to ‘other events’
+describe("Testing leaving an event", () => {
+  //removing event from list 
+  it("Removing Evert From List Adds It To ‘Other Events’", async () => {
+    Object.values(testData.users)[0].event_ids = null
+    render(<EventList eventList={testData.events ? Object.values(testData.events).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Events");
+    expect(Object.values(testData.users)[0].event_ids == null).toBeDefined()
   });
 });
 
