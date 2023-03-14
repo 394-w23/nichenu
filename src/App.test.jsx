@@ -1,10 +1,16 @@
 import { describe, expect, } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 import HobbyList from "./components/HobbyList";
+import EventList from "./components/EventList";
 
 import * as testData from '../saved-data/nichenu-default-rtdb-export.json'
-import ChatRoom from "./components/ChatRoom";
+import ChatRoom from "./components/ChatRoom"; 
+import CreateEvent from "./components/CreateEvent";
+import CreateHobby from "./components/CreateHobby";
+import Header from "./components/Header"
+import { useState } from "react";
+
 // vi.mock("./utils/firebase.js");
 // useDbData = vi.fn().mockReturnValue(testData)
 Object.defineProperty(window, 'matchMedia', {
@@ -48,6 +54,40 @@ describe("Testing Login Page", () => {
   });
 });
 
+describe("Testing Joining a Hobby", () => {
+  beforeEach(() => {
+    // console.log(testData.users)
+    render(<App />);
+  });
+
+  //removing hobby from list 
+  it("Removing Hobby From List", async () => {
+    Object.values(testData.users)[0].hobby_ids = null
+    render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Hobbies");
+    expect(screen.getByText("Go join hobbies!")).toBeDefined()
+  });
+
+  it("Joining Hobby From List", async () => {
+    render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Hobbies");
+    const joinButton = screen.getAllByText("Join")[0];
+    fireEvent.click(joinButton)
+    expect(Object.values(testData.users)[0].hobby_ids != null).toBeDefined()
+  });
+});
+
+describe("Testing Invalid Event Creation", () => {
+
+  it("Submitting Empty Create Event Form", async () => {
+    render(<CreateEvent user={Object.values(testData.users)[0]} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("Event name");
+    const createButton = screen.getByText("Submit");
+    fireEvent.click(createButton)
+    expect(screen.getByText("Missing Fields")).toBeDefined()
+  });
+});
+
 describe("Testing Hobby Page", () => {
   beforeEach(() => {
     // console.log(testData.users)
@@ -68,6 +108,42 @@ describe("Testing Hobby Page", () => {
     expect(screen.getByText("Go join hobbies!")).toBeDefined()
   });
 });
+
+
+ 
+//Test leaving a hobby adds it to ‘other hobbies’
+describe("Testing leaving a hobby", () => {
+  //removing hobby from list
+  it("Removing Hobby From List Adds It To ‘Other Hobbies", async () => {
+    Object.values(testData.users)[0].hobby_ids = null
+    render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Hobbies");
+    expect(Object.values(testData.users)[0].hobby_ids == null).toBeDefined()
+  });
+});
+
+
+//Clicking ‘create hobby takes you to the hobby creation form
+describe("Testing Clicking Create Hobby Button", () => {
+
+  it("Takes You To The Hobby Creation Form", async () => {
+    render(<CreateHobby user={Object.values(testData.users)[0]} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("Hobby Name");
+    expect(screen.getByText("Description")).toBeDefined()
+  });
+});
+
+//Test leaving an event adds it to ‘other events’
+describe("Testing leaving an event", () => {
+  //removing event from list 
+  it("Removing Evert From List Adds It To ‘Other Events’", async () => {
+    Object.values(testData.users)[0].event_ids = null
+    render(<EventList eventList={testData.events ? Object.values(testData.events).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Events");
+    expect(Object.values(testData.users)[0].event_ids == null).toBeDefined()
+  });
+});
+
 
 describe("Testing ChatRoom Page", () => {
 
