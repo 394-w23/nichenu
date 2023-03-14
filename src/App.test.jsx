@@ -8,6 +8,9 @@ import * as testData from '../saved-data/nichenu-default-rtdb-export.json'
 import ChatRoom from "./components/ChatRoom"; 
 import CreateEvent from "./components/CreateEvent";
 import CreateHobby from "./components/CreateHobby";
+import Header from "./components/Header"
+import { useState } from "react";
+
 // vi.mock("./utils/firebase.js");
 // useDbData = vi.fn().mockReturnValue(testData)
 Object.defineProperty(window, 'matchMedia', {
@@ -108,6 +111,17 @@ describe("Testing Hobby Page", () => {
 
 
  
+//Test leaving a hobby adds it to ‘other hobbies’
+describe("Testing leaving a hobby", () => {
+  //removing hobby from list
+  it("Removing Hobby From List Adds It To ‘Other Hobbies", async () => {
+    Object.values(testData.users)[0].hobby_ids = null
+    render(<HobbyList hobbyList={testData.hobbies ? Object.values(testData.hobbies).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Hobbies");
+    expect(Object.values(testData.users)[0].hobby_ids == null).toBeDefined()
+  });
+});
+
 
 //Clicking ‘create hobby takes you to the hobby creation form
 describe("Testing Clicking Create Hobby Button", () => {
@@ -129,6 +143,7 @@ describe("Testing leaving an event", () => {
     expect(Object.values(testData.users)[0].event_ids == null).toBeDefined()
   });
 });
+
 
 describe("Testing ChatRoom Page", () => {
 
