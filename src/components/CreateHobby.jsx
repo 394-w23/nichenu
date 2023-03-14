@@ -49,7 +49,7 @@ export const CreateHobby = ({ user, setCurrDisplay }) => {
 
     validate: {
       name: (value) => {
-        let currentHobbyNames = Object.values(data.hobbies).map(x => x.name);
+        let currentHobbyNames = data?  Object.values(data.hobbies).map(x => x.name): []
         let hobbyNameExists = currentHobbyNames.includes(form2.values.name);
         if (value == "") {
           return "Please enter hobby name"

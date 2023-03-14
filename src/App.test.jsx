@@ -5,7 +5,7 @@ import HobbyList from "./components/HobbyList";
 
 import * as testData from '../saved-data/nichenu-default-rtdb-export.json'
 import ChatRoom from "./components/ChatRoom";
-vi.mock("./utils/firebase.js");
+// vi.mock("./utils/firebase.js");
 // useDbData = vi.fn().mockReturnValue(testData)
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
