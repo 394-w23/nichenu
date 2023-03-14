@@ -144,6 +144,30 @@ describe("Testing leaving an event", () => {
   });
 });
 
+//Clicking ‘create event takes you to the event creation form
+describe("Testing Clicking Create Event Button", () => {
+
+  it("Takes You To The Event Creation Form", async () => {
+    render(<CreateEvent user={Object.values(testData.users)[0]} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("Event name");
+    expect(screen.getByText("Description")).toBeDefined()
+  });
+});
+
+describe("Testing Joining an Event", () => {
+  beforeEach(() => {
+    render(<App />);
+  });
+
+  it("Joining Event From List", async () => {
+    render(<EventList eventList={testData.events ? Object.values(testData.events).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())) : []} user={Object.values(testData.users)[0]} openMessages={vi.fn()} setCurrDisplay={vi.fn()} />)
+    await screen.findByText("My Events");
+    const joinButton = screen.getAllByText("Join")[0];
+    fireEvent.click(joinButton)
+    expect(Object.values(testData.users)[0].event_ids != null).toBeDefined()
+  });
+});
+
 
 describe("Testing ChatRoom Page", () => {
 
